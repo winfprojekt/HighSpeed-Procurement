@@ -14,8 +14,8 @@ public class Main extends Application {
     	FXMLLoader loader = new FXMLLoader();
     	loader.setLocation(getClass().getResource("/View.fxml"));
     	Parent content = loader.load(); 
-        primaryStage.setTitle("HighSpeed-Procurement (Login)");
-        primaryStage.setScene(new Scene(content, 300, 275));
+        primaryStage.setTitle("HighSpeed-Procurement");
+        primaryStage.setScene(new Scene(content, 400, 275));
         primaryStage.show();
     }
     catch (Exception e) {
