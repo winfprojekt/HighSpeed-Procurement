@@ -1,6 +1,6 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 .root {
-    -fx-background-image: url("background.jpg");
+    -fx-background-image: url(background.jpg);
 }
 
 .label {
@@ -11,10 +11,11 @@
 }
 
 #welcome {
-    -fx-font-size: 16px;
-    -fx-font-family: "Arial Black";
-    -fx-fill: #818181;
-    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6,0.0,0,2 );
+	-fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+
 }
 #hplogo{
 	-fx-image: url("truck.png");

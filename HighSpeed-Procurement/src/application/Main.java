@@ -12,10 +12,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
     	try {
     	FXMLLoader loader = new FXMLLoader();
-    	loader.setLocation(getClass().getResource("/View.fxml"));
+    	loader.setLocation(getClass().getResource("LoginView.fxml"));
     	Parent content = loader.load(); 
         primaryStage.setTitle("HighSpeed-Procurement");
-        primaryStage.setScene(new Scene(content, 400, 275));
+        primaryStage.setScene(new Scene(content, 400, 300));
         primaryStage.show();
     }
     catch (Exception e) {
