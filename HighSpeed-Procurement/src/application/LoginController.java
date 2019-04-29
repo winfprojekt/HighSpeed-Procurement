@@ -23,7 +23,7 @@ public class LoginController {
 	@FXML
 	private PasswordField passwordField;
 	@FXML
-	private TextField usernameTextbox;
+	protected TextField usernameTextbox;
 	@FXML
 	private Text welcome;
 
@@ -44,7 +44,7 @@ public class LoginController {
 	protected void handleSubmitButtonAction(ActionEvent event) throws IOException {
 
 		if (!passwordField.getText().equals("admin") || !usernameTextbox.getText().equals("admin")) {
-			actiontarget.setText("Failed to Authenticate");
+			actiontarget.setText("Wrong username and/or password!");
 		} else {
 		actiontarget2.setText("Success!");
 
