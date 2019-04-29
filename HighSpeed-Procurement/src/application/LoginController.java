@@ -44,7 +44,7 @@ public class LoginController {
 	protected void handleSubmitButtonAction(ActionEvent event) throws IOException {
 
 		if (!passwordField.getText().equals("admin") || !usernameTextbox.getText().equals("admin")) {
-			actiontarget.setText("Wrong username and/or password!!!");
+			actiontarget.setText("Wrong username and/or password!");
 		} else {
 		actiontarget2.setText("Success!");
 
