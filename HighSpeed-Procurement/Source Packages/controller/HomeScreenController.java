@@ -25,8 +25,6 @@ public class HomeScreenController {
 	@FXML
 	private PasswordField passwordField;
 	@FXML
-	private TextField usernameTextbox;
-	@FXML
 	private Text welcome;
 	@FXML
 	private Button btnHome;
@@ -42,7 +40,10 @@ public class HomeScreenController {
 	private Button btnHeader;
 	@FXML
 	private Text userMailLogged;
-
+	@FXML
+	private Button btnLogout;
+	
+	
 	@FXML
 	protected void handleSubmitButtonAction(ActionEvent event) throws IOException {
 

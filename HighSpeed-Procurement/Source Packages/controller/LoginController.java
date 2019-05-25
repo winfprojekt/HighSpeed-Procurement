@@ -23,7 +23,7 @@ public class LoginController {
 	@FXML
 	private PasswordField passwordField;
 	@FXML
-	protected TextField usernameTextbox;
+	private TextField usernameTextbox;
 	@FXML
 	private Text welcome;
 
@@ -46,20 +46,18 @@ public class LoginController {
 		if (!passwordField.getText().equals("admin") || !usernameTextbox.getText().equals("admin")) {
 			actiontarget.setText("Wrong username and/or password!!");
 		} else {
-		actiontarget2.setText("Success!");
+			actiontarget2.setText("Success!");
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("HomeScreenView.fxml"));
+			Parent homeScreenParent = loader.load();
+			Scene homeScreenScene = new Scene(homeScreenParent, 1100, 650);
 
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("HomeScreenView.fxml"));
-		Parent homeScreenParent = loader.load();
-		Scene homeScreenScene = new Scene(homeScreenParent, 1100, 650  );
-
-		// get the Stage information
-		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		window.setScene(homeScreenScene);
-		window.show();
+			// get the Stage information
+			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			window.setScene(homeScreenScene);
+			window.show();
 		}
 	}
-	
 
 	@FXML
 	protected void resetSubmitButtonAction(MouseEvent event) {
