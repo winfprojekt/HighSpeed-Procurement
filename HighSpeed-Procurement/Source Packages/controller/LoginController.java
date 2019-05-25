@@ -1,4 +1,4 @@
-package application;
+package controller;
 
 import java.io.IOException;
 
@@ -10,12 +10,10 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class HomeScreenController {
-
+public class LoginController {
 	@FXML
 	private Text actiontarget;
 
@@ -25,46 +23,48 @@ public class HomeScreenController {
 	@FXML
 	private PasswordField passwordField;
 	@FXML
-	private TextField usernameTextbox;
+	protected TextField usernameTextbox;
 	@FXML
 	private Text welcome;
-	@FXML
-	private Button btnHome;
-	@FXML
-	private Button btnLief;
-	@FXML
-	private Button btnBest;
-	@FXML
-	private Button btnPortfolio;
-	@FXML
-	private Button btnHilfe;
-	@FXML
-	private Button btnHeader;
-	@FXML
-	private Text userMailLogged;
+
+	/*
+	 * @FXML protected void handleSubmitButtonAction(ActionEvent event) {
+	 * 
+	 * 
+	 * if (!passwordField.getText().equals("admin") ||
+	 * !usernameTextbox.getText().equals("admin")) {
+	 * actiontarget.setText("Failed to Authenticate"); } else
+	 * actiontarget2.setText("Success!");
+	 * 
+	 * 
+	 * }
+	 */
 
 	@FXML
 	protected void handleSubmitButtonAction(ActionEvent event) throws IOException {
 
-		Parent homeScreenParent = FXMLLoader.load(getClass().getResource("Login.fxml"));
-		Scene homeScreenScene = new Scene(homeScreenParent);
+		if (!passwordField.getText().equals("admin") || !usernameTextbox.getText().equals("admin")) {
+			actiontarget.setText("Wrong username and/or password!!");
+		} else {
+		actiontarget2.setText("Success!");
+
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("HomeScreenView.fxml"));
+		Parent homeScreenParent = loader.load();
+		Scene homeScreenScene = new Scene(homeScreenParent, 1100, 650  );
 
 		// get the Stage information
 		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		window.setScene(homeScreenScene);
 		window.show();
-
+		}
 	}
+	
 
 	@FXML
 	protected void resetSubmitButtonAction(MouseEvent event) {
 		actiontarget.setText(" ");
 		actiontarget2.setText(" ");
-		/*
-		 * }
-		 * 
-		 * @FXML protected void setLoggedUser(ActionEvent event) {
-		 * userMailLogged.setText(LoginController.usernameTextbox.getText()); }
-		 */
+
 	}
 }

@@ -1,4 +1,4 @@
-package application.UserRoles;
+package model;
 
 import java.util.Set;
 

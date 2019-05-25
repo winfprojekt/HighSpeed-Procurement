@@ -1,4 +1,4 @@
-package application.UserRoles;
+package model;
 
 
 public class Role {
