@@ -17,7 +17,6 @@
 #btnHome{
 	-fx-background-image: url("home.png");
 	-fx-background-repeat: no-repeat;
-	-fx-text-fill: blue;
 	-fx-background-position:center;
 	-fx-background-size: 25.0 25.0;
 	-fx-background-color:transparent;
@@ -32,7 +31,7 @@
 #btnLief{
 	-fx-background-color:transparent ;
 	-fx-background-radius:0.0;
-    -fx-text-fill: black;
+    -fx-text-fill: blue;
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
     -fx-font-size: 18.0px;

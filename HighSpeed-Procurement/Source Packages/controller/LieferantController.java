@@ -1,25 +1,20 @@
 package controller;
 
 import java.io.IOException;
-import java.net.URI;
-import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.fxml.*;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
-public class HomeScreenController {
-
+public class LieferantController {
 	@FXML
 	private Text actiontarget;
 
@@ -49,30 +44,20 @@ public class HomeScreenController {
 	@FXML
 	private AnchorPane rootPane;
 	
-	//When the "Lieferant"-Button is pressed a new scene is loaded
+	//When the "Home"-Icon is pressed a new scene is loaded
 	@FXML
-	protected void handleLiefButtonAction(ActionEvent event) throws IOException {
+	protected void handleHomeButton(ActionEvent event) throws IOException {
 
-		AnchorPane lieferantParent = FXMLLoader.load(getClass().getResource("LieferantView.fxml"));
+		AnchorPane homeParent = FXMLLoader.load(getClass().getResource("HomeScreenView.fxml"));
 		//Scene lieferantScene = new Scene(lieferantParent);
-		rootPane.getChildren().setAll(lieferantParent);
+		rootPane.getChildren().setAll(homeParent);
 
 		// get the Stage information
-	//Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		//window.setScene(lieferantScene);
-		//window.show();
-
+/*		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		window.setScene(lieferantScene);
+		window.show();
+*/
 	}
-	/*public void initialize (URI location, ResourceBundle resources){
-		btnLief.setOnAction(event -> {
-			try {
-				handleLiefButton(event);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
-	}*/
 
 	protected void handleBestButton(ActionEvent event) throws IOException {
 
@@ -108,3 +93,4 @@ public class HomeScreenController {
 
 	}
 }
+

@@ -9,43 +9,72 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1100.0" styleClass="root" stylesheets="@../resources/homeScreen.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeScreenController">
-   <children>
-      <Separator layoutY="148.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="8.0" prefWidth="1141.0" AnchorPane.bottomAnchor="549.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-51.0" AnchorPane.topAnchor="148.0" />
-      <Button fx:id="btnHeader" contentDisplay="TEXT_ONLY" layoutX="99.0" layoutY="34.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="56.0" prefWidth="270.0" text="HighSpeed-Procurement" />
-      <Label layoutX="718.0" layoutY="48.0" text="Angemeldet als: " />
-      <ImageView fitHeight="65.0" fitWidth="70.0" layoutX="24.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../resources/truck.png" />
-         </image>
-      </ImageView>
-      <Text fx:id="userMailLogged" layoutX="871.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="214.205078125" />
-      <Button fx:id="btnLief" contentDisplay="TEXT_ONLY" layoutX="74.0" layoutY="175.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="27.0" prefWidth="160.0" text="Lieferant">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnBest" contentDisplay="TEXT_ONLY" layoutX="261.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="48.0" prefWidth="160.0" text="Bestellung">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnPortfolio" contentDisplay="TEXT_ONLY" layoutX="460.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="48.0" prefWidth="214.0" text="Produktportfolio">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnHilfe" contentDisplay="TEXT_ONLY" layoutX="694.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="48.0" prefWidth="140.0" text="Hilfe">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnHome" contentDisplay="TEXT_ONLY" layoutX="24.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="48.0" prefWidth="54.0">
-      </Button>
-      <Button fx:id="btnLogout" contentDisplay="TEXT_ONLY" layoutX="917.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="48.0" prefWidth="140.0" text="Abmelden">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-   </children>
+<AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="1100.0" styleClass="root" stylesheets="@../resources/homeScreen.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeScreenController">
+	<children>
+		<Separator halignment="LEFT" layoutY="148.0" prefHeight="8.0" prefWidth="1141.0" AnchorPane.bottomAnchor="546.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="148.0" />
+		<Button fx:id="btnHeader" contentDisplay="TEXT_ONLY" layoutX="99.0" layoutY="34.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="56.0" prefWidth="270.0" text="HighSpeed-Procurement" AnchorPane.bottomAnchor="612.0" AnchorPane.leftAnchor="99.0" AnchorPane.rightAnchor="731.0" AnchorPane.topAnchor="34.0" />
+		<Label layoutX="718.0" layoutY="48.0" text="Angemeldet als: " AnchorPane.bottomAnchor="627.0" AnchorPane.leftAnchor="718.0" AnchorPane.rightAnchor="249.0" AnchorPane.topAnchor="48.0" />
+		<ImageView fitHeight="65.0" fitWidth="70.0" layoutX="24.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="607.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="1011.0" AnchorPane.topAnchor="30.0">
+			<image>
+				<Image url="@../resources/truck.png" />
+			</image>
+		</ImageView>
+		<Text fx:id="userMailLogged" layoutX="871.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="214.205078125" />
+		<Button fx:id="btnBest" contentDisplay="TEXT_ONLY" layoutX="261.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="48.0" prefWidth="160.0" text="Bestellung" AnchorPane.bottomAnchor="486.0" AnchorPane.topAnchor="168.0">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Button>
+		<Button fx:id="btnPortfolio" contentDisplay="TEXT_ONLY" layoutX="460.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="48.0" prefWidth="214.0" text="Produktportfolio" AnchorPane.bottomAnchor="486.0" AnchorPane.topAnchor="168.0">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Button>
+		<Button fx:id="btnHilfe" contentDisplay="TEXT_ONLY" layoutX="694.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="48.0" prefWidth="140.0" text="Hilfe" AnchorPane.bottomAnchor="486.0" AnchorPane.topAnchor="168.0">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Button>
+		<Button fx:id="btnHome" layoutX="24.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="48.0" prefWidth="54.0" AnchorPane.bottomAnchor="486.0" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="168.0">
+		</Button>
+		<Button fx:id="btnLogout" contentDisplay="RIGHT" layoutX="935.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="48.0" prefWidth="140.0" text="Abmelden" AnchorPane.bottomAnchor="486.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="168.0">
+			<graphic>
+				<ImageView fitHeight="43.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+					<image>
+						<Image url="@../resources/logout.png" />
+					</image>
+				</ImageView>
+			</graphic>
+		</Button>
+      <HBox layoutX="127.0" layoutY="168.0" prefHeight="48.0" prefWidth="121.0">
+         <children>
+      		<Button fx:id="btnLief" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLiefButtonAction" prefHeight="27.0" prefWidth="160.0" text="Lieferant">
+      			<font>
+      				<Font size="14.0" />
+      			</font>
+      		</Button>
+         </children>
+      </HBox>
+      <TableView layoutX="124.0" layoutY="297.0" prefHeight="143.0" prefWidth="938.0" AnchorPane.bottomAnchor="262.0" AnchorPane.leftAnchor="124.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="297.0">
+        <columns>
+          <TableColumn prefWidth="146.0" text="Nummer" />
+          <TableColumn prefWidth="213.0" text="Name" />
+            <TableColumn prefWidth="202.0" text="Adresse" />
+            <TableColumn prefWidth="190.0" text="Typ" />
+            <TableColumn prefWidth="186.0" text="Erstellt am" />
+        </columns>
+      </TableView>
+      <Label layoutX="128.0" layoutY="250.0" text="Lieferantenübersicht" />
+      <Label layoutX="127.0" layoutY="463.0" text="Bestellungsübersicht" />
+      <TableView layoutX="124.0" layoutY="511.0" prefHeight="143.0" prefWidth="938.0">
+         <columns>
+            <TableColumn prefWidth="146.0" text="Nummer" />
+            <TableColumn prefWidth="167.0" text="Lieferantenname" />
+            <TableColumn prefWidth="139.0" text="Menge" />
+            <TableColumn prefWidth="107.0" text="Typ" />
+            <TableColumn prefWidth="176.0" text="Status" />
+            <TableColumn prefWidth="202.0" text="Datum" />
+         </columns>
+      </TableView>
+	</children>
 </AnchorPane>

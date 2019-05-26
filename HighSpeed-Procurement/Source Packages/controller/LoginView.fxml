@@ -27,28 +27,28 @@
 	<children>
 
 
-		<Label prefHeight="27.0" prefWidth="94.0" text="Username:" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+		<Label prefHeight="27.0" prefWidth="94.0" text="Username:" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
 
-		<TextField fx:id="usernameTextbox" onMouseClicked="#resetSubmitButtonAction" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+		<TextField fx:id="usernameTextbox" onMouseClicked="#resetSubmitButtonAction" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
 
-		<Label text="Password:" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+		<Label text="Password:" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
 
-		<PasswordField fx:id="passwordField" onMouseClicked="#resetSubmitButtonAction" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+		<PasswordField fx:id="passwordField" onMouseClicked="#resetSubmitButtonAction" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
 
-		<HBox alignment="bottom_right" spacing="10" GridPane.columnIndex="2" GridPane.rowIndex="4">
+		<HBox alignment="bottom_right" spacing="10" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
 			<children>
-				<Button onAction="#handleSubmitButtonAction" text="Sign In" />
+				<Button fx:id="btnSubmit" onAction="#handleSubmitButtonAction" text="Sign In" />
 			</children>
 		</HBox>
 
-		<Text fx:id="actiontarget" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+		<Text fx:id="actiontarget" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="8" GridPane.vgrow="ALWAYS" />
 
-		<Text fx:id="actiontarget2" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+		<Text fx:id="actiontarget2" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="8" GridPane.vgrow="ALWAYS" />
 
-		<Text fx:id="welcome" text="Willkommen im HighSpeed-Procurement!" GridPane.columnIndex="1" GridPane.columnSpan="2" />
-		<Hyperlink id="pwdvergessen" text="Passwort vergessen?" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-		<Hyperlink prefHeight="35.0" prefWidth="325.0" text="Neues Benutzerkonto beantragen" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-		<ImageView id="hpLogo" fitHeight="59.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
+		<Text fx:id="welcome" text="Willkommen im HighSpeed-Procurement!" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+		<Hyperlink id="pwdvergessen" text="Passwort vergessen?" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.vgrow="ALWAYS" />
+		<Hyperlink prefHeight="35.0" prefWidth="325.0" text="Neues Benutzerkonto beantragen" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" GridPane.vgrow="ALWAYS" />
+		<ImageView id="hpLogo" fitHeight="59.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
 			<image>
 				<Image url="@/resources/truck.png" />
 			</image>
