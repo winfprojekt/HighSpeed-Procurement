@@ -27,7 +27,7 @@ public class Main extends Application {
     public static void main(String[] args) {
     	//create an Object from DBUtil-class
     	util.DBUtil db = new util.DBUtil();
-    	//connect to the database "aj9s-einkauf"
+    	//connect to the databas "aj9s-einkauf"
         try {
 			db.connectToMysql("193.196.143.168", "aj9s-einkauf", "aj9s-einkauf", "DYUcen7KXKo3dPzt", "UTC");
 		} catch (ClassNotFoundException | SQLException e) {
