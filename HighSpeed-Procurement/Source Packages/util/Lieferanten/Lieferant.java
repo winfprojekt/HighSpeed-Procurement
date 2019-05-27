@@ -148,7 +148,7 @@ protected class Lieferant {
 	public void writeOne(Lieferant lieferant,TextField[] textfelder/*, ComboBox<String>[] comboBoxen*/) {
 		//Textboxen,etc auﬂerhalb dieser Funktion als "new Array [] Textfeld textfelder" deklarieren
 		
-		
+		//...
 		//Felder zuordnen
 		textfelder[0].setText(lieferant.getAdresse().getName());
 		textfelder[1].setText(lieferant.getAdresse().getStraﬂeUndNummer());
