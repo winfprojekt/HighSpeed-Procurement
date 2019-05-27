@@ -1,13 +1,13 @@
 package Lieferanten;
 
-public class Bankdaten {
+protected class Bankdaten {
 	private String bank;
-	private String iBAN;		//bestimmtes Format
-	private String bicSwift;	//bestimmtes Format
-	private int steuernummer;	//bestimmtes Format
+	private String iBAN;		
+	private String bicSwift;	
+	private String steuernummer;
 	
 	
-	
+	//Konstruktor
 	public Bankdaten(String bank, String iBAN, String bicSwift, int steuernummer) {
 		super();
 		this.bank = bank;
@@ -16,16 +16,7 @@ public class Bankdaten {
 		this.steuernummer = steuernummer;
 	}
 	
-	public Bankdaten update (String bank, String iBAN, String bicSwift, int steuernummer) {
-		this.bank = bank;
-		this.iBAN = iBAN;
-		this.bicSwift = bicSwift;
-		this.steuernummer = steuernummer;
-		return this;
-	}
-
-
-
+	//Getter + Setter
 	public String getBank() {
 		return bank;
 	}
@@ -73,7 +64,7 @@ public class Bankdaten {
 	}
 
 
-
+	//toString
 	@Override
 	public String toString() {
 		return "Bankdaten [bank=" + bank + ", iBAN=" + iBAN + ", bicSwift=" + bicSwift + ", steuernummer="
