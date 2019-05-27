@@ -1,6 +1,5 @@
-package Lieferanten;
-
-protected class Kontaktdaten {
+package util;
+class Kontaktdaten {
 	private String email;
 	private int telefonnummer;
 	

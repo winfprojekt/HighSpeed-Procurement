@@ -1,6 +1,6 @@
-package Lieferanten;
+package util;
 
-protected class Bankdaten {
+class Bankdaten {
 	private String bank;
 	private String iBAN;		
 	private String bicSwift;	

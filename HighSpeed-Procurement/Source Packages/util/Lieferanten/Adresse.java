@@ -1,6 +1,6 @@
-package Lieferanten;
+package util;
 
-protected class Adresse {
+class Adresse {
 	private String name;
 	private String straßeUndNummer;
 	private String stadt;

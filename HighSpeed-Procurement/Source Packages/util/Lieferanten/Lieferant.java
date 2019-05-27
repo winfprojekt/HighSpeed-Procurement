@@ -1,9 +1,9 @@
-package Lieferanten;
+package util;
 
 import java.awt.TextField;
 import java.util.ArrayList;
 
-protected class Lieferant {
+class Lieferant {
 	
 	private int iD;								
 	private Adresse adresse;
