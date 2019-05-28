@@ -169,7 +169,7 @@ class Lieferant {
 	}
 	
 	//einen Lieferant in der Datenbank erstellen
-	public void create() {
+	public void save(Lieferant lieferant) {
 		//Textboxen,etc auﬂerhalb dieser Funktion als "new Array [] Textfeld textfelder" deklarieren
 		TextField[]textfelderLayer4= new TextField[10];
 		if(readOneLayer(textfelderLayer4)==null) {
