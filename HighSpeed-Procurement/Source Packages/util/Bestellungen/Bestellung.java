@@ -10,7 +10,7 @@ class Bestellung {
 		super();
 		this.produktportfolio = produktportfolio;
 	}
-
+ 
 	//Getter + Setter
 	public ArrayList<Position> getProduktportfolio() {
 		return produktportfolio;
