@@ -1,4 +1,4 @@
-package util;
+/*package model.Bestellung;
 
 class Position {
 	//private int iD;??
@@ -27,3 +27,4 @@ class Position {
 	}
 
 }
+*/

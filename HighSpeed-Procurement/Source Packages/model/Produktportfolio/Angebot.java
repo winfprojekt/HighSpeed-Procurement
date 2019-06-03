@@ -1,3 +1,4 @@
+package model.Produktportfolio;
 /*
 
 Es gibt fehler an manchen Codestellen.
