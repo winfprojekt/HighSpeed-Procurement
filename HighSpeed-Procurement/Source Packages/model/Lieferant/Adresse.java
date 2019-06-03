@@ -1,18 +1,18 @@
-package util;
+package model.Lieferant;
 
-class Adresse {
+public class Adresse {
 	private String name;
-	private String straﬂeUndNummer;
+	private String strasseUndNummer;
 	private String stadt;
 	private int postleitzahl;
 	private String land; 
 	
 	
 	//Konstruktor
-	public Adresse(String name, String straﬂeUndNummer, String stadt, int postleitzahl, String land) {
+	public Adresse(String name, String strasseUndNummer, String stadt, int postleitzahl, String land) {
 		super();
 		this.name = name;
-		this.straﬂeUndNummer = straﬂeUndNummer;
+		this.strasseUndNummer = strasseUndNummer;
 		this.stadt = stadt;
 		this.postleitzahl = postleitzahl;
 		this.land = land;
@@ -31,14 +31,14 @@ class Adresse {
 
 
 
-	public String getStraﬂeUndNummer() {
-		return straﬂeUndNummer;
+	public String getStrasseUndNummer() {
+		return strasseUndNummer;
 	}
 
 
 
-	public void setStraﬂeUndNummer(String straﬂeUndNummer) {
-		this.straﬂeUndNummer = straﬂeUndNummer;
+	public void setStrasseUndNummer(String strasseUndNummer) {
+		this.strasseUndNummer = strasseUndNummer;
 	}
 
 
@@ -81,7 +81,7 @@ class Adresse {
 	// toString
 	@Override
 	public String toString() {
-		return "Adresse [name=" + name + ", straﬂeUndNummer=" + straﬂeUndNummer + ", stadt=" + stadt + ", postleitzahl="
+		return "Adresse [name=" + name + ", strasseUndNummer=" + strasseUndNummer + ", stadt=" + stadt + ", postleitzahl="
 				+ postleitzahl + ", land=" + land + "]";
 	}
 

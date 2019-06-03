@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 
 <AnchorPane prefHeight="600.0" prefWidth="1100.0"
 	styleClass="root" stylesheets="@../resources/Lieferant.css"

@@ -3,19 +3,17 @@ package controller;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.fxml.*;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import main.Main;
 
-public class LoginController {
+public class LoginController{
 	@FXML
 	private Text actiontarget;
 
@@ -32,7 +30,10 @@ public class LoginController {
 	private Button btnSubmit;
 	@FXML
 	private AnchorPane loginPane;
-
+	@FXML
+	private Label lblUsername;
+	@FXML
+	private Label lblPwd;
 	/*
 	 * @FXML protected void handleSubmitButtonAction(ActionEvent event) {
 	 * 
@@ -47,24 +48,39 @@ public class LoginController {
 	 */
 
 	@FXML
-	protected void handleSubmitButtonAction(ActionEvent event) throws IOException {
+	private void handleSubmitButtonAction(ActionEvent event) throws IOException {
 
-		if (!passwordField.getText().equals("admin") || !usernameTextbox.getText().equals("admin")) {
+		if (!passwordField.getText().equals("admin") || !usernameTextbox.getText().equals("admin") || isInputValid()==false) {
 			actiontarget.setText("Wrong username and/or password!!");
 		} else {
 			actiontarget2.setText("Success!");
-
-			AnchorPane homePane = FXMLLoader.load(getClass().getResource("HomeScreenView.fxml"));
-
-			loginPane.getChildren().setAll(homePane);
-
+			try {
+				//AnchorPane homePane = FXMLLoader.load(getClass().getResource("HomeScreenView.fxml"));
+				//loginPane.getChildren().setAll(homePane);
+				Main.set_pane(1);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 	}
 
 	@FXML
-	protected void resetSubmitButtonAction(MouseEvent event) {
+	private void resetSubmitButtonAction(MouseEvent event) {
 		actiontarget.setText(" ");
 		actiontarget2.setText(" ");
 
 	}
+	//Validation method
+	private boolean isInputValid() {
+		Boolean valid = false;
+		if(!(usernameTextbox.getText()==null||usernameTextbox.getText().length()==0||passwordField.getText()==null||passwordField.getText().length()==0)) {
+			try {
+				valid=true;
+			}catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return valid;
+	}
+
 }

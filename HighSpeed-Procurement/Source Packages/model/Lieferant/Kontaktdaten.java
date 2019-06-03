@@ -1,4 +1,4 @@
-package util;
+package model.Lieferant;
 class Kontaktdaten {
 	private String email;
 	private int telefonnummer;

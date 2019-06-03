@@ -1,10 +1,10 @@
-package util;
+package model.Lieferant;
 
 class Bankdaten {
 	private String bank;
 	private String iBAN;		
 	private String bicSwift;	
-	private String steuernummer;
+	private int steuernummer;
 	
 	
 	//Konstruktor

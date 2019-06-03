@@ -1,11 +1,17 @@
-package util;
+/*
+
+Es gibt fehler an manchen Codestellen.
+
+package model.Bestellung;
+
+import model.Lieferant.Lieferant;
 
 class Angebot {
 	//private int iD;???
 	private Lieferant lieferant;
 	private Produkt produkt;
 	private double Einzelpreis;
-	// private int gültigkeitsdauer;
+	// private int gï¿½ltigkeitsdauer;
 
 	//Konstruktor
 	public Angebot(Lieferant lieferant, Produkt produkt, double einzelpreis) {
@@ -36,4 +42,4 @@ class Angebot {
 	}
 
 }
- 
+ */

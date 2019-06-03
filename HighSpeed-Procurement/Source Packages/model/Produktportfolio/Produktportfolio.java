@@ -1,5 +1,11 @@
-package util;
+/*
+
+Es gibt fehler an manchen Codestellen
+
+package model.Produktportfolio;
 import java.util.ArrayList;
+
+import model.Bestellung.Angebot;
 
 class Produktportfolio {
 	
@@ -31,3 +37,4 @@ class Produktportfolio {
 	//toString
 	
 }
+*/

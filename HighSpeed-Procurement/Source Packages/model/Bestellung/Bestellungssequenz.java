@@ -1,5 +1,10 @@
+/*
+
+Es gibt fehler an manchen Codestellen
+
+package model.Bestellung;
 import java.util.ArrayList;
-package util;
+
 
 class Bestellungssequenz extends Bestellung{
 	
@@ -21,3 +26,4 @@ class Bestellungssequenz extends Bestellung{
 	}
 	
 }
+*/
