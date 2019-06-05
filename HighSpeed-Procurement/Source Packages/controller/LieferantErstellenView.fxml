@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1280.0" styleClass="root" stylesheets="@../resources/LiefErstellen.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LieferantErstellenController">
+   <children>
+      <GridPane alignment="CENTER" hgap="10.0" prefHeight="607.0" prefWidth="1280.0" vgap="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="NEVER" prefWidth="50.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="50.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="lblHeader" alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="234.0" text="Neuen Lieferanten anlegen" GridPane.halignment="LEFT" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
+            <Label fx:id="lblName" text="Name" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Label fx:id="lblAddr" text="Straße und Nummer" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Label fx:id="lblStadt" text="Stadt" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <Label fx:id="lblPLZ" text="Postleitzahl" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+            <Label fx:id="lblLand" text="Land" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+            <Label fx:id="lblDienstleist" text="Lieferbare Dienstleistungen" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
+            <Label fx:id="lblTyp" text="Lieferantentyp" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
+            <TextField fx:id="textfieldName" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <TextField fx:id="textfieldAddr" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <TextField fx:id="textfieldStadt" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <TextField fx:id="textFieldPLZ" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <ChoiceBox fx:id="choiceboxLand" prefWidth="284.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <ComboBox fx:id="comboboxDienstl" prefWidth="284.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <ChoiceBox fx:id="choiceboxLTyp" prefWidth="284.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+            <Label fx:id="lblMail" text="E-Mail-Adresse" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Label fx:id="lblTelefon" text="Telefonnummer" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <Label fx:id="lblBank" text="Bank" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <Label fx:id="lblIBAN" text="IBAN" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+            <Label fx:id="lblSWIFT" text="BIC/SWIFT" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+            <Label fx:id="lblSteuer" text="Steuernummer" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+            <TextField fx:id="textfieldMail" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+            <TextField fx:id="textfieldTelnum" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+            <TextField fx:id="textfieldBank" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+            <TextField fx:id="textfieldIBAN" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+            <TextField fx:id="textfieldSWIFT" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+            <TextField fx:id="textfieldSteuer" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+            <Button fx:id="btnSpeichern" mnemonicParsing="false" onAction="#handleSpeichernAction" prefHeight="56.0" prefWidth="148.0" text="Speichern" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
+            <Button fx:id="btnAbbrechen" mnemonicParsing="false" onAction="#handleAbbrechenAction" prefHeight="56.0" prefWidth="148.0" text="Abbrechen" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </GridPane>
+   </children>
+</AnchorPane>

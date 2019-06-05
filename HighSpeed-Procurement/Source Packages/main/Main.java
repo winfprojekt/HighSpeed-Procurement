@@ -20,11 +20,19 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		try {
 			root = (AnchorPane) FXMLLoader.load(getClass().getResource("/controller/rootView.fxml"));
+			//idx=0
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/LoginView.fxml")));
+			//idx=1
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/HomeScreenView.fxml")));
+			//idx=2
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/LieferantView.fxml")));
+			//idx=3
+			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/LieferantErstellenView.fxml")));
+			//idx=4
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/BestellungView.fxml")));
+			//idx=5
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/ProduktportfolioView.fxml")));
+			//idx=6
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/HilfeView.fxml")));
 			root.getChildren().add(anchor.get(0));
 			Scene scene = new Scene(root, 400, 330);
