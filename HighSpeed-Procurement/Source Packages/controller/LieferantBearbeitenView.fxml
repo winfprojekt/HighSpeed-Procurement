@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1280.0" styleClass="root" stylesheets="@../resources/LiefErstellen.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LieferantErstellenController">
+<AnchorPane prefHeight="600.0" prefWidth="1280.0" styleClass="root" stylesheets="@../resources/LiefErstellen.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LieferantBearbeitenController">
    <children>
       <GridPane alignment="CENTER" hgap="10.0" prefHeight="607.0" prefWidth="1280.0" vgap="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -31,7 +31,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="lblHeader" alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="234.0" text="Neuen Lieferanten anlegen" GridPane.halignment="LEFT" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
+            <Label fx:id="lblHeader" alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="234.0" text="Lieferant bearbeiten" GridPane.halignment="LEFT" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
             <Label fx:id="lblName" text="Name" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <Label fx:id="lblAddr" text="Straße und Nummer" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
             <Label fx:id="lblStadt" text="Stadt" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />

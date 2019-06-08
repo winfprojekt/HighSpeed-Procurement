@@ -1,47 +1,55 @@
 package model.Lieferant;
 
 /**
- * @author Denislav
- * This is a sample class for testing the populaion of 
- * TableView in FX using data from the database. (See HomeScreenController.java)
+ * @author Gruppe 2
+ * 
+ *
  */
 public class Lieferant {
 
-	private String ADDRESS;
-
-	private String TYPE;
-	private String NAME;
-
-	public Lieferant(String NAME, String ADDRESS, String TYPE) {
-		this.NAME = NAME;
-		this.ADDRESS = ADDRESS;
-		this.TYPE = TYPE;
-
-	}
-
-	public String getAdresse() {
-		return ADDRESS;
-	}
-
-	public void setAdresse(String adresse) {
-		this.ADDRESS = adresse;
-	}
-
-	public String getLieferantenTyp() {
-		return TYPE;
-	}
-
-	public void setLieferantenTyp(String lieferantenTyp) {
-		this.TYPE = lieferantenTyp;
-	}
-
 	public String getName() {
-		return NAME;
+		return name;
 	}
 
 	public void setName(String name) {
-		this.NAME = name;
+		this.name = name;
 	}
+
+	public String getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+
+	public String getTyp() {
+		return typ;
+	}
+
+	public void setTyp(String typ) {
+		this.typ = typ;
+	}
+	public Integer getID() {
+		return id;
+	}
+	public void setID(Integer id) {
+		this.id=id;
+	}
+
+	private  String name;
+	private  String adresse;
+	private  String typ;
+	private  Integer id;
+
+	public Lieferant(Integer id, String name, String adresse, String typ) {
+		this.id=id;
+		this.name = name;
+		this.adresse = adresse;
+		this.typ = typ;
+
+	}
+
 
 }
 
