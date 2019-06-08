@@ -5,7 +5,362 @@ package model.Lieferant;
  * 
  *
  */
+package model.Lieferant;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ChoiceBox;
+
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+
+
+
+//Innere Klasse für TableLieferant Objekte, da nicht alle Daten angezeigt werden sollen
 public class Lieferant {
+	class TableLieferant{String name;String stadt;String land;String typ;
+		public TableLieferant(String name, String stadt, String land, String typ) {
+			this.name = name;this.stadt = stadt;this.land = land;this.typ = typ;		
+		}}
+
+	private int iD;
+	private Adresse adresse;
+	private Kontaktdaten kontaktdaten;
+	private Bankdaten bankdaten;
+	private String typ;
+	private static final TextField [] Textfelder=null;// = {LieferantController.textfieldName,textfieldAddr,textfieldStadt,textFieldPLZ,
+			//textfieldMail,textfieldTelnum,textfieldBank,textfieldIBAN,textfieldSWIFT,textfieldSteuer};
+	private static final ChoiceBox<String> [] Choiceboxen=null;;// = {choiceboxLand,choiceboxLTyp};
+	private static Connection connection=null;
+	private static final TableView<TableLieferant> table=null;
+	
+	//Konstruktor
+	public Lieferant(Adresse adresse, Kontaktdaten kontaktdaten,Bankdaten bankdaten, String typ) {
+		this.adresse=adresse;
+		this.kontaktdaten=kontaktdaten;
+		this.bankdaten=bankdaten;
+		this.typ=typ;
+	}
+	
+	//Konstruktor mit iD
+		public Lieferant(int iD ,Adresse adresse, Kontaktdaten kontaktdaten,Bankdaten bankdaten, String typ) {
+			this.iD=iD;
+			this.adresse=adresse;
+			this.kontaktdaten=kontaktdaten;
+			this.bankdaten=bankdaten;
+			this.typ=typ;
+		}
+	
+	
+	//Getter,Setter
+	public int getID() {
+		return iD;
+	}
+	
+	public void setID(int iD) {
+		this.iD=iD;
+	}
+		
+	public Adresse getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(Adresse adresse) {
+		this.adresse = adresse;
+		
+	}
+	
+	public Kontaktdaten getKontaktdaten() {
+		return kontaktdaten;
+	}
+
+	public void setKontaktdaten(Kontaktdaten kontaktdaten) {
+		this.kontaktdaten=kontaktdaten;
+		
+	}
+	
+	public Bankdaten getBankdaten() {
+		return bankdaten;
+	}
+	
+	
+	public void setBankdaten(Bankdaten bankdaten) {
+		this.bankdaten=bankdaten;
+	}
+
+	public String getTyp() {
+		return typ;
+	}
+
+	public void setTyp(String typ) {
+		this.typ = typ;
+	}
+
+
+
+	// Lieferanten-Funktionen
+
+
+ 	public ArrayList<Lieferant> readAll() {
+	//Alle Lieferanten aus der Datenbank auslesen
+ 		
+ 		try {
+ 		//Alle Lieferanten aus der Datenbank abfragen
+
+ 		ArrayList<Lieferant> alleLieferanten = new ArrayList<Lieferant>();
+ 		Statement stmt = connection.createStatement();
+ 		ResultSet rs = stmt.executeQuery("SELECT * FROM LIEFERANTEN");
+ 		while (rs.next()) {
+ 			// 1 Lieferant bauen
+ 			Adresse adresse = new Adresse(rs.getString("NAME"), rs.getString("STRASSEUNDNUMMER"), rs.getString("STADT"),
+ 					Integer.parseInt(rs.getString("PLZ")), rs.getString("LAND"));
+ 			Kontaktdaten kontaktdaten= new Kontaktdaten(rs.getString("EMAIL"), Integer.parseInt(rs.getString("TELEFONNUMMER")));
+ 			Bankdaten bankdaten = new Bankdaten(rs.getString("BANK"), rs.getString("IBAN"), rs.getString("BICSWIFT"), rs.getString("STEUERNUMMER"));
+ 			Lieferant lieferant = new Lieferant(Integer.parseInt(rs.getString("ID")),adresse,kontaktdaten,bankdaten, rs.getString("TYP"));
+ 			
+ 			// ArayList mit Lieferant beschreiben
+ 			alleLieferanten.add(lieferant);	
+ 		}
+ 		return alleLieferanten;
+ 		}catch(SQLException e) {
+ 		// Fehlermeldung ausgeben in einem Dialog auf FX "Datenbankabfrage Fehlgeschlagen"
+ 			
+ 			Alert alert=new Alert(AlertType.ERROR);
+ 			alert.setTitle("Error Dialog: Lieferant.readAll()" );
+ 			alert.setHeaderText("Folgender Fehler ist aufgetreten:");
+ 			alert.setContentText("Datenbankabfrage fehlgeschlagen!"); 			
+ 		
+ 		/*}catch(Exception e) {
+ 			
+ 			
+ 			Alert alert=new Alert(AlertType.ERROR);
+ 			alert.setTitle("Error Dialog: Lieferant.readAll()" );
+ 			alert.setHeaderText("Folgender Fehler ist aufgetreten:");
+ 			alert.setContentText("Konstruktion der Lieferantenobjekte fehlgeschlagen!");*/ 			
+ 		}
+ 		return null;
+ 	}
+
+ 	public Lieferant readOne(int iD) {
+ 	//Einen Lieferant aus der Datenbank auslesen
+ 		
+ 		//Einen Lieferant aus der DB abfragen
+ 		try{
+ 			Statement stmt = connection.createStatement(); 		
+ 			ResultSet rs = stmt.executeQuery("SELECT * FROM LIEFERANTEN WHERE ID = '"+Integer.toString(iD)+"'");
+ 		
+ 			//eigentlich nur ein Ergebnis aber Fehler ohne "while"
+ 			while(rs.next()){
+ 			
+ 			// 1 Lieferant bauen
+ 				Adresse adresse = new Adresse(rs.getString("NAME"), rs.getString("STRASSEUNDNUMMER"), rs.getString("STADT"),
+ 						Integer.parseInt(rs.getString("PLZ")), rs.getString("LAND"));
+ 				Kontaktdaten kontaktdaten = new Kontaktdaten(rs.getString("EMAIL"), Integer.parseInt(rs.getString("TELEFONNUMMER")));
+ 				Bankdaten bankdaten = new Bankdaten(rs.getString("BANK"), rs.getString("IBAN"), rs.getString("BICSWIFT"), rs.getString("STEUERNUMMER"));
+ 				Lieferant lieferant = new Lieferant(Integer.parseInt(rs.getString("ID")),adresse,kontaktdaten,bankdaten, rs.getString("TYP"));
+ 		
+ 				return lieferant;
+ 			}
+ 			
+ 			}catch(SQLException e) {
+ 	 			// + Fehlermeldung ausgeben in einem Dialog auf FX "Datenbankabfrage Fehlgeschlagen" 	 			
+ 	 			Alert alert=new Alert(AlertType.ERROR);
+ 	 			alert.setTitle("Error Dialog: Lieferant.readOne()" );
+ 	 			alert.setHeaderText("Folgender Fehler ist aufgetreten:");
+ 	 			alert.setContentText("Datenbankabfrage fehlgeschlagen!"); 			
+ 	 		
+ 	 		/*}catch(Exception e) {  
+ 	 			Alert alert=new Alert(AlertType.ERROR);
+ 	 			alert.setTitle("Error Dialog: Lieferant.readOne()" );
+ 	 			alert.setHeaderText("Folgender Fehler ist aufgetreten:");
+ 	 			alert.setContentText("Konstruktion des Lieferantenobjekt fehlgeschlagen!");*/ 			
+ 	 		} 		
+		return null; 			 	
+ 	}
+ 	
+ 	private void grammatik(){
+ 		//Genaue Überprüfung Bei genug zeit implementieren
+ 		//Genaue exceptions werfen die einen Fehlertext enthalten (je nach Fehler und Feld)
+ 	}
+ 			
+ 	
+ 	public Lieferant readOneLayer(){
+ 	//vom Layer 1 Lieferant einlesen	
+
+ 		//Aktivieren wenn grammatik() implementiert ist
+ 		/*try { 	
+ 		grammatik();
+ 		}
+ 		catch(Exception e) {
+ 			// + Genaue Fehlermeldung von e ausgeben in einem Dialog auf FX
+ 			Alert alert=new Alert(AlertType.ERROR);
+	 		alert.setTitle("Error Dialog: Lieferant.readOneLayer()" );
+	 		alert.setHeaderText("Folgender Fehler ist aufgetreten:");
+	 		alert.setContentText(e.toString());
+	 		return null;
+ 		}*/
+ 		
+ 		//Felder casten und Objekte bauen
+ 		try {
+ 			Adresse adresse = new Adresse(Textfelder[0].getText(),Textfelder[1].getText(),Textfelder[2].getText(),
+ 					Integer.parseInt(Textfelder[3].getText()),(String) Choiceboxen[0].getSelectionModel().getSelectedItem());
+ 			
+ 			Kontaktdaten kontaktdaten = new	Kontaktdaten(Textfelder[4].getText(),Integer.parseInt(Textfelder[5].getText()));
+ 			Bankdaten bankdaten = new Bankdaten(Textfelder[6].getText(),Textfelder[7].getText(),Textfelder[8].getText(),
+ 					Textfelder[9].getText());
+ 			
+ 			String typ = (String) Choiceboxen[1].getSelectionModel().getSelectedItem();
+ 			Lieferant lieferant = new Lieferant(adresse,kontaktdaten,bankdaten,typ);
+		
+		return lieferant;
+		}
+ 		catch(Exception e){
+ 			//Generelle Fehlermeldung "Falscher Datentyp!" in einem Dialog auf FX
+ 			Alert alert=new Alert(AlertType.ERROR);
+	 		alert.setTitle("Error Dialog: Lieferant.readOneLayer()" );
+	 		alert.setHeaderText("Folgender Fehler ist aufgetreten:");
+	 		alert.setContentText("Falscher Datentyp! Bitte überprüfen sie ihre Eingaben!"); 
+ 		
+ 		}
+ 		return null;
+ 	}
+
+ 	
+ 	public void writeAll(ArrayList<Lieferant>alleLieferanten){
+ 	//Alle Lieferanten auf Layer ausgeben 	
+ 		
+ 		//Tabellengröße an Arraylänge anpassen?
+ 		
+ 		
+ 		
+ 	
+ 		ObservableList<TableLieferant> tabelleninhalt = FXCollections.observableArrayList();
+ 	
+ 		for(Lieferant lieferant:alleLieferanten) {
+ 			//neues TableLieferant Objekt bauen
+ 			TableLieferant tableLieferant= new TableLieferant(lieferant.getAdresse().getName(),
+ 					lieferant.getAdresse().getStadt(),lieferant.getAdresse().getLand(),lieferant.getTyp());
+ 			
+ 			//zur Liste hinzufügen
+ 			tabelleninhalt.add(tableLieferant);
+
+ 		} 
+ 	
+ 		// Daten in der Tabelle Anzeigen
+ 		table.setItems(tabelleninhalt);
+ 	}
+
+ 
+ 	public void writeOne() {
+ 		//einen Lieferant auf einem Layer ausgeben
+ 		
+ 		//Felder mit Lieferantendaten beschreiben
+ 		Textfelder[0].setText(this.getAdresse().getName());
+ 		Textfelder[1].setText(this.getAdresse().getStrasseUndNummer());
+ 		Textfelder[2].setText(this.getAdresse().getStadt());
+ 		Textfelder[3].setText(Integer.toString(this.getAdresse().getPostleitzahl()));
+
+ 		Textfelder[4].setText(this.getKontaktdaten().getEmail());
+ 		Textfelder[5].setText(Integer.toString(this.getKontaktdaten().getTelefonnummer()));
+
+ 		Textfelder[6].setText(this.getBankdaten().getBank());
+ 		Textfelder[7].setText(this.getBankdaten().getiBAN());
+ 		Textfelder[8].setText(this.getBankdaten().getBicSwift());
+ 		Textfelder[9].setText(this.getBankdaten().getSteuernummer());
+
+ 		Choiceboxen[0].getSelectionModel().select(this.getAdresse().getLand());
+	
+ 		Choiceboxen[1].getSelectionModel().select(this.getTyp());
+	}
+ 	
+ 	
+ 	public void create(){
+ 	//einen Lieferant in der Datenbank erstellen
+ 		
+ 		//Überprüfen ob readOneLayer() Daten erheben konnte
+ 		if(!(this==null)){
+ 			
+ 			try {
+ 				//Datenbank speichern
+ 				Statement stmt = connection.createStatement();
+ 				stmt.executeUpdate("INSERT INTO LIEFERANTEN (TYP, NAME, STRASSEUNDNUMMER, STADT,"
+ 						+ "PLZ, LAND, BANK, IBAN, BICSWIFT, STEUERNR, EMAIL, TELEFONNR ) VALUES "+"('" 
+ 						+ this.getTyp()+"','"+ this.getAdresse().getName()+"','"
+ 						+ this.getAdresse().getStrasseUndNummer()+"','"+this.getAdresse().getStadt()+"','"
+ 						+ Integer.toString(this.getAdresse().getPostleitzahl())+ "','"+this.getAdresse().getLand()+"','"
+ 						+ this.getBankdaten().getBank()+"','"+this.getBankdaten().getiBAN()+"','"
+ 						+ this.getBankdaten().getBicSwift()+"','"+this.getBankdaten().getSteuernummer()+"','"
+ 						+ this.getKontaktdaten().getEmail()+"','"+this.getKontaktdaten().getEmail()+"')");
+ 				
+ 			}catch(SQLException e) { 				
+ 				//Meldung Lieferant speichern fehlgeschlagen
+ 				Alert alert=new Alert(AlertType.ERROR);
+ 		 		alert.setTitle("Error Dialog: Lieferant.create()" );
+ 		 		alert.setHeaderText("Folgender Fehler ist aufgetreten:");
+ 		 		alert.setContentText("Speichern in der Datenbank fehlgeschlagen!");
+ 		 		return;
+ 			}
+ 			//Meldung Lieferant erfolgreich gespeichert
+				Alert alert=new Alert(AlertType.INFORMATION);
+				alert.setTitle("Information Dialog: Lieferant.create()" );
+				alert.setHeaderText("Folgendes Ereignis ist eingetreten:");
+				alert.setContentText("Lieferant erfolgreich gespeichert!");
+ 		}		
+ 	}
+
+
+
+	public void update(int iD ) {
+		// einen Lieferant in der Datenbank andern
+
+		//Überprüfen ob readOneLayer() Daten erheben konnte
+ 		if(!(this==null)){
+ 			
+ 			try {
+ 				//In der Datenbank speichern
+ 				Statement stmt = connection.createStatement();
+ 			
+ 				stmt.executeUpdate("Update LIEFERANTEN Set TYP ='"+ this.getTyp()+"',NAME='"+ this.getAdresse().getName()+"',STRASSEUNDNUMMER='"
+ 						+ this.getAdresse().getStrasseUndNummer()+"',STADT='"+this.getAdresse().getStadt()+"',PLZ='"
+ 						+ Integer.toString(this.getAdresse().getPostleitzahl())+ "',LAND='"+this.getAdresse().getLand()+"',BANK='"
+ 						+ this.getBankdaten().getBank()+"',IBAN='"+this.getBankdaten().getiBAN()+"',BICSWIFT='"
+ 						+ this.getBankdaten().getBicSwift()+"',STEUERNR='"+this.getBankdaten().getSteuernummer()+"',EMAIL='"
+ 						+ this.getKontaktdaten().getEmail()+"',TELEFONNR='"+this.getKontaktdaten().getEmail() 				
+ 						
+ 						+"' WHERE ID='"+iD+"'");
+ 				
+ 			}catch(SQLException e) { 				
+ 				//Meldung Lieferant speichern fehlgeschlagen
+ 				Alert alert=new Alert(AlertType.ERROR);
+ 		 		alert.setTitle("Error Dialog: Lieferant.create()" );
+ 		 		alert.setHeaderText("Folgender Fehler ist aufgetreten:");
+ 		 		alert.setContentText("Speichern in der Datenbank fehlgeschlagen!");
+ 		 		return;
+ 			}
+ 			//Meldung Lieferant erfolgreich gespeichert
+				Alert alert=new Alert(AlertType.INFORMATION);
+				alert.setTitle("Information Dialog: Lieferant.create()" );
+				alert.setHeaderText("Folgendes Ereignis ist eingetreten:");
+				alert.setContentText("Lieferant erfolgreich gespeichert!");
+ 		} 		
+	}
+}
+
+
+
+
+
+//kleine Test klasse
+/*public class Lieferant {
 
 	public String getName() {
 		return name;
@@ -51,183 +406,5 @@ public class Lieferant {
 	}
 
 
-}
+}/*
 
-/*
- * Es gibt fehler an manchen Codestellen
- * //Konstruktor 1 
- * public Lieferant(String name, Adresse adresse, Kontaktdaten
- * kontaktdaten, Bankdaten bankdaten, String lieferantenTyp) { super(); int
- * nextInvoiceNumber = this.iD; nextInvoiceNumber++; this.adresse = adresse;
- * this.kontaktdaten = kontaktdaten; this.bankdaten = bankdaten;
- * this.lieferantenTyp = lieferantenTyp; this.name=name; } //Konstruktor 2
- * public Lieferant(int id,String name, Adresse adresse, String lieferantenTyp,
- * Date date) { this.iD=id; this.name=name; this.adresse = adresse;
- * this.lieferantenTyp=lieferantenTyp; this.date=date; }
- * 
- * //toString
- * 
- * @Override public String toString() { return "Lieferant [iD=" + iD +
- * ",\nadresse=" + adresse + ",\nkontaktdaten=" + kontaktdaten +
- * ", \nbankdaten=" + bankdaten + ", \nlieferdaten=" + lieferdaten + "]"; }
- * 
- * //Getter
- * 
- * public int getiD() { return iD; }
- * 
- * 
- * public Adresse getAdresse() { return adresse; }
- * 
- * 
- * public Kontaktdaten getKontaktdaten() { return kontaktdaten; }
- * 
- * 
- * public Bankdaten getBankdaten() { return bankdaten; }
- * 
- * 
- * public Lieferdaten getLieferantenTyp() { return lieferantenTyp; }
- * 
- * 
- * //Setter public void setAdresse(Adresse adresse) { this.adresse = adresse; }
- * 
- * 
- * public void setKontaktdaten(Kontaktdaten kontaktdaten) { this.kontaktdaten =
- * kontaktdaten; }
- * 
- * 
- * public void setBankdaten(Bankdaten bankdaten) { this.bankdaten = bankdaten; }
- * 
- * 
- * public void setLieferantenTyp(Lieferdaten lieferdaten) { this.lieferantenTyp
- * = lieferantenTyp; }
- * 
- * // zusaetzliche Logik
- * 
- * //von der Datenbank alle Lieferanten einlesen public ArrayList<Lieferant>
- * readAll() { //Alle Lieferanten aus der Datenbank auslesen
- * ArrayList<Lieferant> alleLieferanten = new ArrayList<Lieferant>(); // Aray
- * List mit Lieferanten beschreiben return alleLieferanten; }
- * 
- * public Lieferant readOneDB(int iD) {
- * 
- * Datenbankabfragen einfuegen
- * 
- * Adresse adresse = new Adresse(name,straï¿½eUndNummer,stadt,postleitzahl,land);
- * Kontaktdaten kontaktdaten = Kontaktdaten(email,telefonnummer); Bankdaten
- * bankdaten = Bankdaten(bank,iBAN,bicSwift,steuernummer); Lieferdaten
- * lieferdaten = Lieferdaten(lieferbareDienstleistungen,lieferantenTyp);
- * Lieferant lieferant = new
- * Lieferant(adresse,kontaktdaten,bankdaten,lieferdaten); return lieferant; }
- * 
- * //vom Layer 1 Lieferant einlesen public Lieferant readOneLayer(TextField []
- * textfelder, ComboBox<String>[] comboBoxen){ //Textboxen,etc auï¿½erhalb dieser
- * Funktion als "new Array [] Textfeld textfelder" deklarieren
- * if(fehleranalyse(textfelder)) { Adresse adresse = new
- * Adresse(textfelder[0].getText(),textfelder[1].getText(),textfelder[2].getText
- * (),Integer.parseInt(textfelder[3].getText()),"land"comboBoxen[0].getSelected(
- * )); Kontaktdaten kontaktdaten = new
- * Kontaktdaten(textfelder[4].getText(),Integer.parseInt(textfelder[5].getText()
- * )); Bankdaten bankdaten = new
- * Bankdaten(textfelder[6].getText(),textfelder[7].getText(),textfelder[8].
- * getText(),Integer.parseInt(textfelder[9].getText())); Lieferdaten lieferdaten
- * = new
- * Lieferdaten("String1","string2");//comboBoxen[1].getSelected(),comboBoxen[2].
- * getSelected()); Lieferant lieferant = new
- * Lieferant(adresse,kontaktdaten,bankdaten,lieferdaten); return lieferant; }
- * else { return null; } }
- * 
- * //Auf layer Ausgeben //Alle public void writeAll(ArrayList<Lieferant>
- * alleLieferanten) { Tabellengrï¿½ï¿½e anpassen an alleLieferanten.size(); // int
- * arrayListCount = 0; for(Lieferant lieferant:alleLieferanten) {
- * TabbelleColumns[arraListCount][0]= lieferant.getAdresse().getName();
- * lieferant.getAdresse().getStraï¿½eUndNummer();
- * lieferant.getAdresse().getStadt();
- * Integer.toString(lieferant.getAdresse().getPostleitzahl());
- * lieferant.getAdresse().getLand();
- * 
- * lieferant.getKontaktdaten().getEmail();
- * Integer.toString(lieferant.getKontaktdaten().getTelefonnummer());
- * 
- * lieferant.getBankdaten().getBank(); lieferant.getBankdaten().getiBAN();
- * lieferant.getBankdaten().getBicSwift();
- * Integer.toString(lieferant.getBankdaten().getSteuernummer());
- * 
- * lieferant.getLieferdaten().getLieferbareDienstleistungen();
- * lieferant.getLieferdaten().getLieferantenTyp(); arrayListCount++; } }
- * 
- * 
- * // nur einer public void writeOne(Lieferant lieferant,TextField[] textfelder,
- * ComboBox<String>[] comboBoxen) { //Textboxen,etc auï¿½erhalb dieser Funktion
- * als "new Array [] Textfeld textfelder" deklarieren
- * 
- * //... //Felder zuordnen
- * textfelder[0].setText(lieferant.getAdresse().getName());
- * textfelder[1].setText(lieferant.getAdresse().getStraï¿½eUndNummer());
- * textfelder[2].setText(lieferant.getAdresse().getStadt());
- * textfelder[3].setText(Integer.toString(lieferant.getAdresse().getPostleitzahl
- * ()));
- * 
- * textfelder[4].setText(lieferant.getKontaktdaten().getEmail());
- * textfelder[5].setText(Integer.toString(lieferant.getKontaktdaten().
- * getTelefonnummer()));
- * 
- * textfelder[6].setText(lieferant.getBankdaten().getBank());
- * textfelder[7].setText(lieferant.getBankdaten().getiBAN());
- * textfelder[8].setText(lieferant.getBankdaten().getBicSwift());
- * textfelder[9].setText(Integer.toString(lieferant.getBankdaten().
- * getSteuernummer()));
- * 
- * lieferant.getAdresse().getLand();
- * lieferant.getLieferdaten().getLieferbareDienstleistungen();
- * lieferant.getLieferdaten().getLieferantenTyp(); }
- * 
- * //einen Lieferant in der Datenbank erstellen public void save(Lieferant
- * lieferant) { //Textboxen,etc auï¿½erhalb dieser Funktion als
- * "new Array [] Textfeld textfelder" deklarieren TextField[]textfelderLayer4=
- * new TextField[10]; if(readOneLayer(textfelderLayer4)==null) { //Datenbank
- * speichern } else { return; } }
- * 
- * // einen Lieferant in der Datenbank ï¿½ndern public void update() {
- * 
- * }
- * 
- * //ï¿½berprï¿½fung der Nutzereingaben public String pflichtfelderAbfrage(TextField
- * [] textfelder) { //Leere Rï¿½ckgabe wenn alle Pflichtfelder ausgefï¿½llt sind,
- * ansonsten string aus allen leeren Pflichtfeldern.
- * 
- * //Textboxen,etc auï¿½erhalb dieser Funktion als
- * "new Array [] Textfeld textfelder" deklarieren
- * 
- * String fehlercode=""; if (!(textfelder[0].getText().equals(""))){ fehlercode
- * += ", Name"; } if(!(textfelder[1].getText().equals(""))){ fehlercode +=
- * ", Straï¿½e und Nummer"; } if(!(textfelder[2].getText().equals(""))){
- * fehlercode += ", Stadt"; } if(!(textfelder[3].getText().equals(""))){
- * fehlercode += ", Postleitzahl"; } if(!(textfelder[4].getText().equals(""))){
- * fehlercode += ", E-Mail-Adresse"; }
- * if(!(textfelder[7].getText().equals(""))){ fehlercode += ", IBAN"; }
- * if(!(textfelder[8].getText().equals(""))){ fehlercode += ", BIC/Swift"; }
- * if(!(textfelder[9].getText().equals(""))){ fehlercode += ", Steuernummer"; }
- * + Lieferbare dienstleistungen Prï¿½fen{ fehlercode +=
- * ", Lieferbare Dienstleistungen"; } return fehlercode; } public String
- * grammatikAbfrage(TextField [] textfelder) { //Achtung leere Felder sind kein
- * Grammatik Widerspruch String fehlercode =""; return fehlercode; }
- * 
- * 
- * public boolean fehleranalyse(TextField[] textfelder, ComboBox<String>[]
- * comboBoxen) { if ((pflichtfelderAbfrage(textfelder).equals("")) &&
- * (grammatikAbfrage(textfelder).equals(""))) { return true; } else { String
- * fehlercode = ""; if((!(pflichtfelderAbfrage(textfelder).equals(""))) &&
- * (grammatikAbfrage(textfelder).equals(""))){ fehlercode =
- * "Folgende Pflichtfelder wurden nicht ausgefï¿½llt:"+
- * pflichtfelderAbfrage(textfelder); }
- * if((pflichtfelderAbfrage(textfelder).equals("")) &&
- * (!(grammatikAbfrage(textfelder).equals("")))){ fehlercode =
- * "Folgende Felder haben ein falsches Format:" + grammatikAbfrage(textfelder);
- * } if((!(pflichtfelderAbfrage(textfelder).equals(""))) &&
- * (!(grammatikAbfrage(textfelder).equals("")))){ fehlercode =
- * "Folgende Pflichtfelder wurden nicht ausgefï¿½llt:"+
- * pflichtfelderAbfrage(textfelder) +
- * "\n"+"Folgende Felder haben ein falsches Format:" +
- * grammatikAbfrage(textfelder); } System.out.println(fehlercode); return false;
- * } } }
- */
