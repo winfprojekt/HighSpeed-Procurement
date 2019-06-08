@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.net.*?>
@@ -12,61 +10,90 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1100.0" styleClass="root" stylesheets="@../resources/Lieferant.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LieferantController">
+<AnchorPane prefHeight="600.0" prefWidth="1100.0"
+	styleClass="root" stylesheets="@../resources/Lieferant.css"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="controller.LieferantController">
 	<children>
-		<Separator halignment="LEFT" layoutY="148.0" prefHeight="8.0" AnchorPane.bottomAnchor="546.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="148.0" />
-		<Button fx:id="btnHeader" contentDisplay="TEXT_ONLY" layoutX="99.0" layoutY="34.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="56.0" prefWidth="270.0" text="HighSpeed-Procurement" AnchorPane.bottomAnchor="612.0" AnchorPane.leftAnchor="99.0" AnchorPane.rightAnchor="731.0" AnchorPane.topAnchor="34.0" />
-		<Label layoutX="718.0" layoutY="48.0" text="Angemeldet als: " AnchorPane.bottomAnchor="627.0" AnchorPane.leftAnchor="718.0" AnchorPane.rightAnchor="249.0" AnchorPane.topAnchor="48.0" />
-		<ImageView fitHeight="65.0" fitWidth="70.0" layoutX="24.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="607.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="1011.0" AnchorPane.topAnchor="30.0">
+		<Separator halignment="LEFT" layoutY="148.0"
+			prefHeight="8.0" prefWidth="1141.0" AnchorPane.bottomAnchor="546.0"
+			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+			AnchorPane.topAnchor="148.0" />
+		<Button fx:id="btnHeader" contentDisplay="TEXT_ONLY"
+			layoutX="99.0" layoutY="34.0" maxHeight="1.7976931348623157E308"
+			maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+			prefHeight="56.0" prefWidth="270.0" text="HighSpeed-Procurement"
+			AnchorPane.bottomAnchor="612.0" AnchorPane.leftAnchor="99.0"
+			AnchorPane.rightAnchor="731.0" AnchorPane.topAnchor="34.0" />
+		<Label layoutX="718.0" layoutY="48.0" text="Angemeldet als: "
+			AnchorPane.bottomAnchor="627.0" AnchorPane.leftAnchor="718.0"
+			AnchorPane.rightAnchor="249.0" AnchorPane.topAnchor="48.0" />
+		<ImageView fitHeight="65.0" fitWidth="70.0" layoutX="24.0"
+			layoutY="30.0" pickOnBounds="true" preserveRatio="true"
+			AnchorPane.bottomAnchor="607.0" AnchorPane.leftAnchor="24.0"
+			AnchorPane.rightAnchor="1011.0" AnchorPane.topAnchor="30.0">
 			<image>
 				<Image url="@../resources/truck.png" />
 			</image>
 		</ImageView>
-		<Text fx:id="userMailLogged" layoutX="871.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="214.205078125" />
-		<Button fx:id="btnLief" contentDisplay="TEXT_ONLY" layoutX="107.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="27.0" prefWidth="160.0" text="Lieferant" AnchorPane.bottomAnchor="486.0" AnchorPane.topAnchor="168.0">
+		<Text fx:id="userMailLogged" layoutX="871.0" layoutY="69.0"
+			strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="214.205078125" />
+		<Button fx:id="btnLief" contentDisplay="TEXT_ONLY"
+			layoutX="107.0" layoutY="168.0" maxHeight="1.7976931348623157E308"
+			maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+			prefHeight="27.0" prefWidth="160.0" text="Lieferant"
+			AnchorPane.bottomAnchor="486.0" AnchorPane.topAnchor="168.0">
 			<font>
 				<Font size="14.0" />
 			</font>
 		</Button>
-		<Button fx:id="btnBest" contentDisplay="TEXT_ONLY" layoutX="261.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBestButton" prefHeight="48.0" prefWidth="160.0" text="Bestellung" AnchorPane.bottomAnchor="486.0" AnchorPane.topAnchor="168.0">
+		<Button fx:id="btnBest" contentDisplay="TEXT_ONLY"
+			layoutX="261.0" layoutY="168.0" maxHeight="1.7976931348623157E308"
+			maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+			prefHeight="48.0" prefWidth="160.0" text="Bestellung"
+			AnchorPane.bottomAnchor="486.0" AnchorPane.topAnchor="168.0">
 			<font>
 				<Font size="14.0" />
 			</font>
 		</Button>
-		<Button fx:id="btnPortfolio" contentDisplay="TEXT_ONLY" layoutX="460.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleProduktButton" prefHeight="48.0" prefWidth="214.0" text="Produktportfolio" AnchorPane.bottomAnchor="486.0" AnchorPane.topAnchor="168.0">
+		<Button fx:id="btnPortfolio" contentDisplay="TEXT_ONLY"
+			layoutX="460.0" layoutY="168.0" maxHeight="1.7976931348623157E308"
+			maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+			prefHeight="48.0" prefWidth="214.0" text="Produktportfolio"
+			AnchorPane.bottomAnchor="486.0" AnchorPane.topAnchor="168.0">
 			<font>
 				<Font size="14.0" />
 			</font>
 		</Button>
-		<Button fx:id="btnHilfe" contentDisplay="TEXT_ONLY" layoutX="694.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleHilfeButton" prefHeight="48.0" prefWidth="140.0" text="Hilfe" AnchorPane.bottomAnchor="486.0" AnchorPane.topAnchor="168.0">
+		<Button fx:id="btnHilfe" contentDisplay="TEXT_ONLY"
+			layoutX="694.0" layoutY="168.0" maxHeight="1.7976931348623157E308"
+			maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+			prefHeight="48.0" prefWidth="140.0" text="Hilfe"
+			AnchorPane.bottomAnchor="486.0" AnchorPane.topAnchor="168.0">
 			<font>
 				<Font size="14.0" />
 			</font>
 		</Button>
-		<Button fx:id="btnHome" layoutX="24.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleHomeButton" prefHeight="48.0" prefWidth="54.0" AnchorPane.bottomAnchor="486.0" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="168.0">
+		<Button fx:id="btnHome" onAction="#handleHomeButton"
+			layoutX="24.0" layoutY="168.0" maxHeight="1.7976931348623157E308"
+			maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+			prefHeight="48.0" prefWidth="54.0" AnchorPane.bottomAnchor="486.0"
+			AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="168.0">
 		</Button>
-		<Button fx:id="btnLogout" contentDisplay="RIGHT" layoutX="935.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAbmeldenButton" prefHeight="48.0" prefWidth="140.0" text="Abmelden" AnchorPane.bottomAnchor="486.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="168.0">
+		<Button fx:id="btnLogout" contentDisplay="RIGHT"
+			layoutX="935.0" layoutY="168.0" maxHeight="1.7976931348623157E308"
+			maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+			prefHeight="48.0" prefWidth="140.0" text="Abmelden"
+			AnchorPane.bottomAnchor="486.0" AnchorPane.rightAnchor="25.0"
+			AnchorPane.topAnchor="168.0">
 			<graphic>
-				<ImageView fitHeight="43.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+				<ImageView fitHeight="43.0" fitWidth="26.0"
+					pickOnBounds="true" preserveRatio="true">
 					<image>
 						<Image url="@../resources/logout.png" />
 					</image>
 				</ImageView>
 			</graphic>
 		</Button>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="134.0" layoutX="51.0" layoutY="247.0" stroke="BLACK" strokeType="INSIDE" width="999.0" AnchorPane.bottomAnchor="321.0" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="247.0" />
-      <Button fx:id="btnAnlegen" layoutX="68.0" layoutY="327.0" mnemonicParsing="false" text="Neuen Lieferanten anlegen" AnchorPane.bottomAnchor="347.0" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="819.0" AnchorPane.topAnchor="327.0" />
-      <Label fx:id="lblAnlegen" layoutX="68.0" layoutY="260.0" prefHeight="27.0" prefWidth="190.0" text="Lieferant anlegen" AnchorPane.bottomAnchor="415.0" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="842.0" AnchorPane.topAnchor="260.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="247.0" layoutX="51.0" layoutY="449.0" stroke="BLACK" strokeType="INSIDE" width="999.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="449.0" />
-      <Label fx:id="lblBearbeiten" layoutX="68.0" layoutY="468.0" prefHeight="27.0" prefWidth="213.0" text="Lieferant bearbeiten" AnchorPane.bottomAnchor="207.0" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="819.0" AnchorPane.topAnchor="468.0" />
-      <TableView fx:id="tableBearbeiten" editable="true" layoutX="62.0" layoutY="507.0" prefHeight="171.0" prefWidth="978.0" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="62.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="507.0">
-        <columns>
-          <TableColumn fx:id="colNummer" prefWidth="134.0" text="Nummer" />
-          <TableColumn fx:id="colName" prefWidth="196.0" text="Name" />
-            <TableColumn fx:id="colAdresse" prefWidth="206.0" text="Adresse" />
-            <TableColumn fx:id="colTyp" prefWidth="232.0" text="Typ" />
-            <TableColumn fx:id="colDate" prefWidth="209.0" text="Erstellt am" />
-        </columns>
-      </TableView>
 	</children>
 </AnchorPane>

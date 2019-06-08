@@ -17,6 +17,7 @@
 #btnHome{
 	-fx-background-image: url("home.png");
 	-fx-background-repeat: no-repeat;
+	-fx-text-fill: blue;
 	-fx-background-position:center;
 	-fx-background-size: 25.0 25.0;
 	-fx-background-color:transparent;

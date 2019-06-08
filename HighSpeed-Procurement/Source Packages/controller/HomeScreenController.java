@@ -3,7 +3,9 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
@@ -11,13 +13,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import main.Main;
 import util.DBUtil;
 
@@ -51,16 +58,11 @@ public class HomeScreenController implements Initializable {
 	private TableColumn<model.Lieferant.Lieferant,String> colAddr;
 	@FXML
 	private TableColumn<model.Lieferant.Lieferant,String> colType;
-	@FXML
-	private TableColumn<model.Lieferant.Lieferant,Integer> colNum;
-	@FXML
-	private TableColumn<model.Lieferant.Lieferant,String> colDate;
 	
-	private ObservableList<model.Lieferant.Lieferant> oblist = FXCollections.observableArrayList();
-	private Connection connection = util.DBUtil.getConnection();
-	private Statement stmt = null;
-	private ResultSet rs = null;
-	private DBUtil dbu;
+	ObservableList<model.Lieferant.Lieferant> oblist = FXCollections.observableArrayList();
+	Connection connection = util.DBUtil.getConnection();
+	PreparedStatement stmt = null;
+	ResultSet rs = null;
 	
 	public static final String title = "HighSpeed-Procurement (Home)";
 
@@ -72,54 +74,65 @@ public class HomeScreenController implements Initializable {
 	}
 
 	@FXML
-	public void handleBestButton(ActionEvent event) throws IOException {
+	private void handleBestButton(ActionEvent event) throws IOException {
 
-		Main.set_pane(4);
+		Parent bestellungParent = FXMLLoader.load(getClass().getResource("BestellungView.fxml"));
+		Scene bestellungScene = new Scene(bestellungParent);
 
-	}
-	@FXML
-	public void handleProduktButton(ActionEvent event) throws IOException {
-
-		Main.set_pane(5);
-
-	}
-	@FXML
-	public void handleHilfeButton(ActionEvent event) throws IOException {
-
-		Main.set_pane(6);
+		// get the Stage information
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		window.setScene(bestellungScene);
+		window.show();
 
 	}
 	@FXML
-	public void handleAbmeldenButton (ActionEvent event) throws IOException {
-		Main.close();
-		
+	private void handleProduktButton(ActionEvent event) throws IOException {
+
+		Parent produktportfolioParent = FXMLLoader.load(getClass().getResource("ProduktportfolioView.fxml"));
+		Scene produktportfolioScene = new Scene(produktportfolioParent);
+
+		// get the Stage information
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		window.setScene(produktportfolioScene);
+		window.show();
+
 	}
+	@FXML
+	private void handleHilfeButton(ActionEvent event) throws IOException {
+
+		Parent hilfeParent = FXMLLoader.load(getClass().getResource("HilfeView.fxml"));
+		Scene hilfeScene = new Scene(hilfeParent);
+
+		// get the Stage information
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		window.setScene(hilfeScene);
+		window.show();
+
+	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		dbu = new DBUtil();
+		colName.setCellValueFactory(new PropertyValueFactory<>("NAME"));
+		colAddr.setCellValueFactory(new PropertyValueFactory<>("ADDRESS"));
+		colType.setCellValueFactory(new PropertyValueFactory<>("TYPE"));
+		tableLieferant.setItems(oblist);
 		loadDatabaseData();
 	}
 	public void loadDatabaseData() {
-		String query = "SELECT * FROM USER_INFO";
+		String query = "SELECT * FROM Supplier";
 		try {
-			stmt =connection.createStatement();
-			rs=stmt.executeQuery(query);
+			stmt =connection.prepareStatement(query);
+			rs=stmt.executeQuery();
 			
 			while(rs.next()) {
-				oblist.add(new model.Lieferant.Lieferant(((Integer)rs.getInt(1)),rs.getString(2), rs.getString(3),rs.getString(4)));
+				oblist.add(new model.Lieferant.Lieferant(rs.getString("NAME"), rs.getString("ADDRESS"),rs.getString("TYPE")));
+				tableLieferant.setItems(oblist);
 			}
 			stmt.close();
 			rs.close();
-			connection.close();
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
-		colNum.setCellValueFactory(new PropertyValueFactory<>("id"));
-		colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		colAddr.setCellValueFactory(new PropertyValueFactory<>("adresse"));
-		colType.setCellValueFactory(new PropertyValueFactory<>("typ"));
-		//colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-		tableLieferant.setItems(oblist);
 	}
 	
 }

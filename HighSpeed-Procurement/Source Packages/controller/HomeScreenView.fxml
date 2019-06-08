@@ -22,24 +22,24 @@
 			</image>
 		</ImageView>
 		<Text fx:id="userMailLogged" layoutX="872.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="214.205078125" AnchorPane.bottomAnchor="612.482421875" AnchorPane.leftAnchor="872.0" AnchorPane.rightAnchor="25.794921875" AnchorPane.topAnchor="65.576171875" />
-		<Button fx:id="btnBest" alignment="CENTER" contentDisplay="CENTER" layoutX="261.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleBestButton" text="Bestellung" AnchorPane.bottomAnchor="486.0" AnchorPane.leftAnchor="261.0" AnchorPane.rightAnchor="751.0" AnchorPane.topAnchor="168.0">
+		<Button fx:id="btnBest" alignment="CENTER" contentDisplay="CENTER" layoutX="261.0" layoutY="168.0" mnemonicParsing="false" text="Bestellung" AnchorPane.bottomAnchor="486.0" AnchorPane.leftAnchor="261.0" AnchorPane.rightAnchor="751.0" AnchorPane.topAnchor="168.0">
 			<font>
 				<Font size="14.0" />
 			</font>
 		</Button>
-		<Button fx:id="btnPortfolio" alignment="CENTER" contentDisplay="CENTER" layoutX="460.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleProduktButton" text="Produktportfolio" AnchorPane.bottomAnchor="486.0" AnchorPane.topAnchor="168.0">
+		<Button fx:id="btnPortfolio" alignment="CENTER" contentDisplay="CENTER" layoutX="460.0" layoutY="168.0" mnemonicParsing="false" text="Produktportfolio" AnchorPane.bottomAnchor="486.0" AnchorPane.topAnchor="168.0">
 			<font>
 				<Font size="14.0" />
 			</font>
 		</Button>
-		<Button fx:id="btnHilfe" contentDisplay="TEXT_ONLY" layoutX="694.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleHilfeButton" text="Hilfe" AnchorPane.bottomAnchor="486.0" AnchorPane.topAnchor="168.0">
+		<Button fx:id="btnHilfe" contentDisplay="TEXT_ONLY" layoutX="694.0" layoutY="168.0" mnemonicParsing="false" text="Hilfe" AnchorPane.bottomAnchor="486.0" AnchorPane.topAnchor="168.0">
 			<font>
 				<Font size="14.0" />
 			</font>
 		</Button>
 		<Button fx:id="btnHome" layoutX="33.0" layoutY="168.0" mnemonicParsing="false" AnchorPane.bottomAnchor="486.0" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="1054.0" AnchorPane.topAnchor="168.0">
 		</Button>
-		<Button fx:id="btnLogout" contentDisplay="RIGHT" layoutX="935.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleAbmeldenButton" text="Abmelden" AnchorPane.bottomAnchor="486.0" AnchorPane.leftAnchor="961.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="168.0">
+		<Button fx:id="btnLogout" contentDisplay="RIGHT" layoutX="935.0" layoutY="168.0" mnemonicParsing="false" text="Abmelden" AnchorPane.bottomAnchor="486.0" AnchorPane.leftAnchor="961.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="168.0">
 			<graphic>
 				<ImageView fitHeight="43.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
 					<image>
@@ -52,11 +52,9 @@
 		</Button>
 		<TableView fx:id="tableLieferant" layoutX="124.0" layoutY="297.0" AnchorPane.bottomAnchor="262.0" AnchorPane.leftAnchor="124.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="297.0">
 			<columns>
-            <TableColumn fx:id="colNum" editable="false" prefWidth="213.0" text="Nummer" />
 				<TableColumn fx:id="colName" editable="false" prefWidth="213.0" text="Name" />
 				<TableColumn fx:id="colAddr" editable="false" prefWidth="202.0" text="Adresse" />
 				<TableColumn fx:id="colType" editable="false" prefWidth="190.0" text="Typ" />
-            <TableColumn fx:id="colDate" editable="false" prefWidth="190.0" text="Erstellt am" />
 			</columns>
 		</TableView>
 		<Label fx:id="liefOverview" layoutX="128.0" layoutY="250.0" text="Lieferantenübersicht" AnchorPane.leftAnchor="127.0" AnchorPane.rightAnchor="820.0" />
