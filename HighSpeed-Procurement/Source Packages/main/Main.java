@@ -3,10 +3,15 @@ package main;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -67,6 +72,20 @@ public class Main extends Application {
 		rootStage.setMaximized(true);
 
 		idx_crsr = idx;
+	}
+	public static void close() {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Abmeldung");
+		alert.setHeaderText("Sie werden von der Applikation abgemeldet.");
+		alert.setContentText("Wollen Sie sich wirklich abmelden?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			Platform.exit();
+		} else {
+		    alert.close();
+		}
+		
 	}
 
 	public static void main(String[] args) {

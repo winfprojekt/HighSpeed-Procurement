@@ -2,6 +2,29 @@
 .root {
     -fx-background-image: url("background.jpg");
 }
+#lblBearbeiten{
+	-fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+#lblAnlegen{
+	-fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+#btnAnlegen{
+	-fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+
+}
+#btnAnlegen:hover{
+	 -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
 
 #btnHeader {
 	-fx-background-color:transparent ;
