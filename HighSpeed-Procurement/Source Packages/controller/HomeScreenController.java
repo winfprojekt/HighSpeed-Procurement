@@ -48,13 +48,13 @@ public class HomeScreenController implements Initializable {
 	@FXML
 	private TableView <model.Lieferant.Lieferant> tableLieferant;
 	@FXML
+	private TableColumn<model.Lieferant.Lieferant,Integer> colNum;
+	@FXML
 	private TableColumn<model.Lieferant.Lieferant,String> colName;
 	@FXML
-	private TableColumn<model.Lieferant.Lieferant,Adresse> colAddr;
+	private TableColumn<model.Lieferant.Lieferant,Adresse> colAdr;
 	@FXML
-	private TableColumn<model.Lieferant.Lieferant,String> colType;
-	@FXML
-	private TableColumn<model.Lieferant.Lieferant,Integer> colNum;
+	private TableColumn<model.Lieferant.Lieferant,String> colTyp;
 	@FXML
 	private TableColumn<model.Lieferant.Lieferant,Timestamp> colDate;
 	
@@ -76,19 +76,19 @@ public class HomeScreenController implements Initializable {
 	@FXML
 	public void handleBestButton(ActionEvent event) throws IOException {
 
-		Main.set_pane(4);
+		Main.set_pane(5);
 
 	}
 	@FXML
 	public void handleProduktButton(ActionEvent event) throws IOException {
 
-		Main.set_pane(5);
+		Main.set_pane(6);
 
 	}
 	@FXML
 	public void handleHilfeButton(ActionEvent event) throws IOException {
 
-		Main.set_pane(6);
+		Main.set_pane(7);
 
 	}
 	@FXML
@@ -124,8 +124,8 @@ public class HomeScreenController implements Initializable {
 		}
 		colNum.setCellValueFactory(new PropertyValueFactory<>("iD"));
 		colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		colAddr.setCellValueFactory(new PropertyValueFactory<>("adresse"));
-		colType.setCellValueFactory(new PropertyValueFactory<>("typ"));
+		colAdr.setCellValueFactory(new PropertyValueFactory<>("adresse"));
+		colTyp.setCellValueFactory(new PropertyValueFactory<>("typ"));
 		colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 		tableLieferant.setItems(oblist);
 	}

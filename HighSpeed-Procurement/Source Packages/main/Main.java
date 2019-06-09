@@ -34,10 +34,12 @@ public class Main extends Application {
 			//idx=3
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/LieferantErstellenView.fxml")));
 			//idx=4
-			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/BestellungView.fxml")));
+			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/LieferantBearbeitenView.fxml")));
 			//idx=5
-			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/ProduktportfolioView.fxml")));
+			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/BestellungView.fxml")));
 			//idx=6
+			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/ProduktportfolioView.fxml")));
+			//idx=7
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/HilfeView.fxml")));
 			root.getChildren().add(anchor.get(0));
 			Scene scene = new Scene(root, 400, 330);

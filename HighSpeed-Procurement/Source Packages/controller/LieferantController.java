@@ -3,32 +3,27 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import main.Main;
 import model.Lieferant.Adresse;
-import model.Lieferant.Bankdaten;
-import model.Lieferant.Kontaktdaten;
-import model.Lieferant.Lieferant;
 import util.DBUtil;
 
 public class LieferantController implements Initializable {
@@ -63,88 +58,118 @@ public class LieferantController implements Initializable {
 	@FXML
 	private Button btnAnlegen;
 	@FXML
-	private TableView <model.Lieferant.Lieferant> tableBearbeiten;;
+	private Label lblAnlegen;
 	@FXML
-	private TableColumn<model.Lieferant.Lieferant,String> colName;
+	private Label lblBearbeiten;
 	@FXML
-	private TableColumn<model.Lieferant.Lieferant,String> colAdresse;
+	private TableView<model.Lieferant.Lieferant> tableBearbeiten;;
 	@FXML
-	private TableColumn<model.Lieferant.Lieferant,String> colTyp;
+	private TableColumn<model.Lieferant.Lieferant, Integer> colNum;
 	@FXML
-	private TableColumn<model.Lieferant.Lieferant,Integer> colNummer;
+	private TableColumn<model.Lieferant.Lieferant, String> colName;
 	@FXML
-	private TableColumn<model.Lieferant.Lieferant,String> colDate;
-	
+	private TableColumn<model.Lieferant.Lieferant, Adresse> colAdr;
+	@FXML
+	private TableColumn<model.Lieferant.Lieferant, String> colTyp;
+	@FXML
+	private TableColumn<model.Lieferant.Lieferant, Timestamp> colDate;
+
 	private ObservableList<model.Lieferant.Lieferant> oblist = FXCollections.observableArrayList();
 	private Connection connection = util.DBUtil.getConnection();
-	private Statement stmt = null;
+	private PreparedStatement stmt = null;
 	private ResultSet rs = null;
 	private DBUtil dbu;
-	
+
 	@FXML
 	public void handleHomeButton(ActionEvent event) throws IOException {
 		Main.set_pane(1);
 	}
+
 	@FXML
 	public void handleBestButton(ActionEvent event) throws IOException {
-
-		Main.set_pane(4);
-
-	}
-	@FXML
-	public void handleProduktButton(ActionEvent event) throws IOException {
 
 		Main.set_pane(5);
 
 	}
+
 	@FXML
-	public void handleHilfeButton(ActionEvent event) throws IOException {
+	public void handleProduktButton(ActionEvent event) throws IOException {
 
 		Main.set_pane(6);
 
 	}
+
 	@FXML
-	public void handleLiefAnlegenButton (ActionEvent event) throws IOException {
+	public void handleHilfeButton(ActionEvent event) throws IOException {
+
+		Main.set_pane(7);
+
+	}
+
+	@FXML
+	public void handleLiefAnlegenButton(ActionEvent event) throws IOException {
 
 		Main.set_pane(3);
 
 	}
+
 	@FXML
-	public void handleAbmeldenButton (ActionEvent event) throws IOException {
+	public void handleAbmeldenButton(ActionEvent event) throws IOException {
 		Main.close();
-		
+
 	}
+	@FXML
+	public void handleLiefBearbeiten(ActionEvent event) throws IOException {
+/*		tableBearbeiten.setOnMouseClicked(event1 -> {
+			if (event1.getClickCount() == 2) {
+				Main.set_pane(4);
+				System.out.println(tableBearbeiten.getSelectionModel().getSelectedItem());
+
+			}
+		});*/
+
+	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		dbu = new DBUtil();
 		loadDatabaseData();
+
+		tableBearbeiten.setOnMouseClicked(event -> {
+			if (event.getClickCount() == 2) {
+				Main.set_pane(4);
+				//get clicked Item (Lieferant)
+				System.out.println(tableBearbeiten.getSelectionModel().getSelectedItem());
+
+			}
+		});
 	}
+
 	public void loadDatabaseData() {
 		String query = "SELECT * FROM Lieferant";
 		try {
-			stmt =connection.createStatement();
-			rs=stmt.executeQuery(query);
-			
-			while(rs.next()) {
-				/*oblist.add(new model.Lieferant.Lieferant(
-						new Adresse (rs.getString("ADRESSE"), rs.getString("STADT"), rs.getInt("PLZ"), rs.getString("LAND")),
-						new Kontaktdaten (rs.getString("EMAIL"),rs.getString("TELEFONNUMMER")),
-						new Bankdaten(rs.getString("BANK"),rs.getString("IBAN"), rs.getString("B/S"),rs.getInt("STEUERNUMMER")),
-						rs.getString("TYP")));*/
+			stmt = connection.prepareStatement(query);
+			rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				model.Lieferant.Lieferant l1 = new model.Lieferant.Lieferant(
+						rs.getInt("ID"), rs.getString("Name"), new Adresse(rs.getString("Adresse"),
+								rs.getString("Stadt"), rs.getInt("PLZ"), rs.getString("Land").toString()),
+						rs.getString("Typ"), rs.getTimestamp("Timestamp"));
+				oblist.add(l1);
 			}
 			stmt.close();
 			rs.close();
 			connection.close();
-		}catch(Exception ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		colNummer.setCellValueFactory(new PropertyValueFactory<>("id"));
+		colNum.setCellValueFactory(new PropertyValueFactory<>("iD"));
 		colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		colAdresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
+		colAdr.setCellValueFactory(new PropertyValueFactory<>("adresse"));
 		colTyp.setCellValueFactory(new PropertyValueFactory<>("typ"));
-		//colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+		colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 		tableBearbeiten.setItems(oblist);
 	}
-	
-}
 
+}
