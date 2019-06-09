@@ -114,9 +114,7 @@ private static Connection connection=null;
 		 		             
 		 				case "Chassis":
 		 					Chassis chassis = new Chassis(iD,typ,name,hersteller,rs.getString("STRING"));
-		 		             return chassis;
-		 					
-		 					
+		 		             return chassis;		 						 					
 		 				}	
 		 			}
 		 			
@@ -139,11 +137,82 @@ private static Connection connection=null;
 	
 	public ArrayList<Produkt> readAll(){
 		//Alle Produkte aus der Datenbank einlesen und zurückgeben
+
+		try {
+			// Alle Produkte aus der Datenbank abfragen
+
+			ArrayList<Produkt> alleProdukte = new ArrayList<Produkt>();
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Produkte");
+			while (rs.next()) {
+				// 1 Produkt bauen
+				String typ=rs.getString("TYP");
+ 				String name=rs.getString("NAME");
+ 				String hersteller=rs.getString("HERSTELLER");
+ 				switch(typ){
+ 				case "Prozessor":
+ 		             Prozessor prozessor = new Prozessor(iD,typ,name,hersteller,rs.getString("STRING"));
+ 		            alleProdukte.add(prozessor);
+ 		             
+ 				case "Operationssystem":
+ 					Operationssystem operationssystem = new Operationssystem(iD,typ,name,hersteller,rs.getString("String"));
+ 					alleProdukte.add(operationssystem);
+ 					
+ 				case "Netzwerkteil":
+ 					Netzwerkteil netzwerkteil = new Netzwerkteil(iD,typ,name,hersteller,rs.getString("STRING"));
+ 					alleProdukte.add(netzwerkteil);
+ 		             
+ 				case "Motherboard":
+ 					Motherboard motherboard = new Motherboard(iD,typ,name,hersteller,rs.getString("STRING"));
+ 					alleProdukte.add(motherboard); 		             
+ 				case "Laufwerk":
+ 					Laufwerk laufwerk = new Laufwerk(iD,typ,name,hersteller,rs.getString("STRING"));
+ 					alleProdukte.add(laufwerk); 		             
+ 				case "Hauptspeicher":
+ 					Hauptspeicher hauptspeicher = new Hauptspeicher(iD,typ,name,hersteller,rs.getString("STRING"));
+ 					alleProdukte.add(hauptspeicher); 		             
+ 				case "Grafikkarte":
+ 					Grafikkarte grafikkarte = new Grafikkarte(iD,typ,name,hersteller,rs.getString("STRING"));
+ 					alleProdukte.add(grafikkarte); 		             
+ 				case "Festplatte":
+ 					Festplatte festplatte = new Festplatte(iD,typ,name,hersteller,rs.getString("STRING"));
+ 					alleProdukte.add(festplatte); 		             
+ 				case "Chassis":
+ 					Chassis chassis = new Chassis(iD,typ,name,hersteller,rs.getString("STRING"));
+ 					alleProdukte.add(chassis); 					
+ 				}	
+			}
+			return alleProdukte;
+		} catch (SQLException e) {
+			// Fehlermeldung ausgeben in einem Dialog auf FX "Datenbankabfrage
+			// Fehlgeschlagen"
+
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error Dialog: Lieferant.readAll()");
+			alert.setHeaderText("Folgender Fehler ist aufgetreten:");
+			alert.setContentText("Datenbankabfrage fehlgeschlagen!");
+
+			/*
+			 * }catch(Exception e) {
+			 * 
+			 * 
+			 * Alert alert=new Alert(AlertType.ERROR);
+			 * alert.setTitle("Error Dialog: Lieferant.readAll()" );
+			 * alert.setHeaderText("Folgender Fehler ist aufgetreten:");
+			 * alert.setContentText("Konstruktion der Lieferantenobjekte fehlgeschlagen!");
+			 */
+		}
 		return null;
 	}
 	
+	
 	public void writeOne() {
 		//Auf dem Layer ein Produkt darstellen
+		System.out.println("Methode wurde nicht korrekt überschrieben!");
+
+		//leer, zum überschreiben gedacht
+
+			
 	}
 	
 	public void writeAll(ArrayList<Produkt> produkte) {
@@ -159,12 +228,14 @@ private static Connection connection=null;
 	}
 	
 	public String objectToString() {
+		System.out.println("Methode wurde nicht korrekt überschrieben!");
 		return null;
 		//leer , zum Überschreiben gedacht
 	}
 	
 	
 	public Produkt readLayer() {
+		System.out.println("Methode wurde nicht korrekt überschrieben!");
 		//leer , zum Überschreiben gedacht
 		return null;
 		
