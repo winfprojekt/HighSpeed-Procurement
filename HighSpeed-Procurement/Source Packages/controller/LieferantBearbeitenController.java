@@ -1,18 +1,24 @@
 package controller;
 
 import javafx.fxml.FXML;
-
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
 import main.Main;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.Label;
 
 import javafx.scene.control.ChoiceBox;
 
-public class LieferantBearbeitenController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import controller.LieferantController;
+
+public class LieferantBearbeitenController implements Initializable {
 	@FXML
 	private Label lblHeader;
 	@FXML
@@ -67,6 +73,8 @@ public class LieferantBearbeitenController {
 	private Button btnSpeichern;
 	@FXML
 	private Button btnAbbrechen;
+	private controller.LieferantController lc;
+	public SimpleStringProperty nameDisplay = new SimpleStringProperty("");
 
 	// Event Listener on Button[#btnSpeichern].onAction
 	@FXML
@@ -79,5 +87,10 @@ public class LieferantBearbeitenController {
 		//When "Abbrechen"-Button is 
 		//pressed the application routes the user back to the home screen (pane with idx=1)
 		Main.set_pane(1);
+	}
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		textfieldName.setText(nameDisplay.getValue());
+	
 	}
 }
