@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,10 +22,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import main.Main;
 import model.Lieferant.Adresse;
+import model.Lieferant.Lieferant;
 import util.DBUtil;
 
 public class LieferantController implements Initializable {
@@ -74,6 +79,7 @@ public class LieferantController implements Initializable {
 	@FXML
 	private TableColumn<model.Lieferant.Lieferant, Timestamp> colDate;
 
+	public model.Lieferant.Lieferant lief;
 	private ObservableList<model.Lieferant.Lieferant> oblist = FXCollections.observableArrayList();
 	private Connection connection = util.DBUtil.getConnection();
 	private PreparedStatement stmt = null;
@@ -118,15 +124,21 @@ public class LieferantController implements Initializable {
 		Main.close();
 
 	}
-	@FXML
-	public void handleLiefBearbeiten(ActionEvent event) throws IOException {
-/*		tableBearbeiten.setOnMouseClicked(event1 -> {
-			if (event1.getClickCount() == 2) {
-				Main.set_pane(4);
-				System.out.println(tableBearbeiten.getSelectionModel().getSelectedItem());
 
-			}
-		});*/
+	@FXML
+	public Lieferant handleLiefBearbeiten() throws IOException {
+
+		/*
+		 * tableBearbeiten.setOnMouseClicked((MouseEvent event) -> { if
+		 * (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2)
+		 * { int index = tableBearbeiten.getSelectionModel().getSelectedIndex(); lief =
+		 * tableBearbeiten.getItems().get(index);
+		 * 
+		 * System.out.println(lief); }
+		 * 
+		 * });
+		 */
+		return lief;
 
 	}
 
@@ -134,16 +146,36 @@ public class LieferantController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		dbu = new DBUtil();
 		loadDatabaseData();
-
 		tableBearbeiten.setOnMouseClicked(event -> {
 			if (event.getClickCount() == 2) {
+				lief = tableBearbeiten.getSelectionModel().getSelectedItem();
+				controller.LieferantBearbeitenController lbc = new controller.LieferantBearbeitenController();
+				lbc.nameDisplay.setValue(lief.getName());
 				Main.set_pane(4);
-				//get clicked Item (Lieferant)
-				System.out.println(tableBearbeiten.getSelectionModel().getSelectedItem());
-
 			}
 		});
 	}
+	/*
+	 * .addListener(new ChangeListener<model.Lieferant.Lieferant>() {
+	 * 
+	 * @Override public void changed(ObservableValue<? extends
+	 * model.Lieferant.Lieferant> observable, model.Lieferant.Lieferant oldValue,
+	 * model.Lieferant.Lieferant newValue) {
+	 * controller.LieferantBearbeitenController lbc = new
+	 * controller.LieferantBearbeitenController();
+	 * 
+	 * lbc.nameDisplay.set(lief.getName()); Main.set_pane(4);
+	 * 
+	 * } });
+	 */
+
+	/*
+	 * tableBearbeiten.setOnMouseClicked(event -> { if (event.getClickCount() == 2)
+	 * { Main.set_pane(4); // get clicked Item (Lieferant)
+	 * System.out.println(tableBearbeiten.getSelectionModel().getSelectedItem());
+	 * 
+	 * } });
+	 */
 
 	public void loadDatabaseData() {
 		String query = "SELECT * FROM Lieferant";
@@ -152,11 +184,11 @@ public class LieferantController implements Initializable {
 			rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				model.Lieferant.Lieferant l1 = new model.Lieferant.Lieferant(
+				lief = new model.Lieferant.Lieferant(
 						rs.getInt("ID"), rs.getString("Name"), new Adresse(rs.getString("Adresse"),
 								rs.getString("Stadt"), rs.getInt("PLZ"), rs.getString("Land").toString()),
 						rs.getString("Typ"), rs.getTimestamp("Timestamp"));
-				oblist.add(l1);
+				oblist.add(lief);
 			}
 			stmt.close();
 			rs.close();
@@ -170,6 +202,14 @@ public class LieferantController implements Initializable {
 		colTyp.setCellValueFactory(new PropertyValueFactory<>("typ"));
 		colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 		tableBearbeiten.setItems(oblist);
+	}
+
+	public model.Lieferant.Lieferant getLief() {
+		return lief;
+	}
+
+	public void setLief(model.Lieferant.Lieferant lief) {
+		this.lief = lief;
 	}
 
 }
