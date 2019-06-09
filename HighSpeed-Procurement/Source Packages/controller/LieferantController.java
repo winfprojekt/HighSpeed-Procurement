@@ -25,6 +25,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.Main;
+import model.Lieferant.Adresse;
+import model.Lieferant.Bankdaten;
+import model.Lieferant.Kontaktdaten;
+import model.Lieferant.Lieferant;
 import util.DBUtil;
 
 public class LieferantController implements Initializable {
@@ -116,13 +120,17 @@ public class LieferantController implements Initializable {
 		loadDatabaseData();
 	}
 	public void loadDatabaseData() {
-		String query = "SELECT * FROM USER_INFO";
+		String query = "SELECT * FROM Lieferant";
 		try {
 			stmt =connection.createStatement();
 			rs=stmt.executeQuery(query);
 			
 			while(rs.next()) {
-				oblist.add(new model.Lieferant.Lieferant(((Integer)rs.getInt(1)),rs.getString(2), rs.getString(3),rs.getString(4)));
+				/*oblist.add(new model.Lieferant.Lieferant(
+						new Adresse (rs.getString("ADRESSE"), rs.getString("STADT"), rs.getInt("PLZ"), rs.getString("LAND")),
+						new Kontaktdaten (rs.getString("EMAIL"),rs.getString("TELEFONNUMMER")),
+						new Bankdaten(rs.getString("BANK"),rs.getString("IBAN"), rs.getString("B/S"),rs.getInt("STEUERNUMMER")),
+						rs.getString("TYP")));*/
 			}
 			stmt.close();
 			rs.close();

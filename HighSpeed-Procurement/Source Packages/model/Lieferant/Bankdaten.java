@@ -1,6 +1,6 @@
 package model.Lieferant;
 
-class Bankdaten {
+public class Bankdaten {
 	private String bank;
 	private String iBAN;		
 	private String bicSwift;	

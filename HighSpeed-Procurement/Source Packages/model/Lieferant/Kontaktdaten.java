@@ -1,41 +1,38 @@
 package model.Lieferant;
-class Kontaktdaten {
+
+public class Kontaktdaten {
 	private String email;
-	private int telefonnummer;
-	
-	
-	//Konstruktor
-	public Kontaktdaten(String email, int telefonnummer) {
+	private String telefonnummer;
+
+	// Konstruktor
+	public Kontaktdaten(String email, String telefonnummer) {
 		super();
 		this.email = email;
 		this.telefonnummer = telefonnummer;
 	}
-	
 
-	//Getter
+	// Getter
 	public String getEmail() {
 		return email;
 	}
 
-	public int getTelefonnummer() {
+	public String getTelefonnummer() {
 		return telefonnummer;
 	}
 
-	//Setter
+	// Setter
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public void setTelefonnummer(int telefonnummer) {
+
+	public void setTelefonnummer(String telefonnummer) {
 		this.telefonnummer = telefonnummer;
 	}
 
-
-	//toString
+	// toString
 	@Override
 	public String toString() {
 		return "Kontaktdaten [email=" + email + ", telefonnummer=" + telefonnummer + "]";
-	}	
-	
+	}
 
 }

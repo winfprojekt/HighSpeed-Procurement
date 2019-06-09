@@ -75,7 +75,7 @@ public class DBUtil {
 		}
 	}
 	//Method for executing prepared INSERT,DELETE and UPDATE operations
-	public void dbExecutePreparedStatement(String preparedStmt) throws SQLException, ClassNotFoundException {
+	public void dbExecutePreparedStatement(String preparedStmt, Connection connection) throws SQLException, ClassNotFoundException {
 		PreparedStatement prepStmt = null;
 		if (connection != null) {
 			try {

@@ -8,10 +8,20 @@ public class Adresse {
 	private String land; 
 	
 	
-	//Konstruktor
+	//Konstruktor 0
 	public Adresse(String name, String strasseUndNummer, String stadt, int postleitzahl, String land) {
-		super();
+		
 		this.name = name;
+		this.strasseUndNummer = strasseUndNummer;
+		this.stadt = stadt;
+		this.postleitzahl = postleitzahl;
+		this.land = land;
+	}
+	
+
+	//Konstruktor 1
+	public Adresse(String strasseUndNummer, String stadt, int postleitzahl, String land) {
+		
 		this.strasseUndNummer = strasseUndNummer;
 		this.stadt = stadt;
 		this.postleitzahl = postleitzahl;
@@ -78,13 +88,18 @@ public class Adresse {
 	}
 
 
-	// toString
+	// toString 0
 	@Override
 	public String toString() {
+		return " " + strasseUndNummer + ", " + stadt + ", "
+				+ postleitzahl + " " + land + " ";
+		
+	}
+
+	//toString 1
+	public String toString1() {
 		return "Adresse [name=" + name + ", strasseUndNummer=" + strasseUndNummer + ", stadt=" + stadt + ", postleitzahl="
 				+ postleitzahl + ", land=" + land + "]";
 	}
-
-	
 	
 }

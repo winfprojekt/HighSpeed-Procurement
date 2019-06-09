@@ -3,8 +3,9 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -19,6 +20,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import main.Main;
+import model.Lieferant.Adresse;
 import util.DBUtil;
 
 public class HomeScreenController implements Initializable {
@@ -48,17 +50,17 @@ public class HomeScreenController implements Initializable {
 	@FXML
 	private TableColumn<model.Lieferant.Lieferant,String> colName;
 	@FXML
-	private TableColumn<model.Lieferant.Lieferant,String> colAddr;
+	private TableColumn<model.Lieferant.Lieferant,Adresse> colAddr;
 	@FXML
 	private TableColumn<model.Lieferant.Lieferant,String> colType;
 	@FXML
 	private TableColumn<model.Lieferant.Lieferant,Integer> colNum;
 	@FXML
-	private TableColumn<model.Lieferant.Lieferant,String> colDate;
+	private TableColumn<model.Lieferant.Lieferant,Timestamp> colDate;
 	
 	private ObservableList<model.Lieferant.Lieferant> oblist = FXCollections.observableArrayList();
 	private Connection connection = util.DBUtil.getConnection();
-	private Statement stmt = null;
+	private PreparedStatement stmt;
 	private ResultSet rs = null;
 	private DBUtil dbu;
 	
@@ -100,13 +102,19 @@ public class HomeScreenController implements Initializable {
 		loadDatabaseData();
 	}
 	public void loadDatabaseData() {
-		String query = "SELECT * FROM USER_INFO";
+		String query = "SELECT * FROM Lieferant";
 		try {
-			stmt =connection.createStatement();
+			stmt =connection.prepareStatement(query);
 			rs=stmt.executeQuery(query);
 			
 			while(rs.next()) {
-				oblist.add(new model.Lieferant.Lieferant(((Integer)rs.getInt(1)),rs.getString(2), rs.getString(3),rs.getString(4)));
+				model.Lieferant.Lieferant l1 = new model.Lieferant.Lieferant(
+						rs.getInt("ID"),
+						rs.getString("Name"),
+						new Adresse(rs.getString("Adresse"),rs.getString("Stadt"),rs.getInt("PLZ"),rs.getString("Land").toString()),
+						rs.getString("Typ"),
+						rs.getTimestamp("Timestamp"));
+				oblist.add(l1);
 			}
 			stmt.close();
 			rs.close();
@@ -114,11 +122,11 @@ public class HomeScreenController implements Initializable {
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
-		colNum.setCellValueFactory(new PropertyValueFactory<>("id"));
+		colNum.setCellValueFactory(new PropertyValueFactory<>("iD"));
 		colName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		colAddr.setCellValueFactory(new PropertyValueFactory<>("adresse"));
 		colType.setCellValueFactory(new PropertyValueFactory<>("typ"));
-		//colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+		colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 		tableLieferant.setItems(oblist);
 	}
 	
