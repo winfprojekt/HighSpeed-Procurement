@@ -117,11 +117,7 @@ private static Connection connection=null;
 		 		             return chassis;
 		 					
 		 					
-		 				}
-		 				
-		 				
-		 		
-		 			
+		 				}	
 		 			}
 		 			
 		 			}catch(SQLException e) {
