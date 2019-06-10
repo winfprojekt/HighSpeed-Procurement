@@ -26,9 +26,7 @@
     -fx-scale-y: 0.8;
     -fx-scale-x: 0.8;
     }
-    #buttonTest:hover {
-    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
-}
+
 #btnLief{
 	-fx-background-color:transparent ;
 	-fx-background-radius:0.0;
@@ -160,12 +158,18 @@
     -fx-background-color: linear-gradient(#61a2b1, #2A5058);
     -fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.6) , 5.0, 0.0 , 0.0 , 1.0 );
 }
+#btnCreate:hover{
+	 -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
 #btnDelete{
 	-fx-text-fill: white;
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
     -fx-background-color: linear-gradient(#61a2b1, #2A5058);
     -fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.6) , 5.0, 0.0 , 0.0 , 1.0 );
+}
+#btnDelete:hover{
+	 -fx-background-color: linear-gradient(#2A5058, #61a2b1);
 }
 #btnSpeichern{
 	-fx-text-fill: white;
@@ -174,10 +178,16 @@
     -fx-background-color: linear-gradient(#61a2b1, #2A5058);
     -fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.6) , 5.0, 0.0 , 0.0 , 1.0 );
 }
+#btnSpeichern:hover{
+	 -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
 #btnAbbrechen{
 	-fx-text-fill: white;
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
     -fx-background-color: linear-gradient(#61a2b1, #2A5058);
     -fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.6) , 5.0, 0.0 , 0.0 , 1.0 );
+}
+#btnAbbrechen:hover{
+	 -fx-background-color: linear-gradient(#2A5058, #61a2b1);
 }

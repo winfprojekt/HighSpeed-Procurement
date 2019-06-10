@@ -13,11 +13,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.*?>
 
-
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="710.0" minWidth="1180.0" styleClass="root" stylesheets="@../resources/Produktportfolio.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProduktportfolioController">
 	<children>
 		<Separator layoutY="99.0" prefHeight="3.0" prefWidth="1307.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-10.0" />
-		<Button fx:id="btnHeader" alignment="CENTER" contentDisplay="CENTER" layoutX="85.0" layoutY="28.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="312.0" text="HighSpeed-Procurement" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="793.0" AnchorPane.topAnchor="28.0" />
+		<Button fx:id="btnHeader" alignment="CENTER" contentDisplay="CENTER" layoutX="85.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleHomeButton" prefHeight="48.0" prefWidth="312.0" text="HighSpeed-Procurement" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="793.0" AnchorPane.topAnchor="28.0" />
 		<Label alignment="CENTER" layoutX="795.0" layoutY="39.0" text="Angemeldet als: " AnchorPane.leftAnchor="795.0" AnchorPane.topAnchor="39.0" />
 		<ImageView fitHeight="65.0" fitWidth="70.0" layoutX="20.0" layoutY="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1095.0" AnchorPane.topAnchor="20.0">
 			<image>
@@ -25,24 +24,24 @@
 			</image>
 		</ImageView>
 		<Text fx:id="userMailLogged" layoutX="958.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="214.205078125" AnchorPane.leftAnchor="958.0" AnchorPane.topAnchor="39.576171875" />
-		<Button fx:id="btnBest" alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="117.0" mnemonicParsing="false" onAction="#handleBestButton" prefHeight="39.0" prefWidth="110.0" text="Bestellung" AnchorPane.leftAnchor="231.0" AnchorPane.rightAnchor="839.0" AnchorPane.topAnchor="117.0">
+		<Button fx:id="btnBest" alignment="CENTER" contentDisplay="CENTER" layoutX="262.0" layoutY="117.0" mnemonicParsing="false" onAction="#handleBestButton" text="Bestellung" AnchorPane.leftAnchor="262.0" AnchorPane.rightAnchor="818.0" AnchorPane.topAnchor="117.0">
 			<font>
 				<Font size="14.0" />
 			</font>
 		</Button>
-		<Button fx:id="btnPortfolio" alignment="CENTER" contentDisplay="CENTER" layoutX="359.0" layoutY="117.0" mnemonicParsing="false" onAction="#handleProduktButton" prefHeight="39.0" prefWidth="198.0" text="Produktportfolio" AnchorPane.leftAnchor="359.0" AnchorPane.rightAnchor="633.0" AnchorPane.topAnchor="117.0">
+		<Button fx:id="btnPortfolio" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="410.0" layoutY="117.0" mnemonicParsing="false" onAction="#handleProduktButton" text="Produktportfolio" AnchorPane.leftAnchor="410.0" AnchorPane.rightAnchor="592.0" AnchorPane.topAnchor="117.0">
 			<font>
 				<Font size="14.0" />
 			</font>
 		</Button>
-		<Button fx:id="btnHilfe" contentDisplay="TEXT_ONLY" layoutX="575.0" layoutY="120.0" mnemonicParsing="false" onAction="#handleHilfeButton" prefHeight="14.0" prefWidth="100.0" text="Hilfe" AnchorPane.leftAnchor="575.0" AnchorPane.rightAnchor="515.0" AnchorPane.topAnchor="120.0">
+		<Button fx:id="btnHilfe" contentDisplay="TEXT_ONLY" layoutX="665.0" layoutY="116.0" mnemonicParsing="false" onAction="#handleHilfeButton" text="Hilfe" AnchorPane.leftAnchor="665.0" AnchorPane.rightAnchor="445.0" AnchorPane.topAnchor="116.0">
 			<font>
 				<Font size="14.0" />
 			</font>
 		</Button>
-		<Button fx:id="btnHome" layoutX="15.0" layoutY="111.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="69.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="1106.0" AnchorPane.topAnchor="111.0">
+		<Button fx:id="btnHome" layoutX="2.0" layoutY="113.0" mnemonicParsing="false" onAction="#handleHomeButton" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="1139.0" AnchorPane.topAnchor="116.0">
 		</Button>
-		<Button fx:id="btnLogout" contentDisplay="RIGHT" layoutX="968.0" layoutY="113.0" mnemonicParsing="false" onAction="#handleAbmeldenButton" prefHeight="48.0" prefWidth="161.0" text="Abmelden" AnchorPane.leftAnchor="968.0" AnchorPane.rightAnchor="71.0">
+		<Button fx:id="btnLogout" contentDisplay="RIGHT" layoutX="968.0" layoutY="113.0" mnemonicParsing="false" onAction="#handleAbmeldenButton" text="Abmelden" AnchorPane.leftAnchor="968.0" AnchorPane.rightAnchor="71.0">
 			<graphic>
 				<ImageView fitHeight="43.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
 					<image>
@@ -51,7 +50,7 @@
 				</ImageView>
 			</graphic>
 		</Button>
-		<Button fx:id="btnLief" layoutX="94.0" layoutY="120.0" mnemonicParsing="false" onAction="#handleLiefButtonAction" prefHeight="33.0" prefWidth="110.0" text="Lieferant" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="976.0" AnchorPane.topAnchor="120.0">
+		<Button fx:id="btnLief" layoutX="103.0" layoutY="116.0" mnemonicParsing="false" onAction="#handleLiefButtonAction" text="Lieferant" AnchorPane.leftAnchor="103.0" AnchorPane.rightAnchor="987.0" AnchorPane.topAnchor="116.0">
 		</Button>
       <Label fx:id="lblLiefOverview" layoutX="15.0" layoutY="161.0" prefHeight="24.0" prefWidth="167.0" text="Lieferantenübersicht" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="998.0" AnchorPane.topAnchor="161.0" />
       <TableView fx:id="tableLiefOverview" layoutX="15.0" layoutY="199.0" prefHeight="156.0" prefWidth="576.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="199.0">
@@ -77,10 +76,10 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label fx:id="lblLiefID" layoutX="20.0" layoutY="373.0" text="Lieferanten-ID:" AnchorPane.leftAnchor="20.0" />
-      <Label fx:id="lblProdID" layoutX="17.0" layoutY="669.0" text="Produkt-ID:" AnchorPane.leftAnchor="17.0" />
-      <TextField fx:id="liefID" layoutX="135.0" layoutY="364.0" AnchorPane.leftAnchor="135.0" />
-      <TextField fx:id="prodID" layoutX="119.0" layoutY="660.0" AnchorPane.leftAnchor="119.0" />
+      <Label fx:id="lblLiefID" layoutX="20.0" layoutY="370.0" text="Lieferanten-ID:" AnchorPane.leftAnchor="20.0" />
+      <Label fx:id="lblProdID" layoutX="17.0" layoutY="667.0" text="Produkt-ID:" AnchorPane.leftAnchor="17.0" />
+      <TextField fx:id="liefID" editable="false" layoutX="135.0" layoutY="364.0" AnchorPane.leftAnchor="135.0" />
+      <TextField fx:id="prodID" editable="false" layoutX="133.0" layoutY="658.0" AnchorPane.leftAnchor="133.0" />
       <Button fx:id="btnCreate" layoutX="950.0" layoutY="377.0" mnemonicParsing="false" text="Angebot erstellen" AnchorPane.leftAnchor="950.0" />
       <Label fx:id="lblAngebote" layoutX="689.0" layoutY="163.0" text="Angebote" AnchorPane.leftAnchor="689.0" AnchorPane.topAnchor="163.0" />
       <TableView fx:id="tableAngOverview" layoutX="689.0" layoutY="199.0" prefHeight="156.0" prefWidth="576.0" AnchorPane.leftAnchor="689.0" AnchorPane.topAnchor="199.0">

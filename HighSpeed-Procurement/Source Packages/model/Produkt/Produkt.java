@@ -16,7 +16,7 @@ private int iD;
 private String typ;
 private String name;
 private String hersteller;
-private static final TextField [] Textfelder = {/*Textfelder Einfügen*/};
+private static final TextField [] Textfelder = {/*Textfelder Einfï¿½gen*/};
 private static Connection connection=null;
 
 
@@ -65,7 +65,7 @@ private static Connection connection=null;
 	}
 	
 	public Produkt readOne(int iD) {
-		//Ein Produkt aus der Datenbank einlesen und zurückgeben
+		//Ein Produkt aus der Datenbank einlesen und zurï¿½ckgeben
 		
 		 		//Ein Produkt aus der DB abfragen
 		 		try{
@@ -136,7 +136,7 @@ private static Connection connection=null;
 	}
 	
 	public ArrayList<Produkt> readAll(){
-		//Alle Produkte aus der Datenbank einlesen und zurückgeben
+		//Alle Produkte aus der Datenbank einlesen und zurï¿½ckgeben
 
 		try {
 			// Alle Produkte aus der Datenbank abfragen
@@ -208,16 +208,16 @@ private static Connection connection=null;
 	
 	public void writeOne() {
 		//Auf dem Layer ein Produkt darstellen
-		System.out.println("Methode wurde nicht korrekt überschrieben!");
+		System.out.println("Methode wurde nicht korrekt ï¿½berschrieben!");
 
-		//leer, zum überschreiben gedacht
+		//leer, zum ï¿½berschreiben gedacht
 
 			
 	}
 	
 	public void writeAll(ArrayList<Produkt> produkte) {
 		//Auf der Tabelle auf dem Layer alle Produkte darstellen
-		//vlt zum überschreiben gedacht ?
+		//vlt zum ï¿½berschreiben gedacht ?
 	}
 	
 	public void create() {
@@ -225,7 +225,7 @@ private static Connection connection=null;
 		
 		//uberprufenfen ob readOneLayer() Daten erheben konnte				
 		if (!(this == null)) {
-			//string für die Datenbank bauen
+			//string fï¿½r die Datenbank bauen
 			String string =this.objectToString();		
 
 					try {
@@ -255,7 +255,7 @@ private static Connection connection=null;
 		
 		// uberprufen ob readOneLayer() Daten erheben konnte
 				if (!(this == null)) {
-					//string für die Datenbank bauen
+					//string fï¿½r die Datenbank bauen
 					String string =this.objectToString();
 
 					try {
@@ -282,15 +282,15 @@ private static Connection connection=null;
 	}
 	
 	public String objectToString() {
-		System.out.println("Methode wurde nicht korrekt überschrieben!");
+		System.out.println("Methode wurde nicht korrekt ï¿½berschrieben!");
 		return null;
-		//leer , zum Überschreiben gedacht
+		//leer , zum ï¿½berschreiben gedacht
 	}
 	
 	
 	public Produkt readLayer() {
-		System.out.println("Methode wurde nicht korrekt überschrieben!");
-		//leer , zum Überschreiben gedacht
+		System.out.println("Methode wurde nicht korrekt ï¿½berschrieben!");
+		//leer , zum ï¿½berschreiben gedacht
 		return null;
 		
 	}

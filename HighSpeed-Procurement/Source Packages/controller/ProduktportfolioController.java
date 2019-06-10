@@ -104,6 +104,11 @@ public class ProduktportfolioController implements Initializable {
 	private PreparedStatement stmt;
 	private ResultSet rs = null;
 	private DBUtil dbu;
+	
+	@FXML
+	public void handleHomeButton(ActionEvent event) throws IOException {
+		Main.set_pane(1);
+	}
 
 	@FXML
 	private void handleLiefButtonAction(ActionEvent event) {

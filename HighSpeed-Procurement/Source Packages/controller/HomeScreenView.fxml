@@ -37,7 +37,7 @@
 				<Font size="14.0" />
 			</font>
 		</Button>
-		<Button fx:id="btnHome" layoutX="24.0" layoutY="144.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="84.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="1202.0">
+		<Button fx:id="btnHome" disable="true" layoutX="24.0" layoutY="144.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="84.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="1202.0">
 		</Button>
 		<Button fx:id="btnLogout" contentDisplay="RIGHT" layoutX="1078.0" layoutY="151.0" mnemonicParsing="false" onAction="#handleAbmeldenButton" prefHeight="33.0" prefWidth="190.0" text="Abmelden" AnchorPane.leftAnchor="1078.0" AnchorPane.rightAnchor="42.0">
 			<graphic>

@@ -143,10 +143,11 @@ public class LieferantController implements Initializable {
 		loadDatabaseData();
 		tableBearbeiten.setOnMouseClicked(event -> {
 			if (event.getClickCount() == 2) {
+				Main.set_pane(4);
 				lief = tableBearbeiten.getSelectionModel().getSelectedItem();
 				controller.LieferantBearbeitenController lbc = new controller.LieferantBearbeitenController();
 				lbc.nameDisplay.set(lief.getName());
-				Main.set_pane(4);
+				
 			}
 		});
 	}

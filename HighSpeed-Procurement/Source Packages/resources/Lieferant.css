@@ -54,7 +54,7 @@
 #btnLief{
 	-fx-background-color:transparent ;
 	-fx-background-radius:0.0;
-    -fx-text-fill: linear-gradient(#61a2b1, #2A5058);
+    -fx-text-fill: black;
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
     -fx-font-size: 18.0px;
