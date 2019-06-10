@@ -5,9 +5,12 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +22,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import main.Main;
@@ -145,7 +150,7 @@ public class LieferantController implements Initializable {
 			if (event.getClickCount() == 2) {
 				lief = tableBearbeiten.getSelectionModel().getSelectedItem();
 				controller.LieferantBearbeitenController lbc = new controller.LieferantBearbeitenController();
-				lbc.nameDisplay.set(lief.getName());
+				lbc.nameDisplay.setValue(lief.getName());
 				Main.set_pane(4);
 			}
 		});
