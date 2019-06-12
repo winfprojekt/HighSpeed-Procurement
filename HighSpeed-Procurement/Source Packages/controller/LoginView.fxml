@@ -19,112 +19,66 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
+ <?import javafx.scene.control.Tooltip?>
 
-<AnchorPane styleClass="root"
-	stylesheets="@../resources/Login.css"
-	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="controller.LoginController">
+<AnchorPane styleClass="root" stylesheets="@../resources/Login.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
 	<children>
-		<GridPane layoutY="6.0" AnchorPane.bottomAnchor="0.0"
-			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-			AnchorPane.topAnchor="6.0">
+		<GridPane alignment="CENTER" layoutY="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<columnConstraints>
-				<ColumnConstraints hgrow="SOMETIMES"
-					minWidth="10.0" />
-				<ColumnConstraints hgrow="SOMETIMES"
-					minWidth="10.0" />
-				<ColumnConstraints hgrow="SOMETIMES"
-					minWidth="0.0" />
-				<ColumnConstraints hgrow="SOMETIMES"
-					minWidth="10.0" prefWidth="100.0" />
+				<ColumnConstraints minWidth="10.0" />
+				<ColumnConstraints minWidth="10.0" />
+				<ColumnConstraints minWidth="0.0" />
+				<ColumnConstraints minWidth="10.0" prefWidth="100.0" />
 			</columnConstraints>
 			<rowConstraints>
-				<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" prefHeight="30.0"
-					vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" prefHeight="30.0"
-					vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" prefHeight="30.0"
-					vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" prefHeight="30.0"
-					vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="10.0" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" />
+				<RowConstraints minHeight="10.0" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" />
+				<RowConstraints minHeight="10.0" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" />
+				<RowConstraints minHeight="10.0" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" />
+				<RowConstraints minHeight="10.0" />
+				<RowConstraints minHeight="10.0" />
 			</rowConstraints>
 			<children>
 
 
-				<Label fx:id="lblUsername" id="username" alignment="CENTER"
-					layoutY="75.0" text="Username:" GridPane.columnSpan="2"
-					GridPane.hgrow="ALWAYS" GridPane.rowIndex="2"
-					GridPane.vgrow="ALWAYS" />
-				<Label fx:id="lblPwd" id="passwort" alignment="CENTER"
-					layoutY="124.0" text="Passwort:"
-					AnchorPane.bottomAnchor="189.517578125" AnchorPane.leftAnchor="0.0"
-					AnchorPane.rightAnchor="377.0" AnchorPane.topAnchor="124.0"
-					GridPane.columnSpan="2" GridPane.hgrow="ALWAYS"
-					GridPane.rowIndex="4" GridPane.vgrow="ALWAYS" />
+				<Label id="username" fx:id="lblUsername" alignment="CENTER" contentDisplay="RIGHT" layoutY="75.0" text="Username:" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+				<Label id="passwort" fx:id="lblPwd" alignment="CENTER" layoutY="124.0" text="Passwort:" AnchorPane.bottomAnchor="189.517578125" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="377.0" AnchorPane.topAnchor="124.0" GridPane.columnSpan="2" GridPane.rowIndex="4" />
 
 
-				<TextField fx:id="usernameTextbox" layoutX="109.0"
-					layoutY="69.0" onMouseClicked="#resetSubmitButtonAction"
-					AnchorPane.bottomAnchor="222.517578125" AnchorPane.topAnchor="69.0"
-					GridPane.columnIndex="2" GridPane.hgrow="ALWAYS"
-					GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
+				<TextField fx:id="usernameTextbox" layoutX="109.0" layoutY="69.0" onMouseClicked="#resetSubmitButtonAction" AnchorPane.bottomAnchor="222.517578125" AnchorPane.topAnchor="69.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
 
-				<PasswordField fx:id="passwordField" layoutX="109.0"
-					layoutY="118.0" onMouseClicked="#resetSubmitButtonAction"
-					AnchorPane.bottomAnchor="173.517578125"
-					AnchorPane.topAnchor="118.0" GridPane.columnIndex="2"
-					GridPane.hgrow="ALWAYS" GridPane.rowIndex="4"
-					GridPane.vgrow="ALWAYS" />
+				<PasswordField fx:id="passwordField" layoutX="109.0" layoutY="118.0" onMouseClicked="#resetSubmitButtonAction" AnchorPane.bottomAnchor="173.517578125" AnchorPane.topAnchor="118.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS"> 
+
+				</PasswordField>
 
 
-				<Button fx:id="btnSubmit" alignment="CENTER_RIGHT"
-					onAction="#handleSubmitButtonAction" text="Sign In"
-					textAlignment="CENTER" GridPane.columnIndex="2"
-					GridPane.hgrow="ALWAYS" GridPane.rowIndex="6"
-					GridPane.vgrow="ALWAYS" />
-				<ImageView id="hpLogo" fitHeight="63.0" fitWidth="75.0"
-					layoutX="9.0" layoutY="6.0" pickOnBounds="true"
-					preserveRatio="true" AnchorPane.bottomAnchor="276.6315040588379"
-					AnchorPane.topAnchor="6.0" GridPane.hgrow="ALWAYS"
-					GridPane.vgrow="ALWAYS">
+				<Button fx:id="btnSubmit" alignment="CENTER_RIGHT" onAction="#handleSubmitButtonAction" text="Anmelden" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+				<ImageView id="hpLogo" fitHeight="63.0" fitWidth="75.0" layoutX="9.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="276.6315040588379" AnchorPane.topAnchor="6.0">
 					<image>
 						<Image url="@/resources/truck.png" />
 					</image>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
 				</ImageView>
 
 
-				<Hyperlink id="neusBenutzerkonto" layoutX="109.0"
-					layoutY="281.0" text="Neues Benutzerkonto beantragen"
-					AnchorPane.bottomAnchor="14.517578125" AnchorPane.topAnchor="281.0"
-					GridPane.columnIndex="2" GridPane.hgrow="ALWAYS"
-					GridPane.rowIndex="9" GridPane.vgrow="ALWAYS" />
+				<Hyperlink id="neusBenutzerkonto" layoutX="109.0" layoutY="281.0" text="Neues Benutzerkonto beantragen" AnchorPane.bottomAnchor="14.517578125" AnchorPane.topAnchor="281.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
 
-				<Text fx:id="actiontarget" layoutX="109.0"
-					layoutY="306.576171875" GridPane.columnIndex="2"
-					GridPane.hgrow="ALWAYS" GridPane.rowIndex="7"
-					GridPane.vgrow="ALWAYS" />
-				<Hyperlink id="pwdvergessen" layoutX="109.0"
-					layoutY="236.0" text="Passwort vergessen?"
-					AnchorPane.bottomAnchor="59.517578125" AnchorPane.topAnchor="236.0"
-					GridPane.columnIndex="2" GridPane.hgrow="ALWAYS"
-					GridPane.rowIndex="8" GridPane.vgrow="ALWAYS" />
+				<Text fx:id="actiontarget" layoutX="109.0" layoutY="306.576171875" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" GridPane.vgrow="ALWAYS" />
+				<Hyperlink id="pwdvergessen" layoutX="109.0" layoutY="236.0" text="Passwort vergessen?" AnchorPane.bottomAnchor="59.517578125" AnchorPane.topAnchor="236.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
 
-				<Text fx:id="actiontarget2" layoutX="109.0"
-					layoutY="306.576171875" GridPane.columnIndex="2"
-					GridPane.hgrow="ALWAYS" GridPane.rowIndex="7"
-					GridPane.vgrow="ALWAYS" />
+				<Text fx:id="actiontarget2" layoutX="109.0" layoutY="306.576171875" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" GridPane.vgrow="ALWAYS" />
 
-				<Text fx:id="welcome"
-					text="Willkommen im HighSpeed-Procurement!" textAlignment="CENTER"
-					wrappingWidth="316.376953125" GridPane.columnIndex="2"
-					GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+				<Text fx:id="welcome" text="Willkommen im HighSpeed-Procurement!" textAlignment="CENTER" wrappingWidth="316.376953125" GridPane.columnIndex="2" />
 			</children>
 		</GridPane>
 	</children>
+   <padding>
+      <Insets left="10.0" />
+   </padding>
 </AnchorPane>

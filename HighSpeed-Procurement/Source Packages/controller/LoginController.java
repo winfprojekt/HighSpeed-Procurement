@@ -12,10 +12,12 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -51,26 +53,14 @@ public class LoginController implements Initializable {
 	private DBUtil dbu;
 	private String nameRs;
 	private String check;
-	/*
-	 * @FXML protected void handleSubmitButtonAction(ActionEvent event) {
-	 * 
-	 * 
-	 * if (!passwordField.getText().equals("admin") ||
-	 * !usernameTextbox.getText().equals("admin")) {
-	 * actiontarget.setText("Failed to Authenticate"); } else
-	 * actiontarget2.setText("Success!");
-	 * 
-	 * 
-	 * }
-	 */
 
+	// btnSubmit.defaultButtonProperty().bind(btnSubmit.focusedProperty());
 	@FXML
 	private void handleSubmitButtonAction(ActionEvent event) throws IOException, NoSuchAlgorithmException {
 
 		PW_Encryption pw = new PW_Encryption(passwordField.getText());
 
-		String query = "SELECT password FROM USER_INFO WHERE name = '" + usernameTextbox.getText() + "' ";
-		// String query = "SELECT * FROM USER_INFO";
+		String query = "SELECT password FROM USER_INFO WHERE email = '" + usernameTextbox.getText() + "' ";
 
 		try {
 			stmt = connection.prepareStatement(query);
@@ -144,8 +134,16 @@ public class LoginController implements Initializable {
 		}
 	}
 
+	public static void setTooltip(Tooltip tooltip, Node node) {
+		Tooltip.install(node, tooltip);
+	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		passwordField.setTooltip(new Tooltip("Bitte geben Sie Ihr Passwort ein."));
+		usernameTextbox.setTooltip(new Tooltip("Bitte geben Sie Ihre E-Mail Adresse ein."));
+		lblUsername.setTooltip(new Tooltip("Bitte geben Sie Ihre E-Mail Adresse ein."));
+		lblPwd.setTooltip(new Tooltip("Bitte geben Sie Ihr Passwort ein."));
 		dbu = new DBUtil();
 		loadDatabaseData();
 

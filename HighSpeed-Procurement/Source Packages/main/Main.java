@@ -1,5 +1,6 @@
 package main;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Security.PW_Encryption;
 
 public class Main extends Application {
 	static AnchorPane root;
@@ -42,7 +45,7 @@ public class Main extends Application {
 			//idx=7
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/HilfeView.fxml")));
 			root.getChildren().add(anchor.get(0));
-			Scene scene = new Scene(root, 400, 330);
+			Scene scene = new Scene(root, 430, 330);
 			scene.getStylesheets().add(getClass().getResource("/resources/Login.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("HighSpeed-Procurement");
@@ -90,10 +93,10 @@ public class Main extends Application {
 		
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NoSuchAlgorithmException {
 		// create an Object from DBUtil-class
 		util.DBUtil db = new util.DBUtil();
-		// connect to the database "aj9s-einkauf"
+		// connect to the database "aj9s-einkauf"ferrefe
 		try {
 			db.connectToMysql("193.196.143.168", "aj9s-einkauf", "aj9s-einkauf", "DYUcen7KXKo3dPzt", "UTC");
 		} catch (ClassNotFoundException | SQLException e) {

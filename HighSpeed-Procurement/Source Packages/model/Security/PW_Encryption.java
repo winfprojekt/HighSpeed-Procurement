@@ -15,10 +15,6 @@ public class PW_Encryption {
 		Initialize(data);
 	}
 
-	public static void main(String[] args) {
-
-	}
-
 	private void Initialize(String data) throws NoSuchAlgorithmException {
 		String pw = data;
 		String algorithm = "SHA-256";
