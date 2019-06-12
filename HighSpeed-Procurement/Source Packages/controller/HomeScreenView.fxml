@@ -14,7 +14,7 @@
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="710.0" minWidth="1310.0" styleClass="root" stylesheets="@../resources/homeScreen.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeScreenController">
 	<children>
 		<Separator layoutY="130.0" prefHeight="0.0" prefWidth="1310.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-		<Button fx:id="btnHeader" alignment="CENTER" contentDisplay="CENTER" layoutX="108.0" layoutY="50.0" mnemonicParsing="false" text="HighSpeed-Procurement" AnchorPane.leftAnchor="108.0" AnchorPane.rightAnchor="722.0" />
+		<Button fx:id="btnHeader" alignment="CENTER" contentDisplay="CENTER" layoutX="89.0" layoutY="55.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="404.0" text="HighSpeed-Procurement" AnchorPane.leftAnchor="89.0" AnchorPane.rightAnchor="817.0" />
 		<Label alignment="CENTER" layoutX="727.0" layoutY="65.0" text="Angemeldet als: " AnchorPane.leftAnchor="727.0" AnchorPane.rightAnchor="240.0" />
 		<ImageView fitHeight="65.0" fitWidth="70.0" layoutX="24.0" layoutY="46.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="1022.0">
 			<image>
