@@ -1,19 +1,19 @@
-/*package model.Bestellung;
-import Lieferant.Kontaktdaten.email;
-import Teilbestellung.iD;
+package model.Bestellung;
+
 
 class Mail {
-	private String Text;
-	private model.Bestellung.iD bestellungsID;
-	private User.email absender;
-	private Lieferant.Kontaktdaten.email empf�nger;
+	private String Text; //Inhalt
+	private int bestellungsID;
+	private String absender; //Mail adresse
+	private String empfanger; //Mail adresse
 	
 	//Konstruktor
-	public Mail(String text, iD bestellungsID, email empf�nger) {
+	public Mail(String text, int bestellungsID,String absender, String empfanger) {
 		super();
 		Text = text;
 		this.bestellungsID = bestellungsID;
-		this.empf�nger = empf�nger;
+		this.empfanger = empfanger;
+		this.absender=absender;
 	}
 	
 	//Getter+Setter
@@ -23,23 +23,23 @@ class Mail {
 	public void setText(String text) {
 		Text = text;
 	}
-	public model.Bestellung.iD getBestellungsID() {
+	public int getBestellungsID() {
 		return bestellungsID;
 	}
-	public void setBestellungsID(Teilbestellung.iD bestellungsID) {
+	public void setBestellungsID(int bestellungsID) {
 		this.bestellungsID = bestellungsID;
 	}
-	public User.email getAbsender() {
+	public String getAbsender() {
 		return absender;
 	}
-	public void setAbsender(User.email absender) {
+	public void setAbsender(String absender) {
 		this.absender = absender;
 	}
-	public Lieferant.Kontaktdaten.email getEmpf�nger() {
-		return empf�nger;
+	public String getEmpfanger() {
+		return empfanger;
 	}
-	public void setEmpf�nger(Lieferant.Kontaktdaten.email empf�nger) {
-		this.empf�nger = empf�nger;
+	public void setEmpfanger(String empfanger) {
+		this.empfanger = empfanger;
 	}
 	
 	//zus�tzliche Logik
@@ -48,7 +48,8 @@ class Mail {
 		//Den Email String in einer daf�r vorhergesehenen Box ausgeben
 	}
 	
-	public Mail readUpdated() {
+	public String readUpdated() {
+		return null;
 		//Den �berarbeiteten String wieder einlesen
 	}
 	
@@ -58,6 +59,3 @@ class Mail {
 
 }
 
-
-
-*/

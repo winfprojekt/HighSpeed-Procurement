@@ -1,9 +1,5 @@
 
-/**
- * @author Gruppe 2
- * 
- *
- */
+
 package model.Lieferant;
 
 import java.sql.Connection;
@@ -17,7 +13,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ChoiceBox;
+import model.Lieferant.Adresse;
+import model.Lieferant.Bankdaten;
+import model.Lieferant.Kontaktdaten;
+
+//import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
@@ -39,19 +39,22 @@ public class Lieferant {
 	private String typ;
 	private Timestamp date;
 
-	private static final TextField[] Textfelder = null;// =
-														// {LieferantController.textfieldName,textfieldAddr,textfieldStadt,textFieldPLZ,
-	// textfieldMail,textfieldTelnum,textfieldBank,textfieldIBAN,textfieldSWIFT,textfieldSteuer};
+	private static Connection connection = util.DBUtil.getConnection();
+	
+	//In Kontroller Definiert:
+	/*private static final TextField[] Textfelder = new Textfield[]{LieferantController.textfieldName,textfieldAddr,textfieldStadt,textFieldPLZ,
+	textfieldMail,textfieldTelnum,textfieldBank,textfieldIBAN,textfieldSWIFT,textfieldSteuer};
 	private static final ChoiceBox<String>[] Choiceboxen = null;;// = {choiceboxLand,choiceboxLTyp};
-	private static Connection connection = null;
-	private static final TableView<Lieferant> table = null;
+
+	public static final TableView<Lieferant> table = null;
+	*/
 
 	// leeres Konstruktor
 	public Lieferant() {
 
 	}
 
-	// Konstruktor 0 - Lieferant verkuerzt
+	// Konstruktor 0 - Lieferant verkuerzt(Für Tabellendarstellung)
 	public Lieferant(int id, String name, Adresse adresse, String typ, Timestamp date) {
 		this.iD = id;
 		this.name = name;
@@ -138,7 +141,7 @@ public class Lieferant {
 
 	// Lieferanten-Funktionen
 
-	public ArrayList<Lieferant> readAll() {
+	public static ArrayList<Lieferant> readAll() {
 		// Alle Lieferanten aus der Datenbank auslesen
 
 		try {
@@ -146,7 +149,7 @@ public class Lieferant {
 
 			ArrayList<Lieferant> alleLieferanten = new ArrayList<Lieferant>();
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Lieferant");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM LIEFERANTEN");
 			while (rs.next()) {
 				// 1 Lieferant bauen
 				/*
@@ -186,7 +189,7 @@ public class Lieferant {
 		return null;
 	}
 
-	public Lieferant readOne(int iD) {
+	public static Lieferant readOne(int iD) {
 		// Einen Lieferant aus der Datenbank auslesen
 
 		// Einen Lieferant aus der DB abfragen
@@ -227,13 +230,13 @@ public class Lieferant {
 		return null;
 	}
 
-	private void grammatik() {
+	/*private void grammatik() {
 		// Genaue ï¿½berprï¿½fung Bei genug zeit implementieren
 		// Genaue exceptions werfen die einen Fehlertext enthalten (je nach Fehler und
 		// Feld)
-	}
+	}*/
 
-	public Lieferant readOneLayer() {
+	public static Lieferant readLayer(TextField[] textfelder) {
 
 		// vom Layer 1 Lieferant einlesen
 
@@ -248,22 +251,23 @@ public class Lieferant {
 
 		// Felder casten und Objekte bauen
 		try {
-			Adresse adresse = new Adresse(Textfelder[0].getText(), Textfelder[1].getText(), Textfelder[2].getText(),
-					Integer.parseInt(Textfelder[3].getText()),
-					(String) Choiceboxen[0].getSelectionModel().getSelectedItem());
+			Adresse adresse = new Adresse(textfelder[0].getText(), textfelder[1].getText(), textfelder[2].getText(),
+					Integer.parseInt(textfelder[3].getText()),textfelder[10].getText());
+					//(String) Choiceboxen[0].getSelectionModel().getSelectedItem()
 
-			Kontaktdaten kontaktdaten = new Kontaktdaten(Textfelder[4].getText(), Textfelder[5].getText());
-			Bankdaten bankdaten = new Bankdaten(Textfelder[6].getText(), Textfelder[7].getText(),
-					Textfelder[8].getText(), Integer.parseInt(Textfelder[9].getText()));
+			Kontaktdaten kontaktdaten = new Kontaktdaten(textfelder[4].getText(), textfelder[5].getText());
+			Bankdaten bankdaten = new Bankdaten(textfelder[6].getText(), textfelder[7].getText(),
+					textfelder[8].getText(), Integer.parseInt(textfelder[9].getText()));
 
-			String typ = (String) Choiceboxen[1].getSelectionModel().getSelectedItem();
+			String typ = textfelder[11].getText();
+			//String typ = (String) Choiceboxen[1].getSelectionModel().getSelectedItem();
 			Lieferant lieferant = new Lieferant(adresse, kontaktdaten, bankdaten, typ);
 
 			return lieferant;
 		} catch (Exception e) {
 			// Generelle Fehlermeldung "Falscher Datentyp!" in einem Dialog auf FX
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error Dialog: Lieferant.readOneLayer()");
+			alert.setTitle("Error Dialog: Lieferant.readLayer()");
 			alert.setHeaderText("Folgender Fehler ist aufgetreten:");
 			alert.setContentText("Falscher Datentyp! Bitte ï¿½berprï¿½fen sie ihre Eingaben!");
 
@@ -271,7 +275,7 @@ public class Lieferant {
 		return null;
 	}
 
-	public void writeAll(ArrayList<Lieferant> alleLieferanten) {
+	public static void writeAll(ArrayList<Lieferant> alleLieferanten,TableView<Lieferant> table) {
 		// Alle Lieferanten auf Layer ausgeben
 
 		// Tabellengrï¿½ï¿½e an Arraylï¿½nge anpassen?
@@ -292,26 +296,28 @@ public class Lieferant {
 		table.setItems(tabelleninhalt);
 	}
 
-	public void writeOne() {
+	public void writeOne(TextField[] textfelder) {
 		// einen Lieferant auf einem Layer ausgeben
 
 		// Felder mit Lieferantendaten beschreiben
-		Textfelder[0].setText(this.getAdresse().getName());
-		Textfelder[1].setText(this.getAdresse().getStrasseUndNummer());
-		Textfelder[2].setText(this.getAdresse().getStadt());
-		Textfelder[3].setText(Integer.toString(this.getAdresse().getPostleitzahl()));
+		textfelder[0].setText(this.getAdresse().getName());
+		textfelder[1].setText(this.getAdresse().getStrasseUndNummer());
+		textfelder[2].setText(this.getAdresse().getStadt());
+		textfelder[3].setText(Integer.toString(this.getAdresse().getPostleitzahl()));
 
-		Textfelder[4].setText(this.getKontaktdaten().getEmail());
-		Textfelder[5].setText(this.getKontaktdaten().getTelefonnummer());
+		textfelder[4].setText(this.getKontaktdaten().getEmail());
+		textfelder[5].setText(this.getKontaktdaten().getTelefonnummer());
 
-		Textfelder[6].setText(this.getBankdaten().getBank());
-		Textfelder[7].setText(this.getBankdaten().getiBAN());
-		Textfelder[8].setText(this.getBankdaten().getBicSwift());
-		Textfelder[9].setText(Integer.toString(this.getBankdaten().getSteuernummer()));
+		textfelder[6].setText(this.getBankdaten().getBank());
+		textfelder[7].setText(this.getBankdaten().getiBAN());
+		textfelder[8].setText(this.getBankdaten().getBicSwift());
+		textfelder[9].setText(Integer.toString(this.getBankdaten().getSteuernummer()));
 
-		Choiceboxen[0].getSelectionModel().select(this.getAdresse().getLand());
+		textfelder[10].setText(this.getAdresse().getLand());
+		textfelder[11].setText(this.getTyp());
+		//choiceboxen[0].getSelectionModel().select(this.getAdresse().getLand());
 
-		Choiceboxen[1].getSelectionModel().select(this.getTyp());
+		//choiceboxen[1].getSelectionModel().select(this.getTyp());
 	}
 
 	public void create() {
@@ -367,19 +373,19 @@ public class Lieferant {
 						+ "',STEUERNR='" + this.getBankdaten().getSteuernummer() + "',EMAIL='"
 						+ this.getKontaktdaten().getEmail() + "',TELEFONNR='" + this.getKontaktdaten().getEmail()
 
-						+ "' WHERE ID='" + iD + "'");
+						+ "' WHERE ID='" + Integer.toString(iD) + "'");
 
 			} catch (SQLException e) {
 				// Meldung Lieferant speichern fehlgeschlagen
 				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Error Dialog: Lieferant.create()");
+				alert.setTitle("Error Dialog: Lieferant.update()");
 				alert.setHeaderText("Folgender Fehler ist aufgetreten:");
 				alert.setContentText("Speichern in der Datenbank fehlgeschlagen!");
 				return;
 			}
 			// Meldung Lieferant erfolgreich gespeichert
 			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Information Dialog: Lieferant.create()");
+			alert.setTitle("Information Dialog: Lieferant.update()");
 			alert.setHeaderText("Folgendes Ereignis ist eingetreten:");
 			alert.setContentText("Lieferant erfolgreich gespeichert!");
 		}

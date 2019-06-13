@@ -1,26 +1,35 @@
-package Produkt;
+package model.Produkt;
 
-import java.awt.TextField;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import model.Lieferant.Lieferant;
-
 public class Produkt {
 private int iD;
 private String typ;
 private String name;
 private String hersteller;
-private static final TextField [] Textfelder = {/*Textfelder Einfï¿½gen*/};
-private static Connection connection=null;
+
+private static Connection connection = util.DBUtil.getConnection();
+
 
 
  public Produkt (String typ, String name, String hersteller) {
+	this.typ = typ;
+	this.name = name;
+	this.hersteller= hersteller;
+}
+ 
+ public Produkt (int iD, String typ, String name, String hersteller) {
+	 this.iD = iD;
 	this.typ = typ;
 	this.name = name;
 	this.hersteller= hersteller;
@@ -64,8 +73,8 @@ private static Connection connection=null;
 		return "Produkt [iD=" + iD + ", typ=" + typ + ", name=" + name + ", hersteller=" + hersteller + "]";
 	}
 	
-	public Produkt readOne(int iD) {
-		//Ein Produkt aus der Datenbank einlesen und zurï¿½ckgeben
+	public static Produkt readOne(int iD) {
+		//Ein Produkt aus der Datenbank einlesen und zurückgeben
 		
 		 		//Ein Produkt aus der DB abfragen
 		 		try{
@@ -81,40 +90,41 @@ private static Connection connection=null;
 		 				String hersteller=rs.getString("HERSTELLER");
 		 				switch(typ){
 		 				case "Prozessor":
-		 		             Prozessor prozessor = new Prozessor(iD,typ,name,hersteller,rs.getString("STRING"));
+		 		             Prozessor prozessor = new Prozessor(iD,name,hersteller,rs.getString("STRING"));
 		 		             return prozessor;
 		 		             
 		 				case "Operationssystem":
-		 					Operationssystem operationssystem = new Operationssystem(iD,typ,name,hersteller,rs.getString("String"));
+		 					Operationssystem operationssystem = new Operationssystem(iD,name,hersteller,rs.getString("String"));
 		 					return operationssystem;
 		 					
 		 				case "Netzwerkteil":
-		 					Netzwerkteil netzwerkteil = new Netzwerkteil(iD,typ,name,hersteller,rs.getString("STRING"));
+		 					Netzwerkteil netzwerkteil = new Netzwerkteil(iD,name,hersteller,rs.getString("STRING"));
 		 		             return netzwerkteil;
 		 		             
 		 				case "Motherboard":
-		 					Motherboard motherboard = new Motherboard(iD,typ,name,hersteller,rs.getString("STRING"));
+		 					Motherboard motherboard = new Motherboard(iD,name,hersteller,rs.getString("STRING"));
 		 		             return motherboard;
 		 		             
 		 				case "Laufwerk":
-		 					Laufwerk laufwerk = new Laufwerk(iD,typ,name,hersteller,rs.getString("STRING"));
+		 					Laufwerk laufwerk = new Laufwerk(iD,name,hersteller,rs.getString("STRING"));
 		 		             return laufwerk;
 		 		             
 		 				case "Hauptspeicher":
-		 					Hauptspeicher hauptspeicher = new Hauptspeicher(iD,typ,name,hersteller,rs.getString("STRING"));
+		 					Hauptspeicher hauptspeicher = new Hauptspeicher(iD,name,hersteller,rs.getString("STRING"));
 		 		             return hauptspeicher;
 		 		             
 		 				case "Grafikkarte":
-		 					Grafikkarte grafikkarte = new Grafikkarte(iD,typ,name,hersteller,rs.getString("STRING"));
+		 					Grafikkarte grafikkarte = new Grafikkarte(iD,name,hersteller,rs.getString("STRING"));
 		 		             return grafikkarte;
 		 		             
 		 				case "Festplatte":
-		 					Festplatte festplatte = new Festplatte(iD,typ,name,hersteller,rs.getString("STRING"));
+		 					Festplatte festplatte = new Festplatte(iD,name,hersteller,rs.getString("STRING"));
 		 		             return festplatte;
 		 		             
 		 				case "Chassis":
-		 					Chassis chassis = new Chassis(iD,typ,name,hersteller,rs.getString("STRING"));
-		 		             return chassis;		 						 					
+		 					Chassis chassis = new Chassis(iD,name,hersteller,rs.getString("STRING"));
+		 		             return chassis;
+		 		             
 		 				}	
 		 			}
 		 			
@@ -135,8 +145,8 @@ private static Connection connection=null;
 		 	
 	}
 	
-	public ArrayList<Produkt> readAll(){
-		//Alle Produkte aus der Datenbank einlesen und zurï¿½ckgeben
+	public static ArrayList<Produkt> readAll(){
+		//Alle Produkte aus der Datenbank einlesen und zurückgeben
 
 		try {
 			// Alle Produkte aus der Datenbank abfragen
@@ -146,39 +156,40 @@ private static Connection connection=null;
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Produkte");
 			while (rs.next()) {
 				// 1 Produkt bauen
+				int iD = Integer.parseInt(rs.getString("ID"));
 				String typ=rs.getString("TYP");
  				String name=rs.getString("NAME");
  				String hersteller=rs.getString("HERSTELLER");
  				switch(typ){
  				case "Prozessor":
- 		             Prozessor prozessor = new Prozessor(iD,typ,name,hersteller,rs.getString("STRING"));
+ 		             Prozessor prozessor = new Prozessor(iD,name,hersteller,rs.getString("STRING"));
  		            alleProdukte.add(prozessor);
  		             
  				case "Operationssystem":
- 					Operationssystem operationssystem = new Operationssystem(iD,typ,name,hersteller,rs.getString("String"));
+ 					Operationssystem operationssystem = new Operationssystem(iD,name,hersteller,rs.getString("String"));
  					alleProdukte.add(operationssystem);
  					
  				case "Netzwerkteil":
- 					Netzwerkteil netzwerkteil = new Netzwerkteil(iD,typ,name,hersteller,rs.getString("STRING"));
+ 					Netzwerkteil netzwerkteil = new Netzwerkteil(iD,name,hersteller,rs.getString("STRING"));
  					alleProdukte.add(netzwerkteil);
  		             
  				case "Motherboard":
- 					Motherboard motherboard = new Motherboard(iD,typ,name,hersteller,rs.getString("STRING"));
+ 					Motherboard motherboard = new Motherboard(iD,name,hersteller,rs.getString("STRING"));
  					alleProdukte.add(motherboard); 		             
  				case "Laufwerk":
- 					Laufwerk laufwerk = new Laufwerk(iD,typ,name,hersteller,rs.getString("STRING"));
+ 					Laufwerk laufwerk = new Laufwerk(iD,name,hersteller,rs.getString("STRING"));
  					alleProdukte.add(laufwerk); 		             
  				case "Hauptspeicher":
- 					Hauptspeicher hauptspeicher = new Hauptspeicher(iD,typ,name,hersteller,rs.getString("STRING"));
+ 					Hauptspeicher hauptspeicher = new Hauptspeicher(iD,name,hersteller,rs.getString("STRING"));
  					alleProdukte.add(hauptspeicher); 		             
  				case "Grafikkarte":
- 					Grafikkarte grafikkarte = new Grafikkarte(iD,typ,name,hersteller,rs.getString("STRING"));
+ 					Grafikkarte grafikkarte = new Grafikkarte(iD,name,hersteller,rs.getString("STRING"));
  					alleProdukte.add(grafikkarte); 		             
  				case "Festplatte":
- 					Festplatte festplatte = new Festplatte(iD,typ,name,hersteller,rs.getString("STRING"));
+ 					Festplatte festplatte = new Festplatte(iD,name,hersteller,rs.getString("STRING"));
  					alleProdukte.add(festplatte); 		             
  				case "Chassis":
- 					Chassis chassis = new Chassis(iD,typ,name,hersteller,rs.getString("STRING"));
+ 					Chassis chassis = new Chassis(iD,name,hersteller,rs.getString("STRING"));
  					alleProdukte.add(chassis); 					
  				}	
 			}
@@ -206,18 +217,34 @@ private static Connection connection=null;
 	}
 	
 	
-	public void writeOne() {
-		//Auf dem Layer ein Produkt darstellen
-		System.out.println("Methode wurde nicht korrekt ï¿½berschrieben!");
-
-		//leer, zum ï¿½berschreiben gedacht
-
+	public void writeOne(TextField [] Textfelder) {
 			
+		//Auf dem Layer ein Produkt darstellen
+		System.out.println("Methode wurde nicht korrekt überschrieben!");
+		
+		//leer ,zum überschreiben gedacht			
 	}
 	
-	public void writeAll(ArrayList<Produkt> produkte) {
+	public static void writeAll(ArrayList<Produkt> alleProdukte,TableView<Produkt> table) {
+		//Nice To Have: zum überschreiben gedacht 
 		//Auf der Tabelle auf dem Layer alle Produkte darstellen
-		//vlt zum ï¿½berschreiben gedacht ?
+
+		// Tabellengrï¿½ï¿½e an Arraylï¿½nge anpassen?
+
+		ObservableList<Produkt> tabelleninhalt = FXCollections.observableArrayList();
+
+		for (Produkt produkt : alleProdukte) {
+			// neues TableProdukt Objekt bauen
+			Produkt tableprodukt = new Produkt(produkt.getiD(), produkt.getName(), produkt.getHersteller(),produkt.getTyp());
+
+			// zur Liste hinzufï¿½gen
+			tabelleninhalt.add(tableprodukt);
+
+		}
+
+		// Daten in der Tabelle Anzeigen
+		table.setItems(tabelleninhalt);
+		
 	}
 	
 	public void create() {
@@ -225,7 +252,7 @@ private static Connection connection=null;
 		
 		//uberprufenfen ob readOneLayer() Daten erheben konnte				
 		if (!(this == null)) {
-			//string fï¿½r die Datenbank bauen
+			//string für die Datenbank bauen
 			String string =this.objectToString();		
 
 					try {
@@ -255,7 +282,7 @@ private static Connection connection=null;
 		
 		// uberprufen ob readOneLayer() Daten erheben konnte
 				if (!(this == null)) {
-					//string fï¿½r die Datenbank bauen
+					//string für die Datenbank bauen
 					String string =this.objectToString();
 
 					try {
@@ -282,15 +309,15 @@ private static Connection connection=null;
 	}
 	
 	public String objectToString() {
-		System.out.println("Methode wurde nicht korrekt ï¿½berschrieben!");
+		System.out.println("Methode wurde nicht korrekt überschrieben!");
 		return null;
-		//leer , zum ï¿½berschreiben gedacht
+		//leer , zum Überschreiben gedacht
 	}
 	
 	
-	public Produkt readLayer() {
-		System.out.println("Methode wurde nicht korrekt ï¿½berschrieben!");
-		//leer , zum ï¿½berschreiben gedacht
+	public static Produkt readLayer(TextField[] textFields) {
+		System.out.println("Methode wurde nicht korrekt überschrieben!");
+		//leer , zum Überschreiben gedacht
 		return null;
 		
 	}
