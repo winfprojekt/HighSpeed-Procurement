@@ -1,6 +1,6 @@
 
 
-package model.Produktortfolio;
+package model.Produktportfolio;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 
-class Produktportfolio {
+public class Produktportfolio {
 	
 	private int iD;
 	private ArrayList <Angebot> angebote;
@@ -54,14 +54,14 @@ class Produktportfolio {
 
 
 	public static Produktportfolio readLayer(TableView<TableAngebot> tableProduktportfolio ) {
-		//Aus dem Layer ein Produktportfolio einlesen und zurückgeben	
+		//Aus dem Layer ein Produktportfolio einlesen und zurï¿½ckgeben	
 		ArrayList <Angebot> angebote = new ArrayList<Angebot>();
 		tableProduktportfolio.getItems().forEach(tableAngebot ->{angebote.add(Angebot.readOne(tableAngebot.iD));} );
 		Produktportfolio produktportfolio = new Produktportfolio(angebote);
 		return produktportfolio;
 	}
 	public static	ArrayList <Integer>	readAllID(){
-		//Alle Produktportfolios aus der Datenbank einlesen und zurückgeben
+		//Alle Produktportfolios aus der Datenbank einlesen und zurï¿½ckgeben
 		try {
 			ArrayList<Integer> ppIDs = new ArrayList<Integer>();	
 			
@@ -118,13 +118,13 @@ class Produktportfolio {
 
 		String s="";
 		for(Angebot angebot : this.angebote) {
-			s = s +Integer.toString(angebot.getiD())+";";
+			s = s +Integer.toString(angebot.getAngID())+";";
 		}
 		return s;
 	}
 		
 	public static	Produktportfolio	readOne(int ppID) {
-		//Ein Produktportfolio aus der Datenbank einlesen und zurückgeben
+		//Ein Produktportfolio aus der Datenbank einlesen und zurï¿½ckgeben
 		//achtung StringToObject nutzen
 		
 		try {

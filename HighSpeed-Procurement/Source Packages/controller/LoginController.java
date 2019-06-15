@@ -53,6 +53,7 @@ public class LoginController implements Initializable {
 	private DBUtil dbu;
 	private String nameRs;
 	private String check;
+	private String mail;
 
 	// btnSubmit.defaultButtonProperty().bind(btnSubmit.focusedProperty());
 	@FXML
@@ -61,7 +62,7 @@ public class LoginController implements Initializable {
 		PW_Encryption pw = new PW_Encryption(passwordField.getText());
 
 		String query = "SELECT password FROM USER_INFO WHERE email = '" + usernameTextbox.getText() + "' ";
-
+		setMail(usernameTextbox.getText());
 		try {
 			stmt = connection.prepareStatement(query);
 			rs = stmt.executeQuery(query);
@@ -93,6 +94,12 @@ public class LoginController implements Initializable {
 		} else {
 			actiontarget.setText("Wrong username and/or password!!");
 		}
+	}
+	public void setMail(String mail) {
+		this.mail=mail;
+	}
+	public String getMail () {
+		return mail;
 	}
 
 	@FXML

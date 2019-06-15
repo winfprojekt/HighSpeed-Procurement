@@ -54,7 +54,7 @@ public class Lieferant {
 
 	}
 
-	// Konstruktor 0 - Lieferant verkuerzt(Für Tabellendarstellung)
+	// Konstruktor 0 - Lieferant verkuerzt(Fï¿½r Tabellendarstellung)
 	public Lieferant(int id, String name, Adresse adresse, String typ, Timestamp date) {
 		this.iD = id;
 		this.name = name;
