@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1200.0" styleClass="root" stylesheets="@../resources/LiefErstellen.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MailSendenController">
+   <children>
+      <Label layoutX="30.0" layoutY="24.0" text="Mail Senden">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="138.0" layoutY="24.0" text="Empfänger:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="empfaengerMailLabel" layoutX="230.0" layoutY="24.0" text="Empfänger_Mail">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="64.0" text="Bestelltext">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="bstlTextfield" layoutX="30.0" layoutY="107.0" prefHeight="478.0" prefWidth="268.0" />
+      <TextArea fx:id="zstzTextfield" layoutX="372.0" layoutY="107.0" prefHeight="478.0" prefWidth="268.0" />
+      <Label layoutX="372.0" layoutY="74.0" text="Zusatztext">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnAbbrechen" layoutX="893.0" layoutY="534.0" mnemonicParsing="false" text="Abbrechen">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnSenden" layoutX="1073.0" layoutY="534.0" mnemonicParsing="false" text="Senden">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Label fx:id="counterLabel" layoutX="1092.0" layoutY="29.0" text="Counter">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

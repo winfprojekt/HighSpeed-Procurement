@@ -6,20 +6,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
@@ -28,10 +29,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Text;
 import main.Main;
 import model.Lieferant.Adresse;
-import model.Lieferant.Dummy;
 import model.Lieferant.Lieferant;
 import model.Produkt.Produkt;
 import model.Produktportfolio.Angebot;
@@ -221,7 +220,6 @@ public class ProduktportfolioController implements Initializable {
 			ex.printStackTrace();
 		}
 		colProdID.setCellValueFactory(new PropertyValueFactory<>("ident"));
-		// colProdID.setCellValueFactory(cellData -> cellData.getValue().getIdent());
 		colProdTyp.setCellValueFactory(new PropertyValueFactory<>("typ"));
 		colProdName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		colHersteller.setCellValueFactory(new PropertyValueFactory<>("hersteller"));
@@ -316,23 +314,37 @@ public class ProduktportfolioController implements Initializable {
 	public void handleAngebotErstellen() throws IndexOutOfBoundsException {
 		int choiceLief = Integer.parseInt(liefID.getText());
 		int choiceProd = Integer.parseInt(prodID.getText());
-		for (int i = 0; i < oblistLieferant.size(); i++) {
-			if (choiceLief == oblistLieferant.get(i).getID()) {
-				for (int j = 0; j < oblistProdukt.size(); j++) {
-					if (choiceProd == oblistProdukt.get(j).getIdent()) {
-						System.out.println("Test");
-						String comboID = liefID.getText() + prodID.getText();
-						int combointID = Integer.valueOf(comboID);
-						System.out.println(comboID);
-						Angebot a1 = new Angebot(combointID, oblistLieferant.get(i).getID(),
-								oblistProdukt.get(j).getIdent(), oblistProdukt.get(j).getTyp(),
-								oblistProdukt.get(j).getHersteller());
-						oblistAngebot.add(a1);
-						tableAngOverview.setItems(oblistAngebot);
+		boolean liefValue = oblistLieferant.stream().filter(l -> l.getID() == choiceLief).findFirst().isPresent();
+		boolean prodValue = oblistProdukt.stream().filter(p -> p.getIdent() == choiceLief).findFirst().isPresent();
+		if (liefValue == true && prodValue == true) {
+			for (int i = 0; i < oblistLieferant.size(); i++) {
+				if (choiceLief == oblistLieferant.get(i).getID()) {
+					for (int j = 0; j < oblistProdukt.size(); j++) {
+						if (choiceProd == oblistProdukt.get(j).getIdent()) {
+							System.out.println("Test");
+							String comboID = liefID.getText() + prodID.getText();
+							int combointID = Integer.valueOf(comboID);
+							System.out.println(comboID);
+							Angebot a1 = new Angebot(combointID, oblistLieferant.get(i).getID(),
+									oblistProdukt.get(j).getIdent(), oblistProdukt.get(j).getTyp(),
+									oblistProdukt.get(j).getHersteller());
+							oblistAngebot.add(a1);
+							tableAngOverview.setItems(oblistAngebot);
+						}
 					}
+				} else {
+					System.out.println("Error.");
 				}
-			} else {
-				System.out.println("Error.");
+			}
+		}
+		else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Fehler");
+			alert.setHeaderText("Sie haben eine falsche Lieferant-/ und/oder Produkt-ID eingegeben!");
+			alert.setContentText("Bitte geben Sie eine gültige Lieferant-/ und Produkt-ID!");
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+			alert.close();	
 			}
 		}
 
@@ -342,26 +354,46 @@ public class ProduktportfolioController implements Initializable {
 		colAngProdTyp.setCellValueFactory(new PropertyValueFactory<>("produktTyp"));
 		colAngHersteller.setCellValueFactory(new PropertyValueFactory<>("hersteller"));
 	}
-	//Speichern von den Angeboten in der Datenbank
+
+	// Speichern von den Angeboten in der Datenbank
 	@FXML
 	public void angebotSpeichern() {
 		final Connection connection = util.DBUtil.getConnection();
-		final PreparedStatement stmt;
-		final ResultSet rs;
+		PreparedStatement stmt;
 		try {
-			String query = "INSERT INTO Angebote (`ID`, `ID_Lieferant`, `ID_Produkt`, `Produkt`, `Produkttyp`)"
-					+ " VALUES ([value-3],[value-4],[value-5],[value-6],[value-7])";
-			stmt = connection.prepareStatement(query);
-			rs = stmt.executeQuery(query);
-
-			while (rs.next()) {
-		for (int i = 0; i < oblistAngebot.size(); i++) {
-			Angebot a = oblistAngebot.get(i);
-			
-		}
+			int i;
+			int angID;
+			int liefID;
+			int prodID;
+			String prodTyp;
+			String prodHerst;
+			if (oblistAngebot.isEmpty() == false) {
+				for (i = 0; i < oblistAngebot.size(); i++) {
+					Angebot a = oblistAngebot.get(i);
+					angID = a.getAngID();
+					liefID = a.getLieferantID();
+					prodID = a.getProduktID();
+					prodTyp = a.getProduktTyp();
+					prodHerst = a.getHersteller();
+					String query = "INSERT INTO Angebote (ID, ID_Lieferant, ID_Produkt, Produkttyp,Hersteller)"
+							+ " VALUES (" + angID + "," + liefID + "," + prodID + ",'" + prodTyp + "','" + prodHerst
+							+ "')";
+					stmt = connection.prepareStatement(query);
+					stmt.executeUpdate(query);
+					System.out.println("Angebot" + a.getAngID() + "in der Datenbank gespeichert!");
+				}
+			} else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Fehler");
+				alert.setHeaderText("Sie haben keine Angebote erfasst!");
+				alert.setContentText("Bitte erfassen Sie ein oder mehrere Angebote!");
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.get() == ButtonType.OK){
+				alert.close();	
+				}
 			}
-		}catch(Exception e) {
-			
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 
@@ -384,7 +416,7 @@ public class ProduktportfolioController implements Initializable {
 
 			@Override
 			public void handle(ActionEvent event) {
-				//tableAngOverview.getSelectionModel().getSelectedItems().clear();
+				// tableAngOverview.getSelectionModel().getSelectedItems().clear();
 				tableAngOverview.getItems().removeAll(tableAngOverview.getSelectionModel().getSelectedItem());
 				tableAngOverview.refresh();
 
