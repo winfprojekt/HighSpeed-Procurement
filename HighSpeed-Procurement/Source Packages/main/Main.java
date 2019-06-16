@@ -44,6 +44,8 @@ public class Main extends Application {
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/ProduktportfolioView.fxml")));
 			//idx=7
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/HilfeView.fxml")));
+			//idx=8
+			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/RegBestellungErstellenView.fxml")));
 			root.getChildren().add(anchor.get(0));
 			Scene scene = new Scene(root, 430, 330);
 			scene.getStylesheets().add(getClass().getResource("/resources/Login.css").toExternalForm());

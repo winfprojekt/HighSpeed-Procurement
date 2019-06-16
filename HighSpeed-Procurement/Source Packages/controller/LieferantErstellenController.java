@@ -14,6 +14,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import main.Main;
 import model.Lieferant.Lieferant;
 import util.DBUtil;
 
@@ -120,8 +121,8 @@ public class LieferantErstellenController {
 	@FXML
 	private void handleAbbrechenAction (ActionEvent e) {
 		//When "Abbrechen"-Button is 
-		//pressed the application routes the user back to the home screen (pane with idx=1)
-	//	Main.set_pane(1);
+		//pressed the application routes the user back to the main supplier screen (pane with idx=2)
+		Main.set_pane(2);
 	}
 
 	

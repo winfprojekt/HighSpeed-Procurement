@@ -107,7 +107,7 @@ public class MailService {
 			msg.setFrom(senderPlaceholder);
 			msg.addRecipients(Message.RecipientType.TO, senderPlaceholder);
 			msg.addRecipients(Message.RecipientType.CC, "winfprojekt@yahoo.com");
-			msg.setSubject("Neue Lieferbestellung fьr HighSpeedProcurement");
+			msg.setSubject("Neue Lieferbestellung für HighSpeedProcurement");
 			msg.setText(this.getText());
 			Transport.send(msg);
 			// Optional: einen extra pop-up-Fenster implementieren, e.g. mit "E-Mail
