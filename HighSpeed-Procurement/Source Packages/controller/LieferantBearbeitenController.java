@@ -2,9 +2,11 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import main.Main;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -14,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ChoiceBox;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import controller.LieferantController;
@@ -86,7 +89,29 @@ public class LieferantBearbeitenController implements Initializable {
 	public void handleAbbrechenAction(ActionEvent event) {
 		//When "Abbrechen"-Button is 
 		//pressed the application routes the user back to the home screen (pane with idx=1)
-		Main.set_pane(1);
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Bearbeitung abbrechen");
+		alert.setHeaderText("Der Prozess wird abgebrochen.");
+		alert.setContentText("Wollen Sie wirklich den Prozess abbrechen?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			alert.close();
+			Main.set_pane(2);
+			textfieldName.clear();
+			textfieldAddr.clear();
+			textfieldStadt.clear();
+			textFieldPLZ.clear();
+			textFieldPLZ.clear();
+			textfieldMail.clear();
+			textfieldTelnum.clear();
+			textfieldBank.clear();
+			textfieldIBAN.clear();
+			textfieldSWIFT.clear();
+			textfieldSteuer.clear();
+		}
+		else {
+			alert.close();
+		}
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

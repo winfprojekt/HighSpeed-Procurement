@@ -43,7 +43,7 @@ public class Angebot {
 	 */
 
 	// Konstruktor 0
-	public Angebot(int angID, int lieferantID, int produktID, String produktTyp,String produktName, String hersteller) {
+	public Angebot(int angID, int lieferantID, int produktID, String produktTyp,String produktName, String hersteller, double einzelpreis) {
 		super();
 		this.angID = angID;
 		this.lieferantID = lieferantID;
@@ -51,6 +51,7 @@ public class Angebot {
 		this.produktTyp = produktTyp;
 		this.produktName=produktName;
 		this.hersteller = hersteller;
+		this.einzelpreis=einzelpreis;
 	}
 
 	// Konstruktor

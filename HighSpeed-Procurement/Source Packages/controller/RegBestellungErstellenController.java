@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javax.persistence.PersistenceUnitUtil;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -16,25 +18,20 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.Main;
-import model.Produkt.Produkt;
+import model.Bestellung.Teilbestellung;
 import model.Produktportfolio.Angebot;
 import util.DBUtil;
-import javafx.scene.control.Label;
-
-import javafx.scene.control.RadioButton;
-
-import javafx.scene.control.TableView;
-
-import javafx.scene.control.TableColumn;
-import model.Bestellung.*;
 
 public class RegBestellungErstellenController implements Initializable {
 	@FXML
@@ -57,6 +54,8 @@ public class RegBestellungErstellenController implements Initializable {
 	private TableColumn<Angebot, String> colAngProdName;
 	@FXML
 	private TableColumn<Angebot, String> colAngHersteller;
+	@FXML
+	private TableColumn<Angebot, Double> colAngPreis;
 	@FXML
 	private Label lblTeilbestellungen;
 	@FXML
@@ -86,6 +85,8 @@ public class RegBestellungErstellenController implements Initializable {
 	@FXML
 	private TableColumn<Teilbestellung, Integer> colTeilMenge;
 	@FXML
+	private TableColumn<Teilbestellung, Double>colTeilGesamtpreis;
+	@FXML
 	private Button btnHinzu;
 	@FXML
 	private Button btnBestErstellen;
@@ -102,17 +103,23 @@ public class RegBestellungErstellenController implements Initializable {
 	@FXML
 	private RadioButton radioFestplatte;
 	@FXML
+	private Label lblName;
+	@FXML
 	private RadioButton radioProzessor;
 	private ObservableList<Angebot> oblistAngebot = FXCollections.observableArrayList();
 	private ObservableList<Teilbestellung> oblistTeilBest = FXCollections.observableArrayList();
 	private DBUtil dbu;
-
+	Teilbestellung t1;
+	
+	
 	@FXML
 	private void handleAbbrechenAction(ActionEvent e) {
 		// When "Abbrechen"-Button is
 		// pressed the application routes the user back to the home screen (pane with
 		// idx=1)
 		Main.set_pane(5);
+		oblistAngebot.removeAll(oblistAngebot);
+		oblistTeilBest.removeAll(oblistTeilBest);
 	}
 
 	public void loadDatabaseAngebot(String query) {
@@ -126,7 +133,7 @@ public class RegBestellungErstellenController implements Initializable {
 			while (rs.next()) {
 				// p1 = new Produkt(rs.getInt("ID"));
 				Angebot a1 = new Angebot(rs.getInt("ID"), rs.getInt("ID_Lieferant"), rs.getInt("ID_Produkt"),
-						rs.getString("Produkttyp"), rs.getString("Produktname"), rs.getString("Hersteller"));
+						rs.getString("Produkttyp"), rs.getString("Produktname"), rs.getString("Hersteller"), rs.getDouble("Einzelpreis"));
 
 				oblistAngebot.add(a1);
 			}
@@ -142,6 +149,7 @@ public class RegBestellungErstellenController implements Initializable {
 		colAngProdTyp.setCellValueFactory(new PropertyValueFactory<>("produktTyp"));
 		colAngProdName.setCellValueFactory(new PropertyValueFactory<>("produktName"));
 		colAngHersteller.setCellValueFactory(new PropertyValueFactory<>("hersteller"));
+		colAngPreis.setCellValueFactory(new PropertyValueFactory<>("einzelpreis"));
 
 	}
 
@@ -229,6 +237,7 @@ public class RegBestellungErstellenController implements Initializable {
 	}
 
 	public void handleTeilbestellungHinzufügen() throws IndexOutOfBoundsException {
+		if(!textfieldMenge.getText().isEmpty() && !textfieldAngID.getText().isEmpty()) {
 		int choiceAngID = Integer.parseInt(textfieldAngID.getText());
 		int choiceMenge = Integer.parseInt(textfieldMenge.getText());
 		String choiceName = txtfieldBestName.getText();
@@ -237,9 +246,10 @@ public class RegBestellungErstellenController implements Initializable {
 			for (int i = 0; i < oblistAngebot.size(); i++) {
 				if (choiceAngID == oblistAngebot.get(i).getAngID()) {
 					System.out.println("Test");
-					Teilbestellung t1 = new Teilbestellung(i, choiceName, oblistAngebot.get(i).getAngID(),
+					double gesamtPreis = (double)(oblistAngebot.get(i).getEinzelpreis())*choiceMenge;
+					 t1 = new Teilbestellung(1, choiceName, oblistAngebot.get(i).getAngID(),
 							oblistAngebot.get(i).getProduktID(), oblistAngebot.get(i).getProduktTyp(),
-							oblistAngebot.get(i).getProduktName(), oblistAngebot.get(i).getHersteller(), choiceMenge);
+							oblistAngebot.get(i).getProduktName(), oblistAngebot.get(i).getHersteller(), choiceMenge, gesamtPreis);
 					oblistTeilBest.add(t1);
 					tableTeilbestellungen.setItems(oblistTeilBest);
 				}
@@ -247,14 +257,25 @@ public class RegBestellungErstellenController implements Initializable {
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Fehler");
-			alert.setHeaderText("Sie haben eine falsche Angebot-ID eingegeben!");
-			alert.setContentText("Bitte geben Sie eine gültige Angebot-ID");
+			alert.setHeaderText("Bitte füllen Sie alle Eingabefelder aus!");
+			alert.setContentText("Bitte geben Sie eine gültige Angebot-ID und den Namen der Bestellung an!");
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK) {
 				alert.close();
 			}
 		}
-		colTeilbestID.setCellValueFactory(new PropertyValueFactory<>("iD"));
+		}
+		else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Fehler");
+			alert.setHeaderText("Bitte füllen Sie alle Eingabefelder aus!");
+			alert.setContentText("Bitte geben Sie eine gültige Lieferant-/ und Produkt-ID und den Einzelpreis ein!");
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+			alert.close();	
+			}
+		}
+		colTeilbestID.setCellValueFactory(new PropertyValueFactory<>("bestID"));
 		colTeilbestName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		colTeilAngID.setCellValueFactory(new PropertyValueFactory<>("angID"));
 		colTeilProdID.setCellValueFactory(new PropertyValueFactory<>("prodID"));
@@ -262,6 +283,7 @@ public class RegBestellungErstellenController implements Initializable {
 		colTeilProdName.setCellValueFactory(new PropertyValueFactory<>("prodName"));
 		colTeilHerst.setCellValueFactory(new PropertyValueFactory<>("hersteller"));
 		colTeilMenge.setCellValueFactory(new PropertyValueFactory<>("menge"));
+		colTeilGesamtpreis.setCellValueFactory(new PropertyValueFactory<>("gesamtpreis"));
 	}
 
 	@Override

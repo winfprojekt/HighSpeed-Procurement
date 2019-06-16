@@ -3,11 +3,13 @@ import java.util.ArrayList;
 import model.Mail.*;
 import model.User;
 import model.Lieferant.Lieferant;
+import javax.persistence.*;
+
 
 
 public class Teilbestellung {
 	
-	private Integer iD;
+	private  int bestID;
 	private User user;
 	private Lieferant lieferant;
 	private ArrayList <Position> positionen;
@@ -18,9 +20,11 @@ public class Teilbestellung {
 	private String hersteller;
 	private int menge;
 	private String name;
+	private double gesamtpreis;
 
-	public Teilbestellung(int iD, String name, int angID, int prodID, String prodTyp, String prodName, String hersteller, int menge) {
-		this.iD=iD;
+
+	public Teilbestellung(int bestID, String name, int angID, int prodID, String prodTyp, String prodName, String hersteller, int menge, double gesamtpreis) {
+		this.bestID=bestID;
 		this.angID=angID;
 		this.prodID=prodID;
 		this.prodTyp=prodTyp;
@@ -28,6 +32,13 @@ public class Teilbestellung {
 		this.hersteller=hersteller;
 		this.menge=menge;
 		this.name=name;
+		this.gesamtpreis=gesamtpreis;
+	}
+	public double getGesamtpreis() {
+		return gesamtpreis;
+	}
+	public void setGesamtpreis(double gesamtpreis) {
+		this.gesamtpreis = gesamtpreis;
 	}
 	public String getName() {
 		return name;
@@ -80,12 +91,12 @@ public class Teilbestellung {
 	}
 
 	//Getter + Setter
-	public Integer getiD() {
-		return (Integer)iD;
+	public int getBestID() {
+		return bestID;
 	}
-
-	public void setiD(int iD) {
-		this.iD = iD;
+	
+	public void setBestID(int bestID) {
+		this.bestID = bestID;
 	}
 	
 	public User getUser() {
@@ -144,7 +155,7 @@ public class Teilbestellung {
 		sb.append("Sehr geehrte Damen und Herren,\n\n");
 		sb.append("Wir haben eine neue Bestellung f??ie erstellt.\n\n");
 		sb.append("Bestellungsnummer: ");
-		sb.append(this.iD);
+		sb.append(this.bestID);
 		sb.append("\n");
 		for(int i = 0; i<this.positionen.size(); i++) {
 			sb.append("Einzelteil: ");
@@ -169,7 +180,7 @@ public class Teilbestellung {
 		
 		String TextBody = this.toText();
 		
-		MailService newMail = new MailService(TextBody, this.iD, this.lieferant.getKontaktdaten().getEmail());
+		MailService newMail = new MailService(TextBody, this.bestID, this.lieferant.getKontaktdaten().getEmail());
 	
 	return newMail;
 	}

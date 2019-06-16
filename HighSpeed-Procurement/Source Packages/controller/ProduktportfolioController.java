@@ -9,7 +9,6 @@ import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,6 +18,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -27,7 +27,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.Main;
 import model.Lieferant.Adresse;
@@ -105,6 +104,8 @@ public class ProduktportfolioController implements Initializable {
 	private TableColumn<Angebot, String> colAngProdName;
 	@FXML
 	private TableColumn<Angebot, String> colAngHersteller;
+	@FXML
+	private TableColumn<Angebot, Double> colAngPreis;
 
 	@FXML
 	private Button btnDelete;
@@ -124,6 +125,10 @@ public class ProduktportfolioController implements Initializable {
 	private RadioButton radioGrafik;
 	@FXML
 	private RadioButton radioBS;
+	@FXML
+	private TextField textfieldPreis;
+	@FXML
+	private Label lblPreis;
 
 	private ObservableList<Lieferant> oblistLieferant = FXCollections.observableArrayList();
 	private ObservableList<Produkt> oblistProdukt = FXCollections.observableArrayList();
@@ -135,11 +140,17 @@ public class ProduktportfolioController implements Initializable {
 	@FXML
 	public void handleHomeButton(ActionEvent event) throws IOException {
 		Main.set_pane(1);
+
+		oblistProdukt.removeAll(oblistProdukt);
+		oblistAngebot.removeAll(oblistAngebot);
 	}
 
 	@FXML
 	private void handleLiefButtonAction(ActionEvent event) {
 		Main.set_pane(2);
+
+		oblistProdukt.removeAll(oblistProdukt);
+		oblistAngebot.removeAll(oblistAngebot);
 
 	}
 
@@ -148,12 +159,18 @@ public class ProduktportfolioController implements Initializable {
 
 		Main.set_pane(5);
 
+		oblistProdukt.removeAll(oblistProdukt);
+		oblistAngebot.removeAll(oblistAngebot);
+
 	}
 
 	@FXML
 	public void handleProduktButton(ActionEvent event) throws IOException {
 
 		Main.set_pane(6);
+
+		oblistProdukt.removeAll(oblistProdukt);
+		oblistAngebot.removeAll(oblistAngebot);
 
 	}
 
@@ -162,11 +179,17 @@ public class ProduktportfolioController implements Initializable {
 
 		Main.set_pane(7);
 
+		oblistProdukt.removeAll(oblistProdukt);
+		oblistAngebot.removeAll(oblistAngebot);
+
 	}
 
 	@FXML
 	public void handleAbmeldenButton(ActionEvent event) throws IOException {
 		Main.close();
+
+		oblistProdukt.removeAll(oblistProdukt);
+		oblistAngebot.removeAll(oblistAngebot);
 
 	}
 
@@ -315,39 +338,54 @@ public class ProduktportfolioController implements Initializable {
 	}
 
 	public void handleAngebotErstellen() throws IndexOutOfBoundsException {
-		int choiceLief = Integer.parseInt(liefID.getText());
-		int choiceProd = Integer.parseInt(prodID.getText());
-		boolean liefValue = oblistLieferant.stream().filter(l -> l.getID() == choiceLief).findFirst().isPresent();
-		boolean prodValue = oblistProdukt.stream().filter(p -> p.getIdent() == choiceProd).findFirst().isPresent();
-		if (liefValue == true && prodValue == true) {
-			for (int i = 0; i < oblistLieferant.size(); i++) {
-				if (choiceLief == oblistLieferant.get(i).getID()) {
-					for (int j = 0; j < oblistProdukt.size(); j++) {
-						if (choiceProd == oblistProdukt.get(j).getIdent()) {
-							System.out.println("Test");
-							String comboID = liefID.getText() + prodID.getText();
-							int combointID = Integer.valueOf(comboID);
-							System.out.println(comboID);
-							Angebot a1 = new Angebot(combointID, oblistLieferant.get(i).getID(),
-									oblistProdukt.get(j).getIdent(), oblistProdukt.get(j).getTyp(),oblistProdukt.get(j).getName(),
-									oblistProdukt.get(j).getHersteller());
-							oblistAngebot.add(a1);
-							tableAngOverview.setItems(oblistAngebot);
+
+		if (!liefID.getText().isEmpty() && !prodID.getText().isEmpty() && !textfieldPreis.getText().isEmpty()) {
+			int choiceLief = Integer.parseInt(liefID.getText());
+			int choiceProd = Integer.parseInt(prodID.getText());
+			double choicePreis = Double.parseDouble(textfieldPreis.getText());
+			boolean liefValue = oblistLieferant.stream().filter(l -> l.getID() == choiceLief).findFirst().isPresent();
+			boolean prodValue = oblistProdukt.stream().filter(p -> p.getIdent() == choiceProd).findFirst().isPresent();
+			if (liefValue == true && prodValue == true) {
+				for (int i = 0; i < oblistLieferant.size(); i++) {
+					if (choiceLief == oblistLieferant.get(i).getID()) {
+						for (int j = 0; j < oblistProdukt.size(); j++) {
+							if (choiceProd == oblistProdukt.get(j).getIdent()) {
+								System.out.println("Test");
+								String comboID = liefID.getText() + prodID.getText();
+								int combointID = Integer.valueOf(comboID);
+								System.out.println(comboID);
+								Angebot a1 = new Angebot(combointID, oblistLieferant.get(i).getID(),
+										oblistProdukt.get(j).getIdent(), oblistProdukt.get(j).getTyp(),
+										oblistProdukt.get(j).getName(), oblistProdukt.get(j).getHersteller(),
+										choicePreis);
+								oblistAngebot.add(a1);
+								tableAngOverview.setItems(oblistAngebot);
+							}
 						}
+					} else {
+						System.out.println("Error.");
 					}
-				} else {
-					System.out.println("Error.");
 				}
+			} else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Fehler");
+				alert.setHeaderText("Bitte füllen Sie alle Eingabefelder aus!");
+				alert.setContentText(
+						"Bitte geben Sie eine gültige Lieferant-/ und Produkt-ID und den Einzelpreis ein!");
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.get() == ButtonType.OK) {
+					alert.close();
+				}
+
 			}
-		}
-		else {
+		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Fehler");
-			alert.setHeaderText("Sie haben eine falsche Lieferant-/ und/oder Produkt-ID eingegeben!");
-			alert.setContentText("Bitte geben Sie eine gültige Lieferant-/ und Produkt-ID!");
+			alert.setHeaderText("Bitte füllen Sie alle Eingabefelder aus!");
+			alert.setContentText("Bitte geben Sie eine gültige Lieferant-/ und Produkt-ID und den Einzelpreis ein!");
 			Optional<ButtonType> result = alert.showAndWait();
-			if (result.get() == ButtonType.OK){
-			alert.close();	
+			if (result.get() == ButtonType.OK) {
+				alert.close();
 			}
 		}
 
@@ -357,6 +395,7 @@ public class ProduktportfolioController implements Initializable {
 		colAngProdTyp.setCellValueFactory(new PropertyValueFactory<>("produktTyp"));
 		colAngProdName.setCellValueFactory(new PropertyValueFactory<>("produktName"));
 		colAngHersteller.setCellValueFactory(new PropertyValueFactory<>("hersteller"));
+		colAngPreis.setCellValueFactory(new PropertyValueFactory<>("einzelpreis"));
 	}
 
 	// Speichern von den Angeboten in der Datenbank
@@ -372,6 +411,7 @@ public class ProduktportfolioController implements Initializable {
 			String prodTyp;
 			String prodHerst;
 			String prodName;
+			double einzelpreis;
 			if (oblistAngebot.isEmpty() == false) {
 				for (i = 0; i < oblistAngebot.size(); i++) {
 					Angebot a = oblistAngebot.get(i);
@@ -381,9 +421,10 @@ public class ProduktportfolioController implements Initializable {
 					prodTyp = a.getProduktTyp();
 					prodName = a.getProduktName();
 					prodHerst = a.getHersteller();
-					String query = "INSERT INTO Angebote (ID, ID_Lieferant, ID_Produkt, Produkttyp, Produktname, Hersteller)"
-							+ " VALUES (" + angID + "," + liefID + "," + prodID + ",'" + prodTyp + "','" + prodName +"','" + prodHerst
-							+ "')";
+					einzelpreis = a.getEinzelpreis();
+					String query = "INSERT INTO Angebote (ID, ID_Lieferant, ID_Produkt, Produkttyp, Produktname, Hersteller, Einzelpreis)"
+							+ " VALUES (" + angID + "," + liefID + "," + prodID + ",'" + prodTyp + "','" + prodName
+							+ "','" + prodHerst + "'," + einzelpreis + ")";
 					stmt = connection.prepareStatement(query);
 					stmt.executeUpdate(query);
 					System.out.println("Angebot" + a.getAngID() + "in der Datenbank gespeichert!");
@@ -394,8 +435,8 @@ public class ProduktportfolioController implements Initializable {
 				alert.setHeaderText("Sie haben keine Angebote erfasst!");
 				alert.setContentText("Bitte erfassen Sie ein oder mehrere Angebote!");
 				Optional<ButtonType> result = alert.showAndWait();
-				if (result.get() == ButtonType.OK){
-				alert.close();	
+				if (result.get() == ButtonType.OK) {
+					alert.close();
 				}
 			}
 		} catch (Exception ex) {

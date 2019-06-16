@@ -115,7 +115,7 @@
     -fx-text-fill: black;
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
-    -fx-font-size: 18.0px;
+    -fx-font-size: 22.0px;
     -fx-effect: dropshadow( gaussian , rgba(255.0,255.0,255.0,0.5) , 0.0,0.0,0.0,1.0 );
 	}
 	
@@ -125,7 +125,7 @@
     -fx-text-fill: black;
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
-    -fx-font-size: 18.0px;
+    -fx-font-size: 22.0px;
     -fx-effect: dropshadow( gaussian , rgba(255.0,255.0,255.0,0.5) , 0.0,0.0,0.0,1.0 );
 	}
 

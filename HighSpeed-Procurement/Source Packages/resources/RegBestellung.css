@@ -12,7 +12,7 @@
 	}
     
 #lblAngebote{
-		-fx-background-color:transparent ;
+	-fx-background-color:transparent ;
 	-fx-background-radius:0.0;
     -fx-text-fill: black;
     -fx-font-family: "Arial Narrow";
@@ -43,8 +43,8 @@
     
 }
 #lblAngebotID{
-		-fx-background-color:transparent ;
-	-fx-background-radius:0.0;
+	-fx-background-color:transparent ;
+	
     -fx-text-fill: black;
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
