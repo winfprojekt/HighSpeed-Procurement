@@ -5,14 +5,72 @@ import model.User;
 import model.Lieferant.Lieferant;
 
 
-class Teilbestellung {
+public class Teilbestellung {
 	
-	private int iD;
+	private Integer iD;
 	private User user;
 	private Lieferant lieferant;
 	private ArrayList <Position> positionen;
+	private int angID;
+	private int  prodID;
+	private String prodTyp;
+	private String prodName;
+	private String hersteller;
+	private int menge;
+	private String name;
 
-
+	public Teilbestellung(int iD, String name, int angID, int prodID, String prodTyp, String prodName, String hersteller, int menge) {
+		this.iD=iD;
+		this.angID=angID;
+		this.prodID=prodID;
+		this.prodTyp=prodTyp;
+		this.prodName=prodName;
+		this.hersteller=hersteller;
+		this.menge=menge;
+		this.name=name;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAngID() {
+		return angID;
+	}
+	public void setAngID(int angID) {
+		this.angID = angID;
+	}
+	public int getProdID() {
+		return prodID;
+	}
+	public void setProdID(int prodID) {
+		this.prodID = prodID;
+	}
+	public String getProdTyp() {
+		return prodTyp;
+	}
+	public void setProdTyp(String prodTyp) {
+		this.prodTyp = prodTyp;
+	}
+	public String getProdName() {
+		return prodName;
+	}
+	public void setProdName(String prodName) {
+		this.prodName = prodName;
+	}
+	public String getHersteller() {
+		return hersteller;
+	}
+	public void setHersteller(String hersteller) {
+		this.hersteller = hersteller;
+	}
+	public int getMenge() {
+		return menge;
+	}
+	public void setMenge(int menge) {
+		this.menge = menge;
+	}
 	//Konstruktor
 	public Teilbestellung(int userID, Lieferant lieferant, ArrayList<Position> positionen) {
 		super();
@@ -22,8 +80,8 @@ class Teilbestellung {
 	}
 
 	//Getter + Setter
-	public int getiD() {
-		return iD;
+	public Integer getiD() {
+		return (Integer)iD;
 	}
 
 	public void setiD(int iD) {

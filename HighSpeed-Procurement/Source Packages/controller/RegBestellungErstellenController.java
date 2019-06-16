@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -11,13 +12,16 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.Main;
 import model.Produkt.Produkt;
@@ -30,6 +34,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableView;
 
 import javafx.scene.control.TableColumn;
+import model.Bestellung.*;
 
 public class RegBestellungErstellenController implements Initializable {
 	@FXML
@@ -63,21 +68,23 @@ public class RegBestellungErstellenController implements Initializable {
 	@FXML
 	private TextField textfieldMenge;
 	@FXML
-	private TableView<?> tableTeilbestellungen;
+	private TableView<Teilbestellung> tableTeilbestellungen;
 	@FXML
-	private TableColumn<?, ?> colTeilbestID;
+	private TableColumn<Teilbestellung, String> colTeilbestName;
 	@FXML
-	private TableColumn<?, ?> colTeilAngID;
+	private TableColumn<Teilbestellung, Integer> colTeilbestID;
 	@FXML
-	private TableColumn<?, ?> colTeilProdID;
+	private TableColumn<Teilbestellung, Integer> colTeilAngID;
 	@FXML
-	private TableColumn<?, ?> colTeilProdTyp;
+	private TableColumn<Teilbestellung, Integer> colTeilProdID;
 	@FXML
-	private TableColumn<?, ?> colTeilProdName;
+	private TableColumn<Teilbestellung, String> colTeilProdTyp;
 	@FXML
-	private TableColumn<?, ?> colTeilHerst;
+	private TableColumn<Teilbestellung, String> colTeilProdName;
 	@FXML
-	private TableColumn<?, ?> colTeilMenge;
+	private TableColumn<Teilbestellung, String> colTeilHerst;
+	@FXML
+	private TableColumn<Teilbestellung, Integer> colTeilMenge;
 	@FXML
 	private Button btnHinzu;
 	@FXML
@@ -97,6 +104,7 @@ public class RegBestellungErstellenController implements Initializable {
 	@FXML
 	private RadioButton radioProzessor;
 	private ObservableList<Angebot> oblistAngebot = FXCollections.observableArrayList();
+	private ObservableList<Teilbestellung> oblistTeilBest = FXCollections.observableArrayList();
 	private DBUtil dbu;
 
 	@FXML
@@ -218,14 +226,59 @@ public class RegBestellungErstellenController implements Initializable {
 			}
 
 		});
+	}
 
+	public void handleTeilbestellungHinzufügen() throws IndexOutOfBoundsException {
+		int choiceAngID = Integer.parseInt(textfieldAngID.getText());
+		int choiceMenge = Integer.parseInt(textfieldMenge.getText());
+		String choiceName = txtfieldBestName.getText();
+		boolean angebotValue = oblistAngebot.stream().filter(p -> p.getAngID() == choiceAngID).findFirst().isPresent();
+		if (angebotValue == true && !textfieldMenge.getText().isEmpty() && !choiceName.isEmpty()) {
+			for (int i = 0; i < oblistAngebot.size(); i++) {
+				if (choiceAngID == oblistAngebot.get(i).getAngID()) {
+					System.out.println("Test");
+					Teilbestellung t1 = new Teilbestellung(i, choiceName, oblistAngebot.get(i).getAngID(),
+							oblistAngebot.get(i).getProduktID(), oblistAngebot.get(i).getProduktTyp(),
+							oblistAngebot.get(i).getProduktName(), oblistAngebot.get(i).getHersteller(), choiceMenge);
+					oblistTeilBest.add(t1);
+					tableTeilbestellungen.setItems(oblistTeilBest);
+				}
+			}
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Fehler");
+			alert.setHeaderText("Sie haben eine falsche Angebot-ID eingegeben!");
+			alert.setContentText("Bitte geben Sie eine gültige Angebot-ID");
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK) {
+				alert.close();
+			}
+		}
+		colTeilbestID.setCellValueFactory(new PropertyValueFactory<>("iD"));
+		colTeilbestName.setCellValueFactory(new PropertyValueFactory<>("name"));
+		colTeilAngID.setCellValueFactory(new PropertyValueFactory<>("angID"));
+		colTeilProdID.setCellValueFactory(new PropertyValueFactory<>("prodID"));
+		colTeilProdTyp.setCellValueFactory(new PropertyValueFactory<>("prodTyp"));
+		colTeilProdName.setCellValueFactory(new PropertyValueFactory<>("prodName"));
+		colTeilHerst.setCellValueFactory(new PropertyValueFactory<>("hersteller"));
+		colTeilMenge.setCellValueFactory(new PropertyValueFactory<>("menge"));
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		dbu = new DBUtil();
 		chooseAngebot();
-		
+		btnHinzu.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+
+				handleTeilbestellungHinzufügen();
+
+			}
+
+		});
+
 	}
 
 }
