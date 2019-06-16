@@ -3,6 +3,9 @@ import java.util.ArrayList;
 //import java.util.Spliterator;
 
 import javafx.scene.control.TableView;
+import model.User;
+import model.Lieferant.Lieferant;
+import model.Produktportfolio.Angebot;
 
 class Sammelbestellung {
 	private ArrayList <Position> positionen;

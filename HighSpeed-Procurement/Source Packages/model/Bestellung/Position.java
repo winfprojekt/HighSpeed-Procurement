@@ -7,6 +7,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import model.Produktportfolio.Angebot;
+import model.Produktportfolio.TableAngebot;
 import javafx.scene.control.Alert.AlertType;
 
 class Position {
@@ -43,7 +45,7 @@ class Position {
 		this.menge = menge;
 	}
 	public static Position readLayer(TableView<TableAngebot> tableAngebote,TextField textfeldMenge) {
-		// Vlt zum Überarbeiten? Da ÖAyer noch nicht klar
+		// Vlt zum ï¿½berarbeiten? Da ï¿½Ayer noch nicht klar
 		
 		try {
 			//Felder casten und Objekte bauen
@@ -68,11 +70,11 @@ class Position {
 	public void addToSB(TableView<TablePosition> tableView,TableView<TableAngebot> tableAngebote,TextField textfeldMenge) {
 		readLayer(tableAngebote,textfeldMenge);
 		
-			// Das Position objekt auf dem Layer Betsellung erstellen zur Bestellungstabelle hinzufügen
+			// Das Position objekt auf dem Layer Betsellung erstellen zur Bestellungstabelle hinzufï¿½gen
 			
-			//Tabelle vergrößern?
+			//Tabelle vergrï¿½ï¿½ern?
 			
-			TablePosition tablePosition = new TablePosition(this.getMenge(),this.angebot.getiD(),this.getAngebot().getProdukt().getName(),
+			TablePosition tablePosition = new TablePosition(this.getMenge(),this.angebot.getAngID(),this.getAngebot().getProdukt().getName(),
 					this.getAngebot().getLieferant().getName(),this.getAngebot().getEinzelpreis());
 			tableView.getItems().add(tablePosition);
 
@@ -87,7 +89,7 @@ class Position {
 
 						for (Position position : positionen) {
 							// neues TableLieferant Objekt bauen
-							TablePosition tablePosition = new TablePosition(position.getMenge(),position.getAngebot().getiD(),
+							TablePosition tablePosition = new TablePosition(position.getMenge(),position.getAngebot().getAngID(),
 									position.getAngebot().getProdukt().getName(),position.getAngebot().getLieferant().getName(),
 									position.getAngebot().getEinzelpreis());
 
