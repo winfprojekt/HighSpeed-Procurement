@@ -102,7 +102,10 @@ public class ProduktportfolioController implements Initializable {
 	@FXML
 	private TableColumn<Angebot, String> colAngProdTyp;
 	@FXML
-	private TableColumn<?, ?> colAngHersteller;
+	private TableColumn<Angebot, String> colAngProdName;
+	@FXML
+	private TableColumn<Angebot, String> colAngHersteller;
+
 	@FXML
 	private Button btnDelete;
 	@FXML
@@ -315,7 +318,7 @@ public class ProduktportfolioController implements Initializable {
 		int choiceLief = Integer.parseInt(liefID.getText());
 		int choiceProd = Integer.parseInt(prodID.getText());
 		boolean liefValue = oblistLieferant.stream().filter(l -> l.getID() == choiceLief).findFirst().isPresent();
-		boolean prodValue = oblistProdukt.stream().filter(p -> p.getIdent() == choiceLief).findFirst().isPresent();
+		boolean prodValue = oblistProdukt.stream().filter(p -> p.getIdent() == choiceProd).findFirst().isPresent();
 		if (liefValue == true && prodValue == true) {
 			for (int i = 0; i < oblistLieferant.size(); i++) {
 				if (choiceLief == oblistLieferant.get(i).getID()) {
@@ -326,7 +329,7 @@ public class ProduktportfolioController implements Initializable {
 							int combointID = Integer.valueOf(comboID);
 							System.out.println(comboID);
 							Angebot a1 = new Angebot(combointID, oblistLieferant.get(i).getID(),
-									oblistProdukt.get(j).getIdent(), oblistProdukt.get(j).getTyp(),
+									oblistProdukt.get(j).getIdent(), oblistProdukt.get(j).getTyp(),oblistProdukt.get(j).getName(),
 									oblistProdukt.get(j).getHersteller());
 							oblistAngebot.add(a1);
 							tableAngOverview.setItems(oblistAngebot);
@@ -352,6 +355,7 @@ public class ProduktportfolioController implements Initializable {
 		colAngLiefID.setCellValueFactory(new PropertyValueFactory<>("lieferantID"));
 		colAngProdID.setCellValueFactory(new PropertyValueFactory<>("produktID"));
 		colAngProdTyp.setCellValueFactory(new PropertyValueFactory<>("produktTyp"));
+		colAngProdName.setCellValueFactory(new PropertyValueFactory<>("produktName"));
 		colAngHersteller.setCellValueFactory(new PropertyValueFactory<>("hersteller"));
 	}
 
@@ -367,6 +371,7 @@ public class ProduktportfolioController implements Initializable {
 			int prodID;
 			String prodTyp;
 			String prodHerst;
+			String prodName;
 			if (oblistAngebot.isEmpty() == false) {
 				for (i = 0; i < oblistAngebot.size(); i++) {
 					Angebot a = oblistAngebot.get(i);
@@ -374,9 +379,10 @@ public class ProduktportfolioController implements Initializable {
 					liefID = a.getLieferantID();
 					prodID = a.getProduktID();
 					prodTyp = a.getProduktTyp();
+					prodName = a.getProduktName();
 					prodHerst = a.getHersteller();
-					String query = "INSERT INTO Angebote (ID, ID_Lieferant, ID_Produkt, Produkttyp,Hersteller)"
-							+ " VALUES (" + angID + "," + liefID + "," + prodID + ",'" + prodTyp + "','" + prodHerst
+					String query = "INSERT INTO Angebote (ID, ID_Lieferant, ID_Produkt, Produkttyp, Produktname, Hersteller)"
+							+ " VALUES (" + angID + "," + liefID + "," + prodID + ",'" + prodTyp + "','" + prodName +"','" + prodHerst
 							+ "')";
 					stmt = connection.prepareStatement(query);
 					stmt.executeUpdate(query);

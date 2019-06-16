@@ -81,21 +81,22 @@
 		<TextField fx:id="liefID" layoutX="135.0" layoutY="364.0" AnchorPane.leftAnchor="135.0" />
 		<TextField fx:id="prodID" layoutX="133.0" layoutY="658.0" AnchorPane.leftAnchor="133.0" />
 		<Button fx:id="btnCreate" layoutX="950.0" layoutY="377.0" mnemonicParsing="false" text="Angebot erstellen" AnchorPane.leftAnchor="950.0" />
-		<Label fx:id="lblAngebote" layoutX="689.0" layoutY="163.0" text="Angebote" AnchorPane.leftAnchor="689.0" AnchorPane.topAnchor="163.0" />
-		<TableView fx:id="tableAngOverview" layoutX="689.0" layoutY="199.0" prefHeight="156.0" prefWidth="576.0" AnchorPane.leftAnchor="689.0" AnchorPane.topAnchor="199.0">
+		<Label fx:id="lblAngebote" layoutX="651.0" layoutY="163.0" text="Angebote" AnchorPane.leftAnchor="651.0" AnchorPane.topAnchor="163.0" />
+		<TableView fx:id="tableAngOverview" layoutX="651.0" layoutY="199.0" prefHeight="156.0" prefWidth="641.0" AnchorPane.leftAnchor="651.0" AnchorPane.topAnchor="199.0">
 			<columns>
 				<TableColumn fx:id="colAngID" prefWidth="75.0" text="ID" />
 				<TableColumn fx:id="colAngLiefID" prefWidth="145.0" text="Lief-ID" />
 				<TableColumn fx:id="colAngProdID" prefWidth="103.0" text="Produkt-ID" />
 				<TableColumn fx:id="colAngProdTyp" prefWidth="112.33331298828125" text="Produkttyp" />
+            <TableColumn fx:id="colAngProdName" prefWidth="112.33331298828125" text="Name" />
 				<TableColumn fx:id="colAngHersteller" prefWidth="112.33331298828125" text="Hersteller" />
 			</columns>
 			<columnResizePolicy>
 				<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
 			</columnResizePolicy>
 		</TableView>
-		<Button fx:id="btnDelete" layoutX="1121.0" layoutY="377.0" mnemonicParsing="false" text="Angebot löschen" AnchorPane.leftAnchor="1121.0" AnchorPane.topAnchor="377.0" />
-		<Button fx:id="btnSpeichern" layoutX="968.0" layoutY="612.0" mnemonicParsing="false" onAction="#angebotSpeichern" prefHeight="48.0" prefWidth="134.0" text="Speichern" AnchorPane.leftAnchor="968.0" />
+		<Button fx:id="btnDelete" layoutX="1148.0" layoutY="377.0" mnemonicParsing="false" text="Angebot löschen" AnchorPane.leftAnchor="1148.0" AnchorPane.topAnchor="377.0" />
+		<Button fx:id="btnSpeichern" layoutX="944.0" layoutY="612.0" mnemonicParsing="false" onAction="#angebotSpeichern" prefHeight="48.0" prefWidth="134.0" text="Speichern" AnchorPane.leftAnchor="944.0" />
 		<Button fx:id="btnAbbrechen" layoutX="1131.0" layoutY="612.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="134.0" text="Abbrechen" AnchorPane.leftAnchor="1131.0" />
 		<RadioButton fx:id="radioProzessor" layoutX="10.0" layoutY="439.0" mnemonicParsing="false" text="Prozessor" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="439.0">
 			<toggleGroup>

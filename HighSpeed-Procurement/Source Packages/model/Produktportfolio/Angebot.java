@@ -25,6 +25,9 @@ public class Angebot {
 	private int produktID;
 	private String produktTyp;
 	private String hersteller;
+	private String produktName;
+
+	
 
 	private static Connection connection = util.DBUtil.getConnection();
 
@@ -40,12 +43,13 @@ public class Angebot {
 	 */
 
 	// Konstruktor 0
-	public Angebot(int angID, int lieferantID, int produktID, String produktTyp, String hersteller) {
+	public Angebot(int angID, int lieferantID, int produktID, String produktTyp,String produktName, String hersteller) {
 		super();
 		this.angID = angID;
 		this.lieferantID = lieferantID;
 		this.produktID = produktID;
 		this.produktTyp = produktTyp;
+		this.produktName=produktName;
 		this.hersteller = hersteller;
 	}
 
@@ -76,6 +80,13 @@ public class Angebot {
 	}
 
 	// Getter + Setter
+	public String getProduktName() {
+		return produktName;
+	}
+
+	public void setProduktName(String produktName) {
+		this.produktName = produktName;
+	}
 	public String getHersteller() {
 		return hersteller;
 	}
