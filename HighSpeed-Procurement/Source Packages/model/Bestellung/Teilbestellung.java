@@ -15,6 +15,7 @@ public class Teilbestellung {
 	private ArrayList <Position> positionen;
 	private int angID;
 	private int  prodID;
+	private int liefID;
 	private String prodTyp;
 	private String prodName;
 	private String hersteller;
@@ -23,9 +24,10 @@ public class Teilbestellung {
 	private double gesamtpreis;
 
 
-	public Teilbestellung(int bestID, String name, int angID, int prodID, String prodTyp, String prodName, String hersteller, int menge, double gesamtpreis) {
+	public Teilbestellung(int bestID, String name, int angID, int liefID, int prodID, String prodTyp, String prodName, String hersteller, int menge, double gesamtpreis) {
 		this.bestID=bestID;
 		this.angID=angID;
+		this.liefID=liefID;
 		this.prodID=prodID;
 		this.prodTyp=prodTyp;
 		this.prodName=prodName;
@@ -33,6 +35,12 @@ public class Teilbestellung {
 		this.menge=menge;
 		this.name=name;
 		this.gesamtpreis=gesamtpreis;
+	}
+	public int getLiefID() {
+		return liefID;
+	}
+	public void setLiefID(int liefID) {
+		this.liefID = liefID;
 	}
 	public double getGesamtpreis() {
 		return gesamtpreis;
@@ -152,8 +160,8 @@ public class Teilbestellung {
 	public String toText() {
 		
 		StringBuffer sb = new StringBuffer();
-		sb.append("Sehr geehrte Damen und Herren,\n\n");
-		sb.append("Wir haben eine neue Bestellung f??ie erstellt.\n\n");
+		sb.append("Sehr geehrte Damen und Herren,\n");
+		sb.append("Wir haben eine neue Bestellung für Sie erstellt.\n");
 		sb.append("Bestellungsnummer: ");
 		sb.append(this.bestID);
 		sb.append("\n");
@@ -168,9 +176,9 @@ public class Teilbestellung {
 			sb.append(this.positionen.get(i).getMenge());
 			sb.append("\n");
 		}
-		sb.append("Mit freundlichen Gr??\n");
+		sb.append("Mit freundlichen Grüßen");
 		sb.append(this.user.getUser());
-		sb.append("\n\n");
+		sb.append("\n");
 		sb.append("HighSpeedProcurement");
 		String toBeMailed = sb.toString();
 		return toBeMailed;

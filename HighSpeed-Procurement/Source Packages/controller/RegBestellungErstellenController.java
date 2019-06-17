@@ -4,10 +4,9 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-import javax.persistence.PersistenceUnitUtil;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -75,6 +74,8 @@ public class RegBestellungErstellenController implements Initializable {
 	@FXML
 	private TableColumn<Teilbestellung, Integer> colTeilAngID;
 	@FXML
+	private TableColumn<Teilbestellung, Integer> colTeilLiefID;
+	@FXML
 	private TableColumn<Teilbestellung, Integer> colTeilProdID;
 	@FXML
 	private TableColumn<Teilbestellung, String> colTeilProdTyp;
@@ -85,7 +86,7 @@ public class RegBestellungErstellenController implements Initializable {
 	@FXML
 	private TableColumn<Teilbestellung, Integer> colTeilMenge;
 	@FXML
-	private TableColumn<Teilbestellung, Double>colTeilGesamtpreis;
+	private TableColumn<Teilbestellung, Double> colTeilGesamtpreis;
 	@FXML
 	private Button btnHinzu;
 	@FXML
@@ -110,8 +111,9 @@ public class RegBestellungErstellenController implements Initializable {
 	private ObservableList<Teilbestellung> oblistTeilBest = FXCollections.observableArrayList();
 	private DBUtil dbu;
 	Teilbestellung t1;
+	ArrayList<Teilbestellung> teilbestellungen = new ArrayList<Teilbestellung>();
 	
-	
+
 	@FXML
 	private void handleAbbrechenAction(ActionEvent e) {
 		// When "Abbrechen"-Button is
@@ -133,7 +135,8 @@ public class RegBestellungErstellenController implements Initializable {
 			while (rs.next()) {
 				// p1 = new Produkt(rs.getInt("ID"));
 				Angebot a1 = new Angebot(rs.getInt("ID"), rs.getInt("ID_Lieferant"), rs.getInt("ID_Produkt"),
-						rs.getString("Produkttyp"), rs.getString("Produktname"), rs.getString("Hersteller"), rs.getDouble("Einzelpreis"));
+						rs.getString("Produkttyp"), rs.getString("Produktname"), rs.getString("Hersteller"),
+						rs.getDouble("Einzelpreis"));
 
 				oblistAngebot.add(a1);
 			}
@@ -237,47 +240,48 @@ public class RegBestellungErstellenController implements Initializable {
 	}
 
 	public void handleTeilbestellungHinzufügen() throws IndexOutOfBoundsException {
-		if(!textfieldMenge.getText().isEmpty() && !textfieldAngID.getText().isEmpty()) {
-		int choiceAngID = Integer.parseInt(textfieldAngID.getText());
-		int choiceMenge = Integer.parseInt(textfieldMenge.getText());
-		String choiceName = txtfieldBestName.getText();
-		boolean angebotValue = oblistAngebot.stream().filter(p -> p.getAngID() == choiceAngID).findFirst().isPresent();
-		if (angebotValue == true && !textfieldMenge.getText().isEmpty() && !choiceName.isEmpty()) {
-			for (int i = 0; i < oblistAngebot.size(); i++) {
-				if (choiceAngID == oblistAngebot.get(i).getAngID()) {
-					System.out.println("Test");
-					double gesamtPreis = (double)(oblistAngebot.get(i).getEinzelpreis())*choiceMenge;
-					 t1 = new Teilbestellung(1, choiceName, oblistAngebot.get(i).getAngID(),
-							oblistAngebot.get(i).getProduktID(), oblistAngebot.get(i).getProduktTyp(),
-							oblistAngebot.get(i).getProduktName(), oblistAngebot.get(i).getHersteller(), choiceMenge, gesamtPreis);
-					oblistTeilBest.add(t1);
-					tableTeilbestellungen.setItems(oblistTeilBest);
+		if (!textfieldMenge.getText().isEmpty() && !textfieldAngID.getText().isEmpty()) {
+			int choiceAngID = Integer.parseInt(textfieldAngID.getText());
+			int choiceMenge = Integer.parseInt(textfieldMenge.getText());
+			String choiceName = txtfieldBestName.getText();
+			boolean angebotValue = oblistAngebot.stream().filter(p -> p.getAngID() == choiceAngID).findFirst()
+					.isPresent();
+			if (angebotValue == true && !textfieldMenge.getText().isEmpty() && !choiceName.isEmpty()) {
+				for (int i = 0; i < oblistAngebot.size(); i++) {
+					if (choiceAngID == oblistAngebot.get(i).getAngID()) {
+						double gesamtPreis = (double) (oblistAngebot.get(i).getEinzelpreis()) * choiceMenge;
+						t1 = new Teilbestellung(1, choiceName, oblistAngebot.get(i).getAngID(),
+								oblistAngebot.get(i).getLieferantID(), oblistAngebot.get(i).getProduktID(),
+								oblistAngebot.get(i).getProduktTyp(), oblistAngebot.get(i).getProduktName(),
+								oblistAngebot.get(i).getHersteller(), choiceMenge, gesamtPreis);
+						oblistTeilBest.add(t1);
+						tableTeilbestellungen.setItems(oblistTeilBest);
+					}
+				}
+			} else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Fehler");
+				alert.setHeaderText("Bitte füllen Sie alle Eingabefelder aus!");
+				alert.setContentText("Bitte geben Sie eine gültige Angebot-ID und den Namen der Bestellung an!");
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.get() == ButtonType.OK) {
+					alert.close();
 				}
 			}
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Fehler");
 			alert.setHeaderText("Bitte füllen Sie alle Eingabefelder aus!");
-			alert.setContentText("Bitte geben Sie eine gültige Angebot-ID und den Namen der Bestellung an!");
+			alert.setContentText("Bitte geben Sie eine gültige Lieferant-/ und Produkt-ID und den Einzelpreis ein!");
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK) {
 				alert.close();
 			}
 		}
-		}
-		else {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Fehler");
-			alert.setHeaderText("Bitte füllen Sie alle Eingabefelder aus!");
-			alert.setContentText("Bitte geben Sie eine gültige Lieferant-/ und Produkt-ID und den Einzelpreis ein!");
-			Optional<ButtonType> result = alert.showAndWait();
-			if (result.get() == ButtonType.OK){
-			alert.close();	
-			}
-		}
 		colTeilbestID.setCellValueFactory(new PropertyValueFactory<>("bestID"));
 		colTeilbestName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		colTeilAngID.setCellValueFactory(new PropertyValueFactory<>("angID"));
+		colTeilLiefID.setCellValueFactory(new PropertyValueFactory<>("liefID"));
 		colTeilProdID.setCellValueFactory(new PropertyValueFactory<>("prodID"));
 		colTeilProdTyp.setCellValueFactory(new PropertyValueFactory<>("prodTyp"));
 		colTeilProdName.setCellValueFactory(new PropertyValueFactory<>("prodName"));
@@ -285,10 +289,34 @@ public class RegBestellungErstellenController implements Initializable {
 		colTeilMenge.setCellValueFactory(new PropertyValueFactory<>("menge"));
 		colTeilGesamtpreis.setCellValueFactory(new PropertyValueFactory<>("gesamtpreis"));
 	}
+	//ArrayList mit Teilbestellungen 
+	public ArrayList<Teilbestellung> createBestellung() {
+
+		teilbestellungen.addAll(oblistTeilBest);
+		return teilbestellungen;
+
+	}
+
+	//ArrayLists mit Teilbestellungen (sortiert nach Lieferant)
+	public void createBestellungLieferant() {
+
+		for (Teilbestellung l1 : teilbestellungen) {
+			for (Teilbestellung l2 : teilbestellungen) {
+				if (l1.getLiefID() == l2.getLiefID()) {	
+					ArrayList<Teilbestellung> liefTeilBestellung = new ArrayList<Teilbestellung>();
+					liefTeilBestellung.add(l1);
+					liefTeilBestellung.add(l2);
+					liefTeilBestellung.forEach(e -> System.out.println(e.getLiefID()));
+				}
+			}
+
+		}
+
+
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		dbu = new DBUtil();
 		chooseAngebot();
 		btnHinzu.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -296,6 +324,17 @@ public class RegBestellungErstellenController implements Initializable {
 			public void handle(ActionEvent arg0) {
 
 				handleTeilbestellungHinzufügen();
+
+			}
+
+		});
+		btnBestErstellen.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+
+				createBestellung();
+				createBestellungLieferant();
 
 			}
 

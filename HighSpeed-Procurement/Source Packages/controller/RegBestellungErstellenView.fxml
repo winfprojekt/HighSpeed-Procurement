@@ -38,6 +38,7 @@
             <TableColumn fx:id="colTeilbestID" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="colTeilbestName" prefWidth="75.0" text="Name" />
             <TableColumn fx:id="colTeilAngID" prefWidth="75.0" text="Angebot-ID" />
+            <TableColumn fx:id="colTeilLiefID" prefWidth="75.0" text="Lief-ID" />
             <TableColumn fx:id="colTeilProdID" prefWidth="103.0" text="Produkt-ID" />
             <TableColumn fx:id="colTeilProdTyp" prefWidth="112.33331298828125" text="Produkttyp" />
             <TableColumn fx:id="colTeilProdName" prefWidth="112.33331298828125" text="Produktname" />
