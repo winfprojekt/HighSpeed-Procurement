@@ -1,5 +1,7 @@
 package main;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Bestellung.Teilbestellung;
 import model.Security.PW_Encryption;
 
 public class Main extends Application {
@@ -95,6 +98,7 @@ public class Main extends Application {
 		
 	}
 
+	
 	public static void main(String[] args) throws NoSuchAlgorithmException {
 		// create an Object from DBUtil-class
 		util.DBUtil db = new util.DBUtil();
@@ -104,6 +108,7 @@ public class Main extends Application {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+
 		launch(args);
 	}
 

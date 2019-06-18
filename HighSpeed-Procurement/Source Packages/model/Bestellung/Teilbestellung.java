@@ -1,4 +1,5 @@
 package model.Bestellung;
+import java.io.Serializable;
 import java.util.ArrayList;
 import model.Mail.*;
 import model.User;
@@ -7,7 +8,7 @@ import javax.persistence.*;
 
 
 
-public class Teilbestellung {
+public class Teilbestellung implements Serializable{
 	
 	private  int bestID;
 	private User user;

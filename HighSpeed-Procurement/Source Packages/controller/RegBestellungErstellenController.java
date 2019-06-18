@@ -1,5 +1,11 @@
 package controller;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,7 +38,7 @@ import model.Bestellung.Teilbestellung;
 import model.Produktportfolio.Angebot;
 import util.DBUtil;
 
-public class RegBestellungErstellenController implements Initializable {
+public class RegBestellungErstellenController implements Initializable, Serializable {
 	@FXML
 	private Label lblHeader;
 	@FXML
@@ -112,7 +118,6 @@ public class RegBestellungErstellenController implements Initializable {
 	private DBUtil dbu;
 	Teilbestellung t1;
 	ArrayList<Teilbestellung> teilbestellungen = new ArrayList<Teilbestellung>();
-	
 
 	@FXML
 	private void handleAbbrechenAction(ActionEvent e) {
@@ -289,20 +294,47 @@ public class RegBestellungErstellenController implements Initializable {
 		colTeilMenge.setCellValueFactory(new PropertyValueFactory<>("menge"));
 		colTeilGesamtpreis.setCellValueFactory(new PropertyValueFactory<>("gesamtpreis"));
 	}
-	//ArrayList mit Teilbestellungen 
+
+
+	
+	/**
+	 * @param filepath - Where the file is saved (locally) 
+	 * Example: "C:\\Users\\Denislav\\Desktop\\output.txt"
+	 * @param stringInput - The String input to be saved
+	 * Example: "Test"
+	 */
+	public void writeObjectToFile(String filepath, String stringInput) {
+		try {
+			String stringOutput = "";
+			OutputStream output = new FileOutputStream(filepath);
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			byte[] b = stringInput.getBytes();
+			baos.write(b);
+			stringOutput = baos.toString("UTF-8");
+			baos.writeTo(output);
+			output.close();
+			System.out.println("Erfolgreich gespeichert!");
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	// ArrayList mit Teilbestellungen
 	public ArrayList<Teilbestellung> createBestellung() {
 
 		teilbestellungen.addAll(oblistTeilBest);
+
 		return teilbestellungen;
 
 	}
 
-	//ArrayLists mit Teilbestellungen (sortiert nach Lieferant)
+	// ArrayLists mit Teilbestellungen (sortiert nach Lieferant)
 	public void createBestellungLieferant() {
 
 		for (Teilbestellung l1 : teilbestellungen) {
 			for (Teilbestellung l2 : teilbestellungen) {
-				if (l1.getLiefID() == l2.getLiefID()) {	
+				if (l1.getLiefID() == l2.getLiefID()) {
 					ArrayList<Teilbestellung> liefTeilBestellung = new ArrayList<Teilbestellung>();
 					liefTeilBestellung.add(l1);
 					liefTeilBestellung.add(l2);
@@ -311,7 +343,6 @@ public class RegBestellungErstellenController implements Initializable {
 			}
 
 		}
-
 
 	}
 
@@ -335,6 +366,7 @@ public class RegBestellungErstellenController implements Initializable {
 
 				createBestellung();
 				createBestellungLieferant();
+				writeObjectToFile("C:\\Users\\Denislav\\Desktop\\output.txt", "Testing");
 
 			}
 
