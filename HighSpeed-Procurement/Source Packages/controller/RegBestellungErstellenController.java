@@ -303,7 +303,7 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 	 * @param stringInput - The String input to be saved
 	 * Example: "Test"
 	 */
-	public void writeObjectToFile(String filepath, String stringInput) {
+	public void writeStringToFile(String filepath, String stringInput) {
 		try {
 			String stringOutput = "";
 			OutputStream output = new FileOutputStream(filepath);
@@ -366,7 +366,7 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 
 				createBestellung();
 				createBestellungLieferant();
-				writeObjectToFile("C:\\Users\\Denislav\\Desktop\\output.txt", "Testing");
+				writeStringToFile("C:\\Users\\Denislav\\Desktop\\output.txt", "Testing");
 
 			}
 

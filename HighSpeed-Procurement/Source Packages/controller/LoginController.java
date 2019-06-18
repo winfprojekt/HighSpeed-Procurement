@@ -7,17 +7,22 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -80,25 +85,28 @@ public class LoginController implements Initializable {
 		PW_Encryption PW_gen = new PW_Encryption(passwordField.getText());
 		System.out.println("Eingabe " + PW_gen.getData());
 
-		if (check.equalsIgnoreCase(PW_gen.getData())) {
-			actiontarget2.setText("Success!");
+		if (isInputValid() == true) {
 			try {
-				// AnchorPane homePane =
-				// FXMLLoader.load(getClass().getResource("HomeScreenView.fxml"));
-				// loginPane.getChildren().setAll(homePane);
-				Main.set_pane(1);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
+				if (check.equalsIgnoreCase(PW_gen.getData()) && usernameTextbox.getText().isEmpty() == false) {
+					actiontarget2.setText("Success!");
+					// AnchorPane homePane =
+					// FXMLLoader.load(getClass().getResource("HomeScreenView.fxml"));
+					// loginPane.getChildren().setAll(homePane);
+					Main.set_pane(1);
 
-		} else {
-			actiontarget.setText("Wrong username and/or password!!");
+				}
+			} catch (Exception ex) {
+				actiontarget.setText("Wrong username and/or password!!");
+			}
 		}
+
 	}
+
 	public void setMail(String mail) {
-		this.mail=mail;
+		this.mail = mail;
 	}
-	public String getMail () {
+
+	public String getMail() {
 		return mail;
 	}
 
@@ -110,15 +118,16 @@ public class LoginController implements Initializable {
 	}
 
 	// Validation method
-	private boolean isInputValid() {
+	public boolean isInputValid() {
 		Boolean valid = false;
-		if (!(usernameTextbox.getText() == null || usernameTextbox.getText().length() == 0
-				|| passwordField.getText() == null || passwordField.getText().length() == 0)) {
-			try {
-				valid = true;
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
+		if (!(usernameTextbox.getText() == null && usernameTextbox.getText().length() == 0
+				&& passwordField.getText() == null && passwordField.getText().length() == 0
+				&& usernameTextbox.getText() == "" && passwordField.getText() == "")) {
+
+			valid = true;
+		} else {
+			valid = false;
+
 		}
 		return valid;
 	}
