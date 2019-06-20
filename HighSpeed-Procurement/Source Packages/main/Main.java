@@ -7,9 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -49,6 +51,8 @@ public class Main extends Application {
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/HilfeView.fxml")));
 			//idx=8
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/RegBestellungErstellenView.fxml")));
+			//idx=9
+			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/EilBestellungErstellenView.fxml")));
 			root.getChildren().add(anchor.get(0));
 			Scene scene = new Scene(root, 430, 330);
 			scene.getStylesheets().add(getClass().getResource("/resources/Login.css").toExternalForm());
@@ -68,6 +72,11 @@ public class Main extends Application {
 
 		}
 
+	}
+	public static String generateUUID() {
+        UUID uuid = UUID.randomUUID();
+        String randomUUIDString = uuid.toString();
+        return randomUUIDString;
 	}
 
 	public static AnchorPane get_pane(int idx) {

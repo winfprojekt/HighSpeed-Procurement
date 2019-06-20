@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 public class Teilbestellung implements Serializable{
 	
-	private  int bestID;
+	private  String bestUUID;
 	private User user;
 	private Lieferant lieferant;
 	private ArrayList <Position> positionen;
@@ -25,8 +25,8 @@ public class Teilbestellung implements Serializable{
 	private double gesamtpreis;
 
 
-	public Teilbestellung(int bestID, String name, int angID, int liefID, int prodID, String prodTyp, String prodName, String hersteller, int menge, double gesamtpreis) {
-		this.bestID=bestID;
+	public Teilbestellung(String bestUUID, String name, int angID, int liefID, int prodID, String prodTyp, String prodName, String hersteller, int menge, double gesamtpreis) {
+		this.bestUUID=bestUUID;
 		this.angID=angID;
 		this.liefID=liefID;
 		this.prodID=prodID;
@@ -100,12 +100,12 @@ public class Teilbestellung implements Serializable{
 	}
 
 	//Getter + Setter
-	public int getBestID() {
-		return bestID;
+	public String getBestUUID() {
+		return bestUUID;
 	}
 	
-	public void setBestID(int bestID) {
-		this.bestID = bestID;
+	public void setBestID(String bestUUID) {
+		this.bestUUID = bestUUID;
 	}
 	
 	public User getUser() {
@@ -164,7 +164,7 @@ public class Teilbestellung implements Serializable{
 		sb.append("Sehr geehrte Damen und Herren,\n");
 		sb.append("Wir haben eine neue Bestellung für Sie erstellt.\n");
 		sb.append("Bestellungsnummer: ");
-		sb.append(this.bestID);
+		sb.append(this.bestUUID);
 		sb.append("\n");
 		for(int i = 0; i<this.positionen.size(); i++) {
 			sb.append("Einzelteil: ");
@@ -189,7 +189,7 @@ public class Teilbestellung implements Serializable{
 		
 		String TextBody = this.toText();
 		
-		MailService newMail = new MailService(TextBody, this.bestID, this.lieferant.getKontaktdaten().getEmail());
+		MailService newMail = new MailService(TextBody, this.bestUUID, this.lieferant.getKontaktdaten().getEmail());
 	
 	return newMail;
 	}

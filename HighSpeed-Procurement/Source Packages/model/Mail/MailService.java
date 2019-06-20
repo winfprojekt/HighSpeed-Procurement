@@ -11,15 +11,15 @@ import javax.mail.internet.MimeMessage;
 
 public class MailService {
 	private String text; // Inhalt
-	private int bestellungsID;
+	private String bestellungsUUID;
 	private String absender; // Mail adresse
 	private String empfanger; // Mail adresse
 
 	// Konstruktor
-	public MailService(String text, int bestellungsID, String empfanger) {
+	public MailService(String text, String bestellungsUUID, String empfanger) {
 		super();
 		this.text = text;
-		this.bestellungsID = bestellungsID;
+		this.bestellungsUUID = bestellungsUUID;
 		this.empfanger = empfanger;
 	}
 
@@ -32,12 +32,12 @@ public class MailService {
 		this.text = text;
 	}
 
-	public int getBestellungsID() {
-		return bestellungsID;
+	public String getBestellungsID() {
+		return bestellungsUUID;
 	}
 
-	public void setBestellungsID(int bestellungsID) {
-		this.bestellungsID = bestellungsID;
+	public void setBestellungsID(String bestellungsUUID) {
+		this.bestellungsUUID = bestellungsUUID;
 	}
 
 	public String getAbsender() {

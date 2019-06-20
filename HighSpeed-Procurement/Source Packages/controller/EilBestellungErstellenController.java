@@ -36,7 +36,7 @@ import model.Bestellung.Teilbestellung;
 import model.Produktportfolio.Angebot;
 import util.DBUtil;
 
-public class RegBestellungErstellenController implements Initializable, Serializable {
+public class EilBestellungErstellenController implements Initializable, Serializable {
 	@FXML
 	private Label lblHeader;
 	@FXML
@@ -182,7 +182,7 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 			public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
 				if (radioFestplatte.isSelected() == true) {
 					oblistAngebot.removeAll(oblistAngebot);
-					loadDatabaseAngebot("SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Festplatte' AND l.Typ LIKE '%Standard%'");
+					loadDatabaseAngebot("SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Festplatte' AND l.Typ LIKE '%Eil%'");
 					tableAngOverview.setItems(null);
 					tableAngOverview.refresh();
 					tableAngOverview.setItems(oblistAngebot);
@@ -198,7 +198,7 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 			public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
 				if (radioProzessor.isSelected() == true) {
 					oblistAngebot.removeAll(oblistAngebot);
-					loadDatabaseAngebot("SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Prozessor' AND l.Typ LIKE '%Standard%'");
+					loadDatabaseAngebot("SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Prozessor' AND l.Typ LIKE '%Eil%'");
 					tableAngOverview.setItems(null);
 					tableAngOverview.refresh();
 					tableAngOverview.setItems(oblistAngebot);
@@ -214,7 +214,7 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 			public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
 				if (radioHaupt.isSelected() == true) {
 					oblistAngebot.removeAll(oblistAngebot);
-					loadDatabaseAngebot("SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Hauptspeicher' AND l.Typ LIKE '%Standard%'");
+					loadDatabaseAngebot("SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Hauptspeicher' AND l.Typ LIKE '%Eil%'");
 					tableAngOverview.setItems(null);
 					tableAngOverview.refresh();
 					tableAngOverview.setItems(oblistAngebot);
@@ -229,7 +229,7 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 			public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
 				if (radioGrafik.isSelected() == true) {
 					oblistAngebot.removeAll(oblistAngebot);
-					loadDatabaseAngebot("SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Grafikkarte' AND l.Typ LIKE '%Standard%'");
+					loadDatabaseAngebot("SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Grafikkarte' AND l.Typ LIKE '%Eil%'");
 					tableAngOverview.setItems(null);
 					tableAngOverview.refresh();
 					tableAngOverview.setItems(oblistAngebot);
@@ -245,7 +245,7 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 			public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
 				if (radioBS.isSelected() == true) {
 					oblistAngebot.removeAll(oblistAngebot);
-					loadDatabaseAngebot("SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Betriebssystem' AND l.Typ LIKE '%Standard%'");
+					loadDatabaseAngebot("SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Betriebssystem' AND l.Typ LIKE '%Eil%'");
 					tableAngOverview.setItems(null);
 					tableAngOverview.refresh();
 					tableAngOverview.setItems(oblistAngebot);
@@ -391,7 +391,7 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 					String query = "INSERT INTO Teilbestellungen (ID,Name,Angebot_ID,Lieferant_ID,Produkt_ID,Produkttyp,Produktname,Hersteller,Menge,Gesamtpreis,Typ, Status)"
 							+ " VALUES ('" + teilID + "','" + bestName + "', " + angID + "," + liefID + "," + prodID
 							+ ",'" + prodTyp + "','" + prodName + "','" + prodHerst + "'," + menge + "," + gesamtpreis
-							+ "regelmäßig" + " 'in Bearbeitung' " + ")";
+							+ "Eilbestellung" + " 'in Bearbeitung' " + ")";
 					stmt = connection.prepareStatement(query);
 					stmt.executeUpdate(query);
 

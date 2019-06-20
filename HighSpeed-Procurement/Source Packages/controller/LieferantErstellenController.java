@@ -1,9 +1,9 @@
 package controller;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import javafx.event.ActionEvent;
@@ -84,16 +84,10 @@ public class LieferantErstellenController {
 	@FXML
 	private Button btnAbbrechen;
 
-	private Connection connection = util.DBUtil.getConnection();
-	private Statement stmt;
-	private ResultSet rs = null;
-	private DBUtil dbu;
-
 	@FXML
 	private void handleSpeichernAction(ActionEvent e) {
 
-		try {
-			stmt = connection.createStatement();
+		try (Connection connection = util.DBUtil.getConnection(); Statement stmt = connection.createStatement();) {
 			// int update =stmt.executeUpdate("INSERT INTO Lieferant ID, Name, "
 			// + "Adresse, PLZ, Land, Typ, E-Mail, Telefonnummer, Bank, IBAN, SWIFT,
 			// Steuernummer, Timestamp "
@@ -103,7 +97,7 @@ public class LieferantErstellenController {
 			// '"+textfieldMail.getText()+"', '"+textfieldTelnum.getText()+"',
 			// '"+textfieldBank.getText()+"', '"+textfieldIBAN.getText()+"',
 			// '"+textfieldSWIFT.getText()+"', '"+textfieldSteuer.getText()+"') ");
-			int update = stmt.executeUpdate(
+			stmt.executeUpdate(
 					"INSERT INTO Lieferant (Name, Adresse, Stadt, PLZ, Land, Typ, Mail, Telefonnummer, Bank, IBAN, SWIFT, Steuernummer) VALUES "
 							+ "('" + textfieldName.getText() + "', '" + textfieldAddr.getText() + "', '"
 							+ textfieldStadt.getText() + "', '" + textFieldPLZ.getText() + "', '"
@@ -111,40 +105,57 @@ public class LieferantErstellenController {
 							+ textfieldMail.getText() + "', '" + textfieldTelnum.getText() + "', '"
 							+ textfieldBank.getText() + "', '" + textfieldIBAN.getText() + "', '"
 							+ textfieldSWIFT.getText() + "', '" + textfieldSteuer.getText() + "'  )");
-
 		} catch (SQLException ex) {
 			// TODO Auto-generated catch block
 			ex.printStackTrace();
 		}
 
-		TextField[] Textfelder = { textfieldName, textfieldAddr, textfieldStadt, textFieldPLZ, textfieldMail,
+		TextField[] textfelder = { textfieldName, textfieldAddr, textfieldStadt, textFieldPLZ, textfieldMail,
 				textfieldTelnum, textfieldBank, textfieldIBAN, textfieldSWIFT, textfieldSteuer, textfieldLand,
 				textfieldTyp };
-		Lieferant.readLayer(Textfelder);
-		
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Neuanlage Lieferant");
-		alert.setHeaderText("Der Lieferant wurde erfolgreich angelegt!");
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK){
-			alert.close();
-			Main.set_pane(2);
-			textfieldName.clear();
-			textfieldAddr.clear();
-			textfieldStadt.clear();
-			textFieldPLZ.clear();
-			textFieldPLZ.clear();
-			textfieldMail.clear();
-			textfieldTelnum.clear();
-			textfieldBank.clear();
-			textfieldIBAN.clear();
-			textfieldSWIFT.clear();
-			textfieldSteuer.clear();
-			textfieldLand.clear();
-			textfieldTyp.clear();
+		ArrayList<TextField> txtField = new ArrayList<TextField>();
+
+		for (int i = 0; i < textfelder.length; i++) {
+			txtField.add(textfelder[i]);
 		}
-		
-		
+		boolean match = txtField.stream().anyMatch(field -> (field.getText().isEmpty() == true));
+		if (match == true) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Fehler");
+			alert.setHeaderText("Bitte füllen Sie alle Eingabefelder aus!");
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK) {
+				alert.close();
+			}
+		} else {
+			textfelder = txtField.toArray(new TextField[txtField.size()]);
+
+			Lieferant.readLayer(textfelder);
+
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Neuanlage Lieferant");
+			alert.setHeaderText("Der Lieferant wurde erfolgreich angelegt!");
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK) {
+				alert.close();
+				Main.set_pane(2);
+				textfieldName.clear();
+				textfieldAddr.clear();
+				textfieldStadt.clear();
+				textFieldPLZ.clear();
+				textFieldPLZ.clear();
+				textfieldMail.clear();
+				textfieldTelnum.clear();
+				textfieldBank.clear();
+				textfieldIBAN.clear();
+				textfieldSWIFT.clear();
+				textfieldSteuer.clear();
+				textfieldLand.clear();
+				textfieldTyp.clear();
+
+			}
+		}
+
 	}
 
 	@FXML
@@ -157,7 +168,7 @@ public class LieferantErstellenController {
 		alert.setHeaderText("Der Prozess wird abgebrochen.");
 		alert.setContentText("Wollen Sie wirklich den Prozess abbrechen?");
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK){
+		if (result.get() == ButtonType.OK) {
 			alert.close();
 			Main.set_pane(2);
 			textfieldName.clear();
@@ -173,8 +184,7 @@ public class LieferantErstellenController {
 			textfieldSteuer.clear();
 			textfieldLand.clear();
 			textfieldTyp.clear();
-		}
-		else {
+		} else {
 			alert.close();
 		}
 

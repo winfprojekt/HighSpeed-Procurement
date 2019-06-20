@@ -139,6 +139,7 @@ public class LieferantController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		tableBearbeiten.refresh();
 		dbu = new DBUtil();
 		loadDatabaseData();
 		tableBearbeiten.setOnMouseClicked(event -> {
@@ -147,7 +148,7 @@ public class LieferantController implements Initializable {
 				lief = tableBearbeiten.getSelectionModel().getSelectedItem();
 				controller.LieferantBearbeitenController lbc = new controller.LieferantBearbeitenController();
 				lbc.nameDisplay.set(lief.getName());
-				
+
 			}
 		});
 	}
@@ -198,6 +199,26 @@ public class LieferantController implements Initializable {
 		colTyp.setCellValueFactory(new PropertyValueFactory<>("typ"));
 		colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 		tableBearbeiten.setItems(oblist);
+	}
+
+	public void loadRepeat(Connection con) {
+		String query = "SELECT * FROM Lieferant";
+		try {
+			stmt = con.prepareStatement(query);
+			rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				lief = new model.Lieferant.Lieferant(
+						rs.getInt("ID"), rs.getString("Name"), new Adresse(rs.getString("Adresse"),
+								rs.getString("Stadt"), rs.getInt("PLZ"), rs.getString("Land").toString()),
+						rs.getString("Typ"), rs.getTimestamp("Timestamp"));
+				oblist.add(lief);
+			}
+			stmt.close();
+			rs.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	public model.Lieferant.Lieferant getLief() {

@@ -98,8 +98,10 @@ public class HomeScreenController implements Initializable {
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		tableLieferant.refresh();
 		dbu = new DBUtil();
 		loadDatabaseData();
+		tableLieferant.refresh();
 	}
 	public void loadDatabaseData() {
 		String query = "SELECT * FROM Lieferant";
@@ -116,9 +118,9 @@ public class HomeScreenController implements Initializable {
 						rs.getTimestamp("Timestamp"));
 				oblist.add(l1);
 			}
+			connection.close();
 			stmt.close();
 			rs.close();
-			connection.close();
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}

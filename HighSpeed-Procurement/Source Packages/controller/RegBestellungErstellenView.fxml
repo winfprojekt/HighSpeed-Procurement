@@ -35,7 +35,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
          <columns>
-            <TableColumn fx:id="colTeilbestID" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="colTeilbestID" prefWidth="75.0" text="UUID" />
             <TableColumn fx:id="colTeilbestName" prefWidth="75.0" text="Name" />
             <TableColumn fx:id="colTeilAngID" prefWidth="75.0" text="Angebot-ID" />
             <TableColumn fx:id="colTeilLiefID" prefWidth="75.0" text="Lief-ID" />

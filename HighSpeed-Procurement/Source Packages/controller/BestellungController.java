@@ -1,7 +1,7 @@
 package controller;
 
 import javafx.fxml.FXML;
-
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
 import javafx.scene.text.Text;
@@ -9,6 +9,8 @@ import main.Main;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 
@@ -16,7 +18,7 @@ import javafx.scene.control.TableView;
 
 import javafx.scene.control.TableColumn;
 
-public class BestellungController {
+public class BestellungController implements Initializable {
 	@FXML
 	private Button btnHeader;
 	@FXML
@@ -102,5 +104,15 @@ public class BestellungController {
 	@FXML
 	public void createRegBestellung(ActionEvent event) throws IOException{
 		Main.set_pane(8);
+	}
+	@FXML
+	public void handleEilBEstellung(ActionEvent event)throws IOException{
+		Main.set_pane(9);
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 }

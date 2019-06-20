@@ -136,6 +136,8 @@ public class ProduktportfolioController implements Initializable {
 	private DBUtil dbu;
 	private Produkt p1;
 	private Lieferant l1;
+	private String comboID;
+	private int combointID;
 
 	@FXML
 	public void handleHomeButton(ActionEvent event) throws IOException {
@@ -143,6 +145,9 @@ public class ProduktportfolioController implements Initializable {
 
 		oblistProdukt.removeAll(oblistProdukt);
 		oblistAngebot.removeAll(oblistAngebot);
+		textfieldPreis.clear();
+		this.liefID.clear();
+		this.prodID.clear();
 	}
 
 	@FXML
@@ -151,6 +156,9 @@ public class ProduktportfolioController implements Initializable {
 
 		oblistProdukt.removeAll(oblistProdukt);
 		oblistAngebot.removeAll(oblistAngebot);
+		textfieldPreis.clear();
+		this.liefID.clear();
+		this.prodID.clear();
 
 	}
 
@@ -161,6 +169,9 @@ public class ProduktportfolioController implements Initializable {
 
 		oblistProdukt.removeAll(oblistProdukt);
 		oblistAngebot.removeAll(oblistAngebot);
+		textfieldPreis.clear();
+		this.liefID.clear();
+		this.prodID.clear();
 
 	}
 
@@ -171,7 +182,9 @@ public class ProduktportfolioController implements Initializable {
 
 		oblistProdukt.removeAll(oblistProdukt);
 		oblistAngebot.removeAll(oblistAngebot);
-
+		textfieldPreis.clear();
+		this.liefID.clear();
+		this.prodID.clear();
 	}
 
 	@FXML
@@ -181,7 +194,9 @@ public class ProduktportfolioController implements Initializable {
 
 		oblistProdukt.removeAll(oblistProdukt);
 		oblistAngebot.removeAll(oblistAngebot);
-
+		textfieldPreis.clear();
+		this.liefID.clear();
+		this.prodID.clear();
 	}
 
 	@FXML
@@ -190,7 +205,9 @@ public class ProduktportfolioController implements Initializable {
 
 		oblistProdukt.removeAll(oblistProdukt);
 		oblistAngebot.removeAll(oblistAngebot);
-
+		textfieldPreis.clear();
+		this.liefID.clear();
+		this.prodID.clear();
 	}
 
 	public void loadDatabaseLieferant() {
@@ -350,16 +367,36 @@ public class ProduktportfolioController implements Initializable {
 					if (choiceLief == oblistLieferant.get(i).getID()) {
 						for (int j = 0; j < oblistProdukt.size(); j++) {
 							if (choiceProd == oblistProdukt.get(j).getIdent()) {
-								System.out.println("Test");
-								String comboID = liefID.getText() + prodID.getText();
-								int combointID = Integer.valueOf(comboID);
+								comboID = liefID.getText() + prodID.getText();
+								combointID = Integer.valueOf(comboID);
 								System.out.println(comboID);
 								Angebot a1 = new Angebot(combointID, oblistLieferant.get(i).getID(),
 										oblistProdukt.get(j).getIdent(), oblistProdukt.get(j).getTyp(),
 										oblistProdukt.get(j).getName(), oblistProdukt.get(j).getHersteller(),
 										choicePreis);
-								oblistAngebot.add(a1);
-								tableAngOverview.setItems(oblistAngebot);
+								boolean angVal = oblistAngebot.stream().filter(ang -> ang.getAngID() == combointID)
+										.findFirst().isPresent();
+								if (angVal == false) {
+									oblistAngebot.add(a1);
+									tableAngOverview.setItems(oblistAngebot);
+									textfieldPreis.clear();
+									this.liefID.clear();
+									this.prodID.clear();
+								} else {
+									Alert alert = new Alert(AlertType.ERROR);
+									alert.setTitle("Fehler");
+									alert.setHeaderText("Keine doppelte Einträge erlaubt!");
+									alert.setContentText(
+											"Bitte wählen Sie eine ander Kombination aus Lieferanten-ID und Produkt-ID aus!");
+									Optional<ButtonType> result = alert.showAndWait();
+									if (result.get() == ButtonType.OK) {
+										alert.close();
+									}
+									textfieldPreis.clear();
+									this.liefID.clear();
+									this.prodID.clear();
+
+								}
 							}
 						}
 					} else {
@@ -371,7 +408,7 @@ public class ProduktportfolioController implements Initializable {
 				alert.setTitle("Fehler");
 				alert.setHeaderText("Bitte füllen Sie alle Eingabefelder aus!");
 				alert.setContentText(
-						"Bitte geben Sie eine gültige Lieferant-/ und Produkt-ID und den Einzelpreis ein!");
+						"Bitte geben Sie eine gültige Lieferant-/ und Produkt-ID und den Einzelpreis ein! (Doppelte Angebote sind nicht erlaubt!");
 				Optional<ButtonType> result = alert.showAndWait();
 				if (result.get() == ButtonType.OK) {
 					alert.close();
@@ -397,6 +434,7 @@ public class ProduktportfolioController implements Initializable {
 		colAngHersteller.setCellValueFactory(new PropertyValueFactory<>("hersteller"));
 		colAngPreis.setCellValueFactory(new PropertyValueFactory<>("einzelpreis"));
 	}
+
 
 	// Speichern von den Angeboten in der Datenbank
 	@FXML
@@ -427,8 +465,20 @@ public class ProduktportfolioController implements Initializable {
 							+ "','" + prodHerst + "'," + einzelpreis + ")";
 					stmt = connection.prepareStatement(query);
 					stmt.executeUpdate(query);
-					System.out.println("Angebot" + a.getAngID() + "in der Datenbank gespeichert!");
+
 				}
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Angebot(e) gespeichert");
+				alert.setHeaderText("Erfolgreich!");
+				alert.setContentText("Angebot(e) gespeichert!");
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.get() == ButtonType.OK) {
+					alert.close();
+				}
+				textfieldPreis.clear();
+				this.liefID.clear();
+				this.prodID.clear();
+			
 			} else {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Fehler");
@@ -447,6 +497,9 @@ public class ProduktportfolioController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		dbu = new DBUtil();
+		tableAngOverview.refresh();
+		tableLiefOverview.refresh();
+		tableProdOverview.refresh();
 		loadDatabaseLieferant();
 		chooseProduct();
 		btnCreate.setOnAction(new EventHandler<ActionEvent>() {
@@ -469,6 +522,28 @@ public class ProduktportfolioController implements Initializable {
 
 			}
 
+		});
+		btnAbbrechen.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Prozess abbrechen");
+				alert.setHeaderText("Der Prozess wird abgebrochen.");
+				alert.setContentText("Wollen Sie wirklich den Prozess abbrechen?");
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.get() == ButtonType.OK) {
+				Main.set_pane(1);
+				oblistProdukt.removeAll(oblistProdukt);
+				oblistAngebot.removeAll(oblistAngebot);
+				textfieldPreis.clear();
+				liefID.clear();
+				prodID.clear();
+				}else {
+					alert.close();
+				}
+			}
+			
 		});
 	}
 }

@@ -56,7 +56,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="304.0" layoutX="19.0" layoutY="329.0" stroke="BLACK" strokeType="INSIDE" width="1221.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="329.0" />
       <Label fx:id="lblNewBest" layoutX="31.0" layoutY="180.0" text="Neue Bestellung" AnchorPane.rightAnchor="1114.0" AnchorPane.topAnchor="180.0" />
       <Button fx:id="btnRegBest" layoutX="32.0" layoutY="249.0" mnemonicParsing="false" onAction="#createRegBestellung" prefHeight="33.0" prefWidth="214.0" text="Regelmäßige Bestellung" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="1028.0" AnchorPane.topAnchor="249.0" />
-      <Button fx:id="btnEilBest" layoutX="32.0" layoutY="249.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Eilbestellung" AnchorPane.leftAnchor="299.0" AnchorPane.rightAnchor="855.0" AnchorPane.topAnchor="249.0" />
+      <Button fx:id="btnEilBest" layoutX="32.0" layoutY="249.0" mnemonicParsing="false" onAction="#handleEilBEstellung" prefHeight="33.0" prefWidth="143.0" text="Eilbestellung" AnchorPane.leftAnchor="299.0" AnchorPane.rightAnchor="855.0" AnchorPane.topAnchor="249.0" />
       <Label fx:id="lblBestBearb" layoutX="32.0" layoutY="341.0" text="Bestellung bearbeiten" />
       <TableView fx:id="tableBestBearb" layoutX="33.0" layoutY="385.0" prefHeight="172.0" prefWidth="1194.0" AnchorPane.rightAnchor="47.0" AnchorPane.topAnchor="385.0">
         <columns>
