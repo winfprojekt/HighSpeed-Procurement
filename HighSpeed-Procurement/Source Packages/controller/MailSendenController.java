@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import com.mysql.cj.util.StringUtils;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -74,15 +76,14 @@ public class MailSendenController implements Initializable {
 
 	public void display(String t1, ArrayList<Teilbestellung> db) {
 
-		bstlTextfield.setText("Sehr geehrte Damen und Herren, \n" + "Wir hätten die folgende Bestllung für Sie.\n\n"
-				+ t1 + " EUR " + "\n\n" + "Mit feundlichen Grüßen \n\nHighSpeed-Procurement GmbH" + "\n"
+		bstlTextfield.setText("Sehr geehrte Damen und Herren, \n" + "Wir haetten die folgende Bestllung fuer Sie.\n\n"
+				+ t1 + " EUR " + "\n\n" + "Mit feundlichen Gruessen \n\nHighSpeed-Procurement GmbH" + "\n"
 				+ zstzTextfield.getText());
+		mailString = "Sehr geehrte Damen und Herren, \n" + "Wir haetten die folgende Bestllung fuer Sie.\n\n" + t1
+				+ " EUR " + "\n\n" + "Mit feundlichen Gruessen \n\nHighSpeed-Procurement GmbH";
 
-		mailString = "Sehr geehrte Damen und Herren, \n" + "Wir hätten die folgende Bestllung für Sie.\n\n" + t1
-				+ " EUR " + "\n\n" + "Mit feundlichen Grüßen \n\nHighSpeed-Procurement GmbH";
-
-		saveString = "Sehr geehrte Damen und Herren, \n" + "Wir hätten die folgende Bestllung für Sie.\n\n" + t1
-				+ " EUR " + "\n\n" + "Mit feundlichen Grüßen \n\nHighSpeed-Procurement GmbH";
+		saveString = "Sehr geehrte Damen und Herren, \n" + "Wir haetten die folgende Bestllung fuer Sie.\n\n" + t1
+				+ " EUR " + "\n\n" + "Mit feundlichen Gruessen \n\nHighSpeed-Procurement GmbH";
 
 		System.out.println("dsplay");
 
@@ -98,9 +99,10 @@ public class MailSendenController implements Initializable {
 			String stringOutput = "";
 			OutputStream output = new FileOutputStream(filepath);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			
 			byte[] b = stringInput.getBytes("ISO-8859-1");
+			stringOutput = new String(b,"ISO-8859-1");
 			baos.write(b);
-			stringOutput = baos.toString("UTF-8");
 			baos.writeTo(output);
 			output.close();
 			System.out.println("Erfolgreich gespeichert!");

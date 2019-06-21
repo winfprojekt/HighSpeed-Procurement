@@ -7,16 +7,12 @@ import java.util.ArrayList;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import model.User;
 import model.Lieferant.Lieferant;
-import model.Mail.MailService;
 
 public class Teilbestellung implements Serializable {
 
 	private String bestUUID;
-	private User user;
 	private Lieferant lieferant;
-	private ArrayList<Position> positionen;
 	private int angID;
 	private int prodID;
 	private Integer liefID;
@@ -185,13 +181,7 @@ public class Teilbestellung implements Serializable {
 		this.menge = menge;
 	}
 
-	// Konstruktor
-	public Teilbestellung(int userID, Lieferant lieferant, ArrayList<Position> positionen) {
-		super();
-		this.user = user;
-		this.lieferant = lieferant;
-		this.positionen = positionen;
-	}
+
 
 	// Getter + Setter
 	public String getBestUUID() {
@@ -202,13 +192,8 @@ public class Teilbestellung implements Serializable {
 		this.bestUUID = bestUUID;
 	}
 
-	public User getUser() {
-		return user;
-	}
 
-	public void setUser(int userID) {
-		this.user = user;
-	}
+
 
 	public Lieferant getLieferant() {
 		return lieferant;
@@ -218,13 +203,8 @@ public class Teilbestellung implements Serializable {
 		this.lieferant = lieferant;
 	}
 
-	public ArrayList<Position> getPositionen() {
-		return positionen;
-	}
 
-	public void setPositionen(ArrayList<Position> positionen) {
-		this.positionen = positionen;
-	}
+
 
 	// zus�tzliche Logik
 	public ArrayList<Teilbestellung> readAll() {
@@ -253,41 +233,7 @@ public class Teilbestellung implements Serializable {
 
 	// Änderungen von Boris ab hier:
 
-public String toText() {
-		
-		StringBuffer sb = new StringBuffer();
-		sb.append("Sehr geehrte Damen und Herren,\n");
-		sb.append("Wir haben eine neue Bestellung für Sie erstellt.\n");
-		sb.append("Bestellungsnummer: ");
-		sb.append(this.bestUUID);
-		sb.append("\n");
-		for(int i = 0; i<this.positionen.size(); i++) {
-			sb.append("Einzelteil: ");
-			sb.append(this.positionen.get(i).getAngebot().getProdukt().getName());
-			sb.append("\n");
-			sb.append("Teilennummer: ");
-			sb.append(this.positionen.get(i).getAngebot().getProdukt().getIdent());
-			sb.append("\n");
-			sb.append("Menge: ");
-			sb.append(this.positionen.get(i).getMenge());
-			sb.append("\n");
-		}
-		sb.append("Mit freundlichen Grüßen");
-		sb.append(this.user.getUser());
-		sb.append("\n");
-		sb.append("HighSpeedProcurement");
-		String toBeMailed = sb.toString();
-		return toBeMailed;
-	}
-	
-	public MailService objectToMail() {
-		
-		String TextBody = this.toText();
-		
-		MailService newMail = new MailService(TextBody, this.bestUUID, this.lieferant.getKontaktdaten().getEmail());
-	
-	return newMail;
-	}
+
 	@Override
 	public String toString() {
 		return "Teilbestellung [lieferant=" + lieferant + ", liefID=" + liefID + "]";
