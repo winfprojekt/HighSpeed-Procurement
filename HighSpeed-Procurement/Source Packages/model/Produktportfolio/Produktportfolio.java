@@ -25,18 +25,7 @@ public class Produktportfolio {
 		this.angebote = angebote;
 	}
 	
-	//Konstruktor mit string aus DB
-		public Produktportfolio(int iD, String s) {
-			super();
-			this.iD = iD;
-			ArrayList <Angebot> angebote = new ArrayList<Angebot>();
-			String [] parts =s.split(";");
-			for (int i=0 ;i<parts.length;i++) {
-				angebote.add(Angebot.readOne(Integer.parseInt(parts[i])));
-			}
-			
-			this.angebote = angebote;
-		}
+
 	
 	//Getter + Setter
 	public int getiD() {
@@ -53,13 +42,7 @@ public class Produktportfolio {
 	}
 
 
-	public static Produktportfolio readLayer(TableView<TableAngebot> tableProduktportfolio ) {
-		//Aus dem Layer ein Produktportfolio einlesen und zur�ckgeben	
-		ArrayList <Angebot> angebote = new ArrayList<Angebot>();
-		tableProduktportfolio.getItems().forEach(tableAngebot ->{angebote.add(Angebot.readOne(tableAngebot.iD));} );
-		Produktportfolio produktportfolio = new Produktportfolio(angebote);
-		return produktportfolio;
-	}
+
 	public static	ArrayList <Integer>	readAllID(){
 		//Alle Produktportfolios aus der Datenbank einlesen und zur�ckgeben
 		try {
@@ -123,48 +106,7 @@ public class Produktportfolio {
 		return s;
 	}
 		
-	public static	Produktportfolio	readOne(int ppID) {
-		//Ein Produktportfolio aus der Datenbank einlesen und zur�ckgeben
-		//achtung StringToObject nutzen
-		
-		try {
-			// Produktportfolio aus der Datenbank abfragen	
 
-			
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT STRING FROM PPRODUKTPORTFOLIOS WHERE ID ='"+Integer.toString(ppID)+"'");
-			while (rs.next()) {
-				
-				// 1 PP bauen
-			
-				Produktportfolio produktportfolio = new Produktportfolio(ppID,rs.getString("STRING"));
-				// ArayList mit PP beschreiben				
-				return produktportfolio;
-				
-			}
-			
-		} catch (SQLException e) {
-			// Fehlermeldung ausgeben in einem Dialog auf FX "Datenbankabfrage
-			// Fehlgeschlagen"
-
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error Dialog: Produktportfolio.readOne()");
-			alert.setHeaderText("Folgender Fehler ist aufgetreten:");
-			alert.setContentText("Datenbankabfrage fehlgeschlagen!");
-
-			/*
-			 * }catch(Exception e) {
-			 * 
-			 * 
-			 * Alert alert=new Alert(AlertType.ERROR);
-			 * alert.setTitle("Error Dialog: Produktportfolio.readOne()" );
-			 * alert.setHeaderText("Folgender Fehler ist aufgetreten:");
-			 * alert.setContentText("Konstruktion der Lieferantenobjekte fehlgeschlagen!");
-			 */
-		}
-		return null;
-
-	}
 	public	void	create() {
 		//Ein Produktportfolio in der Datenbank speichern
 		//achtung ObjectToString nutzen
