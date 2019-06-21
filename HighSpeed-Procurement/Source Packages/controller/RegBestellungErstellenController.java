@@ -2,6 +2,7 @@ package controller;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.URL;
@@ -9,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -19,7 +21,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -31,8 +36,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import main.Main;
+import model.Bestellung.TeilCompare;
 import model.Bestellung.Teilbestellung;
+import model.Lieferant.Kontaktdaten;
+import model.Lieferant.Lieferant;
 import model.Produktportfolio.Angebot;
 import util.DBUtil;
 
@@ -116,6 +125,7 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 	private DBUtil dbu;
 	Teilbestellung t1;
 	ArrayList<Teilbestellung> teilbestellungen = new ArrayList<Teilbestellung>();
+	ArrayList<ArrayList> global = new ArrayList<ArrayList>();
 
 	@FXML
 	private void handleAbbrechenAction(ActionEvent e) {
@@ -128,17 +138,15 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 		alert.setContentText("Wollen Sie wirklich den Prozess abbrechen?");
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
-		Main.set_pane(5);
-		oblistAngebot.removeAll(oblistAngebot);
-		oblistTeilBest.removeAll(oblistTeilBest);
-		textfieldAngID.clear();
-		textfieldMenge.clear();
-		txtfieldBestName.clear();
-		}else {
+			Main.set_pane(5);
+			oblistAngebot.removeAll(oblistAngebot);
+			oblistTeilBest.removeAll(oblistTeilBest);
+			textfieldAngID.clear();
+			textfieldMenge.clear();
+			txtfieldBestName.clear();
+		} else {
 			alert.close();
 		}
-
-
 
 	}
 
@@ -182,7 +190,8 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 			public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
 				if (radioFestplatte.isSelected() == true) {
 					oblistAngebot.removeAll(oblistAngebot);
-					loadDatabaseAngebot("SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Festplatte' AND l.Typ LIKE '%Standard%'");
+					loadDatabaseAngebot(
+							"SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Festplatte' AND l.Typ LIKE '%Standard%'");
 					tableAngOverview.setItems(null);
 					tableAngOverview.refresh();
 					tableAngOverview.setItems(oblistAngebot);
@@ -198,7 +207,8 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 			public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
 				if (radioProzessor.isSelected() == true) {
 					oblistAngebot.removeAll(oblistAngebot);
-					loadDatabaseAngebot("SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Prozessor' AND l.Typ LIKE '%Standard%'");
+					loadDatabaseAngebot(
+							"SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Prozessor' AND l.Typ LIKE '%Standard%'");
 					tableAngOverview.setItems(null);
 					tableAngOverview.refresh();
 					tableAngOverview.setItems(oblistAngebot);
@@ -214,7 +224,8 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 			public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
 				if (radioHaupt.isSelected() == true) {
 					oblistAngebot.removeAll(oblistAngebot);
-					loadDatabaseAngebot("SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Hauptspeicher' AND l.Typ LIKE '%Standard%'");
+					loadDatabaseAngebot(
+							"SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Hauptspeicher' AND l.Typ LIKE '%Standard%'");
 					tableAngOverview.setItems(null);
 					tableAngOverview.refresh();
 					tableAngOverview.setItems(oblistAngebot);
@@ -229,7 +240,8 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 			public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
 				if (radioGrafik.isSelected() == true) {
 					oblistAngebot.removeAll(oblistAngebot);
-					loadDatabaseAngebot("SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Grafikkarte' AND l.Typ LIKE '%Standard%'");
+					loadDatabaseAngebot(
+							"SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Grafikkarte' AND l.Typ LIKE '%Standard%'");
 					tableAngOverview.setItems(null);
 					tableAngOverview.refresh();
 					tableAngOverview.setItems(oblistAngebot);
@@ -245,7 +257,8 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 			public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
 				if (radioBS.isSelected() == true) {
 					oblistAngebot.removeAll(oblistAngebot);
-					loadDatabaseAngebot("SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Betriebssystem' AND l.Typ LIKE '%Standard%'");
+					loadDatabaseAngebot(
+							"SELECT * FROM Angebote AS a LEFT JOIN Lieferant AS l ON a.ID_Lieferant = l.ID WHERE a.Produkttyp = 'Betriebssystem' AND l.Typ LIKE '%Standard%'");
 					tableAngOverview.setItems(null);
 					tableAngOverview.refresh();
 					tableAngOverview.setItems(oblistAngebot);
@@ -265,7 +278,8 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 			boolean angebotValue = oblistAngebot.stream().filter(p -> p.getAngID() == choiceAngID).findFirst()
 					.isPresent();
 			boolean bestellungValue = oblistTeilBest.stream().noneMatch(bestID -> oblistTeilBest.contains(bestID));
-			if (angebotValue == true && bestellungValue && !textfieldMenge.getText().isEmpty() && !choiceName.isEmpty()) {
+			if (angebotValue == true && !textfieldMenge.getText().isEmpty()
+					&& !choiceName.isEmpty()) {
 				for (int i = 0; i < oblistAngebot.size(); i++) {
 					if (choiceAngID == oblistAngebot.get(i).getAngID()) {
 						double gesamtPreis = (double) (oblistAngebot.get(i).getEinzelpreis()) * choiceMenge;
@@ -322,7 +336,7 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 			String stringOutput = "";
 			OutputStream output = new FileOutputStream(filepath);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			byte[] b = stringInput.getBytes();
+			byte[] b = stringInput.getBytes("ISO-8859-1");
 			baos.write(b);
 			stringOutput = baos.toString("UTF-8");
 			baos.writeTo(output);
@@ -346,14 +360,90 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 	// ArrayLists mit Teilbestellungen (sortiert nach Lieferant)
 	public void createBestellungLieferant() {
 
-		for (Teilbestellung l1 : teilbestellungen) {
-			for (Teilbestellung l2 : teilbestellungen) {
-				if (l1.getLiefID() == l2.getLiefID()) {
-					ArrayList<Teilbestellung> liefTeilBestellung = new ArrayList<Teilbestellung>();
-					liefTeilBestellung.add(l1);
-					liefTeilBestellung.add(l2);
-					liefTeilBestellung.forEach(e -> System.out.println(e.getLiefID()));
+		ArrayList<Teilbestellung> liefTeilBestellung = new ArrayList<Teilbestellung>();
+		liefTeilBestellung.addAll(oblistTeilBest);
+
+		Collections.sort(liefTeilBestellung, new TeilCompare());
+		System.out.println("Sortiert  " + liefTeilBestellung);
+
+		createTeilList(liefTeilBestellung);
+
+		System.out.println("Global ArrayList" + global);
+
+		feedMail(global);
+
+	}
+
+	public void createTeilList(ArrayList<Teilbestellung> o1) {
+
+		if (o1.size() == 0) {
+
+			System.out.println("Array Finished");
+
+		} else {
+			Integer start = o1.get(0).getLiefID();
+			int i = 0;
+
+			while (o1.get(0).getLiefID() == o1.get(i).getLiefID()) {
+				i++;
+
+				if (o1.size() == i) {
+					break;
 				}
+
+			}
+			ArrayList<Teilbestellung> splitter = new ArrayList<Teilbestellung>(o1.subList(0, i));
+			System.out.println(i);
+			o1.subList(0, i).clear();
+
+			global.add(splitter);
+
+			createTeilList(o1);
+
+		}
+
+	}
+
+	public void feedMail(ArrayList<ArrayList> o) {
+		String output = "";
+		ArrayList<Teilbestellung> db = new ArrayList<Teilbestellung>();
+		
+		
+		
+		for (int i = 0; i < o.size(); i++) {
+			ArrayList<Teilbestellung> tb = new ArrayList<Teilbestellung>();
+			tb = o.get(i);
+
+			output = "";
+			db.clear();
+
+			for (int x = 0; x < tb.size(); x++) {
+				System.out.println("Size " + tb.size());
+				System.out.println("Count " + x);
+
+				output += "\n" + tb.get(x).getTeilStrin();
+				db.add(tb.get(i));
+				
+	
+				
+			}
+
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/controller/MailSendenView.fxml"));
+			try {
+				Parent root = loader.load();
+
+				MailSendenController MS = loader.getController();
+				MS.display(output, db);
+				
+				
+				
+				
+				Stage stage = new Stage();
+				stage.setScene(new Scene(root));
+				stage.show();
+
+			} catch (IOException e) { // TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 		}
@@ -393,22 +483,10 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 					String query = "INSERT INTO Teilbestellungen (UUID,Name,Angebot_ID,Lieferant_ID,Produkt_ID,Produkttyp,Produktname,Hersteller,Menge,Gesamtpreis,Typ, Status)"
 							+ " VALUES ('" + teilID + "','" + bestName + "', " + angID + "," + liefID + "," + prodID
 							+ ",'" + prodTyp + "','" + prodName + "','" + prodHerst + "'," + menge + "," + gesamtpreis
-							+ ",'" +bestTyp+ "'," + " 'in Bearbeitung' " + ")";
+							+ ",'" + bestTyp + "'," + " 'in Bearbeitung' " + ")";
 					stmt = connection.prepareStatement(query);
 					stmt.executeUpdate(query);
 
-				}
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Gespeichert!");
-				alert.setHeaderText("Erfolgreich!");
-				alert.setContentText("Teilbestellung(en) gespeichert!");
-				Optional<ButtonType> result = alert.showAndWait();
-				if (result.get() == ButtonType.OK) {
-					alert.close();
-					textfieldAngID.clear();
-					textfieldMenge.clear();
-					txtfieldBestName.clear();
-					Main.set_pane(5);
 				}
 
 			} else {
@@ -440,7 +518,6 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 
 				handleTeilbestellungHinzufügen();
 
-
 			}
 
 		});
@@ -451,8 +528,9 @@ public class RegBestellungErstellenController implements Initializable, Serializ
 
 				createBestellung();
 				saveBestellung();
+				createBestellungLieferant();
 
-				// writeStringToFile("C:\\Users\\Denislav\\Desktop\\output.txt", "Testing");
+				
 
 			}
 

@@ -1,0 +1,143 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.root {
+    -fx-background-image: url("background.jpg");
+}
+
+#btnHeader {
+	-fx-background-color:transparent ;
+	-fx-background-radius:0.0;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+   	-fx-border-color:transparent;
+    -fx-border-width: 0.0 3.0 3.0 0.0;
+    -fx-font-size: 24.0px;
+    -fx-effect: dropshadow( gaussian , rgba(255.0,255.0,255.0,0.5) , 0.0,0.0,0.0,1.0 );
+    }
+#btnHome{
+	-fx-background-image: url("home.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-position:center;
+	-fx-background-size: 25.0 25.0;
+	-fx-background-color:transparent;
+	-fx-effect: dropshadow( gaussian , rgba(255.0,255.0,255.0,0.5) , 0.0,0.0,0.0,1.0 );
+	
+}
+	#btnHome:hover {
+    -fx-background-color: transparent;
+    -fx-scale-y: 0.8;
+    -fx-scale-x: 0.8;
+    }
+    #buttonTest:hover {
+    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
+#btnLief{
+	-fx-background-color:transparent ;
+	-fx-background-radius:0.0;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-font-size: 18.0px;
+    -fx-effect: dropshadow( gaussian , rgba(255.0,255.0,255.0,0.5) , 0.0,0.0,0.0,1.0 );
+}
+
+#btnLief:hover {
+    -fx-background-color: transparent;
+    -fx-scale-y: 0.8;
+    -fx-scale-x: 0.8;
+}
+
+    #btnBest{
+	-fx-background-color:transparent ;
+	-fx-background-radius:0.0;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-font-size: 18.0px;
+    -fx-effect: dropshadow( gaussian , rgba(255.0,255.0,255.0,0.5) , 0.0,0.0,0.0,1.0 );
+}
+#btnBest:hover {
+    -fx-background-color: transparent;
+    -fx-scale-y: 0.8;
+    -fx-scale-x: 0.8;
+    }	
+    #btnPortfolio{
+	-fx-background-color:transparent ;
+	-fx-background-radius:0.0;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-font-size: 18.0px;
+    -fx-effect: dropshadow( gaussian , rgba(255.0,255.0,255.0,0.5) , 0.0,0.0,0.0,1.0 );
+}
+	#btnPortfolio:hover {
+    -fx-background-color: transparent;
+    -fx-scale-y: 0.8;
+    -fx-scale-x: 0.8;
+    }
+    #btnHilfe{
+	-fx-background-color:transparent ;
+	-fx-background-radius:0.0;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-font-size: 18.0px;
+    -fx-effect: dropshadow( gaussian , rgba(255.0,255.0,255.0,0.5) , 0.0,0.0,0.0,1.0 );
+}
+	#btnHilfe:hover {
+    -fx-background-color: transparent;
+    -fx-scale-y: 0.8;
+    -fx-scale-x: 0.8;
+    }
+     #btnLogout{
+    -fx-background-image:url("../resources/logout.png");
+	-fx-background-repeat:no-repeat;
+	-fx-background-color:transparent ;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-font-size: 18.0px;
+    -fx-effect: dropshadow( gaussian , rgba(255.0,255.0,255.0,0.5) , 0.0,0.0,0.0,1.0 );
+}
+	#btnLogout:hover {
+    -fx-background-color: transparent;
+    -fx-scale-y: 0.8;
+    -fx-scale-x: 0.8;
+    
+    }
+.separator{
+	-fx-background-color:grey;
+	-fx-border-color:transparent;
+}
+	#lblHeaderHilfe{
+	-fx-background-color:transparent ;
+	-fx-background-radius:0.0;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-font-size: 22.0px;
+    -fx-effect: dropshadow( gaussian , rgba(255.0,255.0,255.0,0.5) , 0.0,0.0,0.0,1.0 );
+	}
+	
+	#lblHandS{
+	-fx-background-color:transparent ;
+	-fx-background-radius:0.0;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-font-size: 18.0px;
+    -fx-effect: dropshadow( gaussian , rgba(255.0,255.0,255.0,0.5) , 0.0,0.0,0.0,1.0 );
+	}
+	#lblKontakt{
+	-fx-background-color:transparent ;
+	-fx-background-radius:0.0;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-font-size: 18.0px;
+    -fx-effect: dropshadow( gaussian , rgba(255.0,255.0,255.0,0.5) , 0.0,0.0,0.0,1.0 );
+	}
+
+
+
+

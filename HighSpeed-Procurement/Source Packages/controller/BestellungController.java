@@ -131,7 +131,7 @@ public class BestellungController implements Initializable {
 
 	@FXML
 	public void handleEilBEstellung(ActionEvent event) throws IOException {
-		Main.set_pane(9);
+		Main.set_pane(10);
 	}
 
 	private void loadDatabaseBestellung(){

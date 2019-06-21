@@ -52,7 +52,10 @@ public class Main extends Application {
 			//idx=8
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/RegBestellungErstellenView.fxml")));
 			//idx=9
+			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/MailSendenView.fxml")));
+			//idx=10
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/EilBestellungErstellenView.fxml")));
+
 			root.getChildren().add(anchor.get(0));
 			Scene scene = new Scene(root, 430, 330);
 			scene.getStylesheets().add(getClass().getResource("/resources/Login.css").toExternalForm());

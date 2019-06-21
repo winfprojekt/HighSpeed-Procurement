@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="687.0" prefWidth="1249.0" styleClass="root" stylesheets="@../resources/EilBestellung.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EilBestellungErstellenController">
    <children>
-      <Label fx:id="lblHeader" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="29.0" prefHeight="29.0" prefWidth="392.0" text="Neue Eilbestellung erstellen" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="29.0" />
+      <Label fx:id="lblHeader" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="30.0" prefHeight="29.0" prefWidth="275.0" text="Neue Eilbestellung erstellen" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="30.0" />
       <Label fx:id="lblName" layoutX="28.0" layoutY="95.0" text="Name:" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="1162.0" />
       <TextField fx:id="txtfieldBestName" layoutX="100.0" layoutY="91.0" maxHeight="30.0" maxWidth="198.0" minHeight="30.0" minWidth="198.0" prefHeight="30.0" prefWidth="198.0" AnchorPane.leftAnchor="100.0" />
       <Label fx:id="lblAngebote" layoutX="28.0" layoutY="147.0" text="Angebote" />
@@ -47,7 +47,7 @@
             <TableColumn fx:id="colTeilGesamtpreis" prefWidth="112.33331298828125" text="Gesamtpreis" />
          </columns>
       </TableView>
-      <Button fx:id="btnHinzu" layoutX="773.0" layoutY="379.0" mnemonicParsing="false" text="Hinzufügen" AnchorPane.leftAnchor="773.0" AnchorPane.topAnchor="379.0" />
+      <Button fx:id="btnHinzu" layoutX="744.0" layoutY="392.0" mnemonicParsing="false" text="Hinzufügen" AnchorPane.leftAnchor="744.0" AnchorPane.topAnchor="392.0" />
       <Button fx:id="btnBestErstellen" layoutX="855.0" layoutY="641.0" mnemonicParsing="false" text="Bestellung erstellen" AnchorPane.leftAnchor="855.0" AnchorPane.topAnchor="641.0" />
       <Button fx:id="btnAbbrechen" layoutX="1083.0" layoutY="641.0" mnemonicParsing="false" onAction="#handleAbbrechenAction" text="Abbrechen" AnchorPane.leftAnchor="1083.0" AnchorPane.topAnchor="641.0" />
       <RadioButton fx:id="radioBS" layoutX="554.0" layoutY="175.0" mnemonicParsing="false" text="Betriebssystem">

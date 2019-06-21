@@ -19,7 +19,7 @@ public class Teilbestellung implements Serializable {
 	private ArrayList<Position> positionen;
 	private int angID;
 	private int prodID;
-	private int liefID;
+	private Integer liefID;
 	private String prodTyp;
 	private String prodName;
 	private String hersteller;
@@ -30,7 +30,6 @@ public class Teilbestellung implements Serializable {
 	private String status;
 	private Timestamp erstelltAm;
 	private final StringProperty statusNew = new SimpleStringProperty();
-
 	public Teilbestellung(String bestUUID, String name, int angID, int liefID, int prodID, String prodTyp,
 			String prodName, String hersteller, int menge, double gesamtpreis) {
 		this.bestUUID = bestUUID;
@@ -114,11 +113,11 @@ public class Teilbestellung implements Serializable {
 		this.bestUUID = bestUUID;
 	}
 
-	public int getLiefID() {
+	public Integer getLiefID() {
 		return liefID;
 	}
 
-	public void setLiefID(int liefID) {
+	public void setLiefID(Integer liefID) {
 		this.liefID = liefID;
 	}
 
@@ -254,15 +253,15 @@ public class Teilbestellung implements Serializable {
 
 	// Änderungen von Boris ab hier:
 
-	public String toText() {
-
+public String toText() {
+		
 		StringBuffer sb = new StringBuffer();
 		sb.append("Sehr geehrte Damen und Herren,\n");
 		sb.append("Wir haben eine neue Bestellung für Sie erstellt.\n");
 		sb.append("Bestellungsnummer: ");
 		sb.append(this.bestUUID);
 		sb.append("\n");
-		for (int i = 0; i < this.positionen.size(); i++) {
+		for(int i = 0; i<this.positionen.size(); i++) {
 			sb.append("Einzelteil: ");
 			sb.append(this.positionen.get(i).getAngebot().getProdukt().getName());
 			sb.append("\n");
@@ -280,14 +279,22 @@ public class Teilbestellung implements Serializable {
 		String toBeMailed = sb.toString();
 		return toBeMailed;
 	}
-
+	
 	public MailService objectToMail() {
-
+		
 		String TextBody = this.toText();
-
+		
 		MailService newMail = new MailService(TextBody, this.bestUUID, this.lieferant.getKontaktdaten().getEmail());
-
-		return newMail;
+	
+	return newMail;
+	}
+	@Override
+	public String toString() {
+		return "Teilbestellung [lieferant=" + lieferant + ", liefID=" + liefID + "]";
+	}
+	public String getTeilStrin() {
+		String total = "Produkt: "+hersteller +" "+ prodName +" "+ "Menge: "+menge + " "+"Gesamtpreis: "+ menge*gesamtpreis;
+		return total;
 	}
 
 }
