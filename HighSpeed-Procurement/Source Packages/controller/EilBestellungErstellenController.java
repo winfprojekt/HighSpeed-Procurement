@@ -373,6 +373,7 @@ public class EilBestellungErstellenController implements Initializable, Serializ
 			String prodTyp;
 			String prodHerst;
 			String prodName;
+			String bestTyp;
 			int menge;
 			double gesamtpreis;
 			if (oblistTeilBest.isEmpty() == false) {
@@ -388,10 +389,11 @@ public class EilBestellungErstellenController implements Initializable, Serializ
 					prodHerst = t.getHersteller();
 					menge = t.getMenge();
 					gesamtpreis = t.getGesamtpreis();
-					String query = "INSERT INTO Teilbestellungen (ID,Name,Angebot_ID,Lieferant_ID,Produkt_ID,Produkttyp,Produktname,Hersteller,Menge,Gesamtpreis,Typ, Status)"
+					bestTyp = "Eilbestellung";
+					String query = "INSERT INTO Teilbestellungen (UUID,Name,Angebot_ID,Lieferant_ID,Produkt_ID,Produkttyp,Produktname,Hersteller,Menge,Gesamtpreis,Typ, Status)"
 							+ " VALUES ('" + teilID + "','" + bestName + "', " + angID + "," + liefID + "," + prodID
 							+ ",'" + prodTyp + "','" + prodName + "','" + prodHerst + "'," + menge + "," + gesamtpreis
-							+ "Eilbestellung" + " 'in Bearbeitung' " + ")";
+							+ ",'" +bestTyp+ "'," + " 'in Bearbeitung' " + ")";
 					stmt = connection.prepareStatement(query);
 					stmt.executeUpdate(query);
 

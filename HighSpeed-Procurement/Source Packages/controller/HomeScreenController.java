@@ -14,12 +14,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import main.Main;
+import model.Bestellung.Teilbestellung;
 import model.Lieferant.Adresse;
 import util.DBUtil;
 
@@ -57,8 +60,35 @@ public class HomeScreenController implements Initializable {
 	private TableColumn<model.Lieferant.Lieferant,String> colTyp;
 	@FXML
 	private TableColumn<model.Lieferant.Lieferant,Timestamp> colDate;
+	@FXML
+	private Hyperlink linkStornieren;
+	@FXML
+	private TableView<Teilbestellung> tableBestellung;
+	@FXML
+	private TableColumn<Teilbestellung, String> colBestName;
+	@FXML
+	private TableColumn<Teilbestellung, String> colBestUUID;
+	@FXML
+	private TableColumn<Teilbestellung, Integer> colLiefID;
+	@FXML
+	private TableColumn<Teilbestellung, String> colProdTyp;
+	@FXML
+	private TableColumn<Teilbestellung, String> colProdHerst;
+	@FXML
+	private TableColumn<Teilbestellung, Integer> colMenge;
+	@FXML
+	private TableColumn<Teilbestellung, String> colBestTyp;
+	@FXML
+	private TableColumn<Teilbestellung, String> colStatus;
+	@FXML
+	private TableColumn<Teilbestellung, Double> colGesamtpreis;
+	@FXML
+	private TableColumn<Teilbestellung, String> colProdName;
+	@FXML
+	private TableColumn<Teilbestellung,Timestamp> colBestDate;
 	
 	private ObservableList<model.Lieferant.Lieferant> oblist = FXCollections.observableArrayList();
+	private ObservableList<Teilbestellung> oblistTeilBest = FXCollections.observableArrayList();
 	private Connection connection = util.DBUtil.getConnection();
 	private PreparedStatement stmt;
 	private ResultSet rs = null;
@@ -96,13 +126,7 @@ public class HomeScreenController implements Initializable {
 		Main.close();
 		
 	}
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		tableLieferant.refresh();
-		dbu = new DBUtil();
-		loadDatabaseData();
-		tableLieferant.refresh();
-	}
+
 	public void loadDatabaseData() {
 		String query = "SELECT * FROM Lieferant";
 		try {
@@ -131,5 +155,51 @@ public class HomeScreenController implements Initializable {
 		colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 		tableLieferant.setItems(oblist);
 	}
-	
+	private void loadDatabaseBestellung(){
+		final Connection connection = util.DBUtil.getConnection();
+		final PreparedStatement stmt;
+		final ResultSet rs;
+		final String query = "SELECT * FROM Teilbestellungen";
+		try {
+			stmt = connection.prepareStatement(query);
+			rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				// p1 = new Produkt(rs.getInt("ID"));
+				Teilbestellung teil = new Teilbestellung(rs.getString("UUID"), rs.getString("Name"),
+						rs.getInt("Lieferant_ID"), rs.getString("Produkttyp"), rs.getString("Produktname"),
+						rs.getString("Hersteller"), rs.getInt("Menge"),rs.getString("Typ"), rs.getString("Status"),
+						rs.getDouble("Gesamtpreis"), rs.getTimestamp("Erstellungsdatum"));
+
+				oblistTeilBest.add(teil);
+				tableBestellung.setItems(oblistTeilBest);
+			}
+			stmt.close();
+			rs.close();
+			connection.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		colBestUUID.setCellValueFactory(new PropertyValueFactory<>("bestUUID"));
+		colBestName.setCellValueFactory(new PropertyValueFactory<>("name"));
+		colLiefID.setCellValueFactory(new PropertyValueFactory<>("liefID"));
+		colProdTyp.setCellValueFactory(new PropertyValueFactory<>("prodTyp"));
+		colProdName.setCellValueFactory(new PropertyValueFactory<>("prodName"));
+		colProdHerst.setCellValueFactory(new PropertyValueFactory<>("hersteller"));
+		colMenge.setCellValueFactory(new PropertyValueFactory<>("menge"));
+		colBestTyp.setCellValueFactory(new PropertyValueFactory<>("bestellungsTyp"));
+		colStatus.setCellValueFactory(cellData -> cellData.getValue().statusNewProperty());
+		colStatus.setCellFactory(ComboBoxTableCell.forTableColumn("in Bearbeitung","versendet","eingetroffen","storniert"));
+		colGesamtpreis.setCellValueFactory(new PropertyValueFactory<>("gesamtpreis"));
+		colBestDate.setCellValueFactory(new PropertyValueFactory<>("erstelltAm"));
+	}
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		dbu = new DBUtil();
+		loadDatabaseData();
+		loadDatabaseBestellung();
+		tableLieferant.refresh();
+		tableBestellung.refresh();
+
+	}
 }
