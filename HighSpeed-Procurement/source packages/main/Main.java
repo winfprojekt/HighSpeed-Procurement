@@ -93,7 +93,9 @@ public class Main extends Application {
 
 		idx_crsr = idx;
 	}
-
+	public static void resetPane() {
+		Platform.exit();
+	}
 	public static void close() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Abmeldung");
@@ -113,11 +115,11 @@ public class Main extends Application {
 		// create an Object from DBUtil-class
 		util.DBUtil db = new util.DBUtil();
 		// connect to the database "aj9s-einkauf"ferrefe
-		try {
+		/*try {
 			db.connectToMysql("193.196.143.168", "aj9s-einkauf", "aj9s-einkauf", "DYUcen7KXKo3dPzt", "UTC");
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 		launch(args);
 	}
