@@ -1,7 +1,5 @@
 package main;
 
-import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,8 +34,7 @@ public class Main extends Application {
 			// idx=3
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/LieferantErstellenView.fxml")));
 			// idx=4
-			anchor.add(
-					(AnchorPane) FXMLLoader.load(getClass().getResource("/controller/LieferantBearbeitenView.fxml")));
+			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/LieferantBearbeitenView.fxml")));
 			// idx=5
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/BestellungView.fxml")));
 			// idx=6
@@ -45,13 +42,11 @@ public class Main extends Application {
 			// idx=7
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/HilfeView.fxml")));
 			// idx=8
-			anchor.add((AnchorPane) FXMLLoader
-					.load(getClass().getResource("/controller/RegBestellungErstellenView.fxml")));
+			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/RegBestellungErstellenView.fxml")));
 			// idx=9
 			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/MailSendenView.fxml")));
 			// idx=10
-			anchor.add((AnchorPane) FXMLLoader
-					.load(getClass().getResource("/controller/EilBestellungErstellenView.fxml")));
+			anchor.add((AnchorPane) FXMLLoader.load(getClass().getResource("/controller/EilBestellungErstellenView.fxml")));
 
 			root.getChildren().add(anchor.get(0));
 			Scene scene = new Scene(root, 430, 330);
@@ -67,12 +62,6 @@ public class Main extends Application {
 
 	}
 
-	private void init_app() {
-		for (int i = 0; i < anchor.size(); i++) {
-
-		}
-
-	}
 
 	public static String generateUUID() {
 		UUID uuid = UUID.randomUUID();

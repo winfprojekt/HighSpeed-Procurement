@@ -276,7 +276,7 @@ public class EilBestellungErstellenController implements Initializable, Serializ
 			boolean angebotValue = oblistAngebot.stream().filter(p -> p.getAngID() == choiceAngID).findFirst()
 					.isPresent();
 			boolean bestellungValue = oblistTeilBest.stream().noneMatch(bestID -> oblistTeilBest.contains(bestID));
-			if (angebotValue == true && bestellungValue && !textfieldMenge.getText().isEmpty()
+			if (angebotValue == true && !textfieldMenge.getText().isEmpty()
 					&& !choiceName.isEmpty()) {
 				for (int i = 0; i < oblistAngebot.size(); i++) {
 					if (choiceAngID == oblistAngebot.get(i).getAngID()) {
