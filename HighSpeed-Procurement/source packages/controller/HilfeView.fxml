@@ -54,8 +54,11 @@
       <Label fx:id="lblKontakt" layoutX="62.0" layoutY="373.0" text="Kontakt" />
       <Label fx:id="lblMail" layoutX="62.0" layoutY="426.0" text="E-Mail (Support):" />
       <Label fx:id="lblTelefon" layoutX="62.0" layoutY="491.0" text="Telefon: " />
-      <Hyperlink layoutX="219.0" layoutY="422.0" text="support@hp-procurement.de" />
+      <Hyperlink fx:id="suppHyper" layoutX="219.0" layoutY="422.0" text="support@hp-procurement.de" />
       <Hyperlink layoutX="219.0" layoutY="487.0" text="+49 (0) 176 993 393 23" />
       <Text layoutX="62.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wenn Sie Probleme oder Schwierigkeiten mit der Handhabung der Anwendung haben, zögern Sie sich bitte nicht sich an unser Support-Team zu wenden!" wrappingWidth="422.5205078125" />
+      <Label fx:id="lblHandbuch" layoutX="698.0" layoutY="370.0" text="Benutzerhandbuch" />
+      <Text layoutX="698.0" layoutY="446.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wenn Sie immernoch Probleme mit der Anwendung haben könnten Sie gerne unseres Benutzerhandbuch durchlesen." wrappingWidth="422.5205078125" />
+      <Hyperlink fx:id="buchHyper" layoutX="692.0" layoutY="505.0" text="Benutzerhandbuch (PDF)" />
    </children>
 </AnchorPane>
