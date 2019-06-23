@@ -130,21 +130,14 @@ public class EilBestellungErstellenController implements Initializable, Serializ
 		// When "Abbrechen"-Button is
 		// pressed the application routes the user back to the home screen (pane with
 		// idx=1)
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Prozess abbrechen");
-		alert.setHeaderText("Der Prozess wird abgebrochen.");
-		alert.setContentText("Wollen Sie wirklich den Prozess abbrechen?");
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
+
 			Main.set_pane(5);
 			oblistAngebot.removeAll(oblistAngebot);
 			oblistTeilBest.removeAll(oblistTeilBest);
 			textfieldAngID.clear();
 			textfieldMenge.clear();
 			txtfieldBestName.clear();
-		} else {
-			alert.close();
-		}
+	
 
 	}
 

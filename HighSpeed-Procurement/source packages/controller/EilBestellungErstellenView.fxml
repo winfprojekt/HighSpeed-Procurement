@@ -49,7 +49,7 @@
       </TableView>
       <Button fx:id="btnHinzu" layoutX="744.0" layoutY="392.0" mnemonicParsing="false" text="Hinzufügen" AnchorPane.leftAnchor="744.0" AnchorPane.topAnchor="392.0" />
       <Button fx:id="btnBestErstellen" layoutX="855.0" layoutY="641.0" mnemonicParsing="false" text="Bestellung erstellen" AnchorPane.leftAnchor="855.0" AnchorPane.topAnchor="641.0" />
-      <Button fx:id="btnAbbrechen" layoutX="1083.0" layoutY="641.0" mnemonicParsing="false" onAction="#handleAbbrechenAction" text="Abbrechen" AnchorPane.leftAnchor="1083.0" AnchorPane.topAnchor="641.0" />
+      <Button fx:id="btnAbbrechen" layoutX="1083.0" layoutY="641.0" mnemonicParsing="false" onAction="#handleAbbrechenAction" text="Zurück" AnchorPane.leftAnchor="1083.0" AnchorPane.topAnchor="641.0" />
       <RadioButton fx:id="radioBS" layoutX="554.0" layoutY="175.0" mnemonicParsing="false" text="Betriebssystem">
          <toggleGroup>
             <ToggleGroup fx:id="produkt" />
