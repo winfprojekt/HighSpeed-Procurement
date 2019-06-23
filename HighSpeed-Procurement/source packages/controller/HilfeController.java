@@ -88,7 +88,7 @@ public class HilfeController implements Initializable {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				BasePDFViewer bpdf = new BasePDFViewer("C:\\Users\\Denislav\\Desktop\\HFT\\SS 19\\Winf Projekt\\Lastenheft.pdf");
+				BasePDFViewer bpdf = new BasePDFViewer("C:\\Users\\Denislav\\git\\HighSpeed-Procurement\\HighSpeed-Procurement\\source packages\\resources\\Benutzerhandbuch.pdf");
 
 				
 			}
