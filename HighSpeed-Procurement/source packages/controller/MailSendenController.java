@@ -55,14 +55,7 @@ public class MailSendenController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		/*
-		 * Angebot an = new Angebot("h&k@web.de", "Intel Core I7", 350.18); Position pos
-		 * = new Position (an, 5); ArrayList <Position> posList = new ArrayList();
-		 * posList.add(pos); posList.add(pos);
-		 * 
-		 * Teilbestellung t0 = new Teilbestellung("barbe@web.de", an.getLiefString(),
-		 * posList);
-		 */
+
 
 	}
 

@@ -67,5 +67,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
+      <Button fx:id="btnRefresh" layoutX="1108.0" layoutY="431.0" mnemonicParsing="false" onAction="#loadRepeat" text="Refresh table" />
 	</children>
 </AnchorPane>

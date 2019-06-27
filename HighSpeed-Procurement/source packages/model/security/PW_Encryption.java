@@ -34,6 +34,11 @@ public class PW_Encryption {
 
 	private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 
+	/**
+	 * @param bytes
+	 * @return Verschlüsselter String
+	 * Diese Methode hashed das Passwortfeld
+	 */
 	private static String bytesToStringHex(byte[] bytes) {
 		char[] hexChars = new char[bytes.length * 2];
 		for (int i = 0; i < bytes.length; i++) {

@@ -59,6 +59,8 @@ public class LieferantController implements Initializable {
 	@FXML
 	private Button btnAnlegen;
 	@FXML
+	private Button btnRefresh;
+	@FXML
 	private Label lblAnlegen;
 	@FXML
 	private Label lblBearbeiten;
@@ -153,32 +155,12 @@ public class LieferantController implements Initializable {
 			}
 		});
 	}
-	/*
-	 * .addListener(new ChangeListener<model.Lieferant.Lieferant>() {
-	 * 
-	 * @Override public void changed(ObservableValue<? extends
-	 * model.Lieferant.Lieferant> observable, model.Lieferant.Lieferant oldValue,
-	 * model.Lieferant.Lieferant newValue) {
-	 * controller.LieferantBearbeitenController lbc = new
-	 * controller.LieferantBearbeitenController();
-	 * 
-	 * lbc.nameDisplay.set(lief.getName()); Main.set_pane(4);
-	 * 
-	 * } });
-	 */
-
-	/*
-	 * tableBearbeiten.setOnMouseClicked(event -> { if (event.getClickCount() == 2)
-	 * { Main.set_pane(4); // get clicked Item (Lieferant)
-	 * System.out.println(tableBearbeiten.getSelectionModel().getSelectedItem());
-	 * 
-	 * } });
-	 */
 
 	public void loadDatabaseData() {
 		String query = "SELECT * FROM Lieferant";
 		try {
-			stmt = connection.prepareStatement(query);
+			final Connection con = util.DBUtil.getConnection();
+			stmt = con.prepareStatement(query);
 			rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
@@ -190,7 +172,7 @@ public class LieferantController implements Initializable {
 			}
 			stmt.close();
 			rs.close();
-			connection.close();
+			con.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -201,11 +183,12 @@ public class LieferantController implements Initializable {
 		colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 		tableBearbeiten.setItems(oblist);
 	}
-
-	public void loadRepeat(Connection con) {
+	@FXML
+	public void loadRepeat() {
 		String query = "SELECT * FROM Lieferant";
 		try {
-			stmt = con.prepareStatement(query);
+			final Connection connection = util.DBUtil.getConnection();
+			stmt = connection.prepareStatement(query);
 			rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
@@ -215,6 +198,7 @@ public class LieferantController implements Initializable {
 						rs.getString("Typ"), rs.getTimestamp("Timestamp"));
 				oblist.add(lief);
 			}
+			connection.close();
 			stmt.close();
 			rs.close();
 		} catch (Exception ex) {

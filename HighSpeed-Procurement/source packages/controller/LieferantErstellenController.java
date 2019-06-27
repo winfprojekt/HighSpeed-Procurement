@@ -1,13 +1,18 @@
 package controller;
 
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.ResourceBundle;
+
+import com.jfoenix.controls.JFXAutoCompletePopup;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -19,7 +24,7 @@ import javafx.scene.control.TextField;
 import main.Main;
 import model.lieferant.Lieferant;
 
-public class LieferantErstellenController {
+public class LieferantErstellenController implements Initializable {
 	@FXML
 	private Label lblHeader;
 	@FXML
@@ -247,6 +252,29 @@ public class LieferantErstellenController {
 
 	public String getTextfieldTyp() {
 		return textfieldTyp.getText();
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		//Typeahead/autocompleat popup
+		JFXAutoCompletePopup<String> autoCompletePopup = new JFXAutoCompletePopup<>();
+		autoCompletePopup.getSuggestions().addAll("Standardlieferant", "Eillieferant");
+
+		autoCompletePopup.setSelectionHandler(event -> {
+			textfieldTyp.setText(event.getObject());
+
+		});
+
+		// filtering options
+		textfieldTyp.textProperty().addListener(observable -> {
+			autoCompletePopup.filter(string -> string.toLowerCase().contains(textfieldTyp.getText().toLowerCase()));
+			if (autoCompletePopup.getFilteredSuggestions().isEmpty() || textfieldTyp.getText().isEmpty()) {
+				autoCompletePopup.hide();
+
+			} else {
+				autoCompletePopup.show(textfieldTyp);
+			}
+		});
 	}
 
 }

@@ -172,7 +172,7 @@ public class BestellungController implements Initializable {
 		colDate.setCellValueFactory(new PropertyValueFactory<>("erstelltAm"));
 	}
 	@FXML
-	public void saveBestellung() throws SQLException {
+	public void saveBestellung() {
 		final Connection connection = util.DBUtil.getConnection();
 		PreparedStatement stmt;
 		try {
